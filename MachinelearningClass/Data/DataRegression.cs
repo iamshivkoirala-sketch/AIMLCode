@@ -24,6 +24,7 @@ namespace MachinelearningClass.Regression
         }
         public static List<FruitData> GetFruitData()
         {
+            // RED = [1,0,1]
             var samples = new[]
             {
             new FruitData { Weight = 150, Color = "Red",   IsApple = true,  FruitType = "Apple" },

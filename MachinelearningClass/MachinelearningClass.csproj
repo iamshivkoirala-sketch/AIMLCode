@@ -13,7 +13,10 @@
     <PackageReference Include="Microsoft.ML.AutoML" Version="0.22.3" />
     <PackageReference Include="Microsoft.ML.Mkl.Components" Version="4.0.3" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.23.2" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.70.0" />
     <PackageReference Include="OpenAI" Version="2.7.0" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.2" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.2" />
   </ItemGroup>
 
 </Project>

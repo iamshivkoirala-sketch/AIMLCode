@@ -70,9 +70,21 @@
               "target": "Package",
               "version": "[1.23.2, )"
             },
+            "Microsoft.SemanticKernel": {
+              "target": "Package",
+              "version": "[1.70.0, )"
+            },
             "OpenAI": {
               "target": "Package",
               "version": "[2.7.0, )"
+            },
+            "System.Diagnostics.EventLog": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            },
+            "System.ServiceProcess.ServiceController": {
+              "target": "Package",
+              "version": "[10.0.2, )"
             }
           },
           "imports": [

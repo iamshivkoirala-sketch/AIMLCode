@@ -17,7 +17,6 @@ namespace MachinelearningClass
         {
             var mlcontext = new MLContext();
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceData()); // Data
-
             var pipeline = mlcontext.Transforms // f1 = Age + Salary
                                     .Concatenate("Features", "Age")
                                     .Append(
@@ -28,7 +27,7 @@ namespace MachinelearningClass
             var model = pipeline.Fit(data); // execution = data + Ols ==> Model
             var pe = mlcontext.Model.
                         CreatePredictionEngine<InsuranceData, InsurancePrediction>(model);
-            var prediction = pe.Predict(new InsuranceData { Age = 80 });
+            var prediction = pe.Predict(new InsuranceData { Age = 82 });
 
             Console.WriteLine(prediction.PredictedPremium);
             Console.Read();
@@ -39,7 +38,7 @@ namespace MachinelearningClass
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceData()); // Data
             var testdata = mlcontext.Data.LoadFromEnumerable(DataRegression.GetTestData()); // Data
 
-            var pipeline = mlcontext.Transforms // f1 = Age + Salary
+            var pipeline = mlcontext.Transforms 
                                     .Concatenate("Features", "Age")
                                     .Append(
                                      mlcontext.Regression.Trainers
@@ -69,7 +68,7 @@ namespace MachinelearningClass
                                     .Concatenate("Features", "Age")
                                     .Append(
                                      mlcontext.Regression.Trainers
-                                     .FastForest(labelColumnName: "Premium",
+                                     .Sdca(labelColumnName: "Premium",
                                             featureColumnName: "Features"
                                       ));
             var model = pipeline.Fit(data); // execution = data + Ols ==> Model
