@@ -104,7 +104,7 @@ namespace MachinelearningClass
             Console.WriteLine($"Best Model: {result.BestRun.TrainerName}");
             Console.Read();
         }
-     
+        
 
     }
 }

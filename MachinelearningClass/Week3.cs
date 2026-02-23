@@ -1,6 +1,7 @@
 ﻿using MachinelearningClass.ModelNLP;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using Microsoft.ML.Transforms.Text;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -41,62 +42,60 @@ namespace MachinelearningClass
                 Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
             }
         }
-        public static void Lab12and13_BowTFIDF()
+        public static void Lab12_Bow()
         {
-            var ml = new MLContext();
+            var mlContext = new MLContext();
 
-            // Sample data
+                var samples = new[]
+                {
+                new InputText { Text = "This camera camera is good" },
+                new InputText { Text = "This camera is bad" }
+                };
+
+            // 1. Still Fit on the whole array so the model knows 'good' AND 'bad'
+            var dataView = mlContext.Data.LoadFromEnumerable(samples);
+            var pipeline = mlContext.Transforms.Text.ProduceWordBags("BagOfWords", "Text", ngramLength: 1);
+            var model = pipeline.Fit(dataView);
+
+            // 2. Create the engine once
+            var engine = mlContext.Model.CreatePredictionEngine<InputText, Output>(model);
+
+            // 3. Run Predict for the first sentence
+            var result1 = engine.Predict(new InputText() { Text= "This camera camera is good" });
+            Console.WriteLine($"1st: [{string.Join(", ", result1.BagOfWords)}]");
+
+            // 4. Run Predict for the second sentence
+            var result2 = engine.Predict(new InputText() { Text = "My Name is Shiv" });
+            Console.WriteLine($"2nd: [{string.Join(", ", result2.BagOfWords)}]");
+        }
+        public static void Lab13_TfIdf()
+        {
+            var mlContext = new MLContext();
+
             var samples = new[]
             {
             new InputText { Text = "This camera camera is good" },
             new InputText { Text = "This camera is bad" }
-        };
+            };
 
-            var data = ml.Data.LoadFromEnumerable(samples);
+            var dataView = mlContext.Data.LoadFromEnumerable(samples);
 
+           
+            var pipeline = mlContext.Transforms.Text.ProduceWordBags(
+                "BagOfWords",
+                "Text",
+                ngramLength: 1,
+                weighting: NgramExtractingEstimator.WeightingCriteria.TfIdf); 
 
-            var bowPipeline =
-                ml.Transforms.Text.TokenizeIntoWords("Tokens", "Text")
-                .Append(ml.Transforms.Conversion.MapValueToKey("KeyTokens", "Tokens"))
-                .Append(ml.Transforms.Text.ProduceNgrams(
-                    outputColumnName: "Features",
-                    inputColumnName: "KeyTokens",
-                    ngramLength: 1,        
-                    useAllLengths: false,  // Do NOT create bigrams
-                    weighting: Microsoft.ML.Transforms.Text.NgramExtractingEstimator.WeightingCriteria.TfIdf
-                ));
+            var model = pipeline.Fit(dataView);
+            var transformedData = model.Transform(dataView);
 
-            var bowModel = bowPipeline.Fit(data);
-            var bowTransformed = bowModel.Transform(data);
-            var bowResults = ml.Data.CreateEnumerable<TextFeatures>(bowTransformed, reuseRowObject: false);
-            VBuffer<ReadOnlyMemory<char>> slotNames = default;
+            var results = mlContext.Data.CreateEnumerable<Output>(transformedData, reuseRowObject: false);
 
-            bowTransformed.Schema["Features"]
-                .Annotations.GetValue("SlotNames", ref slotNames);
-
-            var vocab = slotNames.DenseValues()
-                .Select(v => v.ToString())
-                .ToArray();
-            Console.WriteLine("Vocabulary: " + string.Join(", ", vocab));
-            foreach (var row in bowResults)
+            foreach (var r in results)
             {
-
-                Console.WriteLine(string.Join(", ", row.Features));
+                Console.WriteLine($"TF-IDF Vector: [{string.Join(", ", r.BagOfWords.Select(x => x.ToString("F3")))}]");
             }
-
-            int docIndex = 1;
-            foreach (var row in bowResults)
-            {
-                Console.WriteLine($"--- Document {docIndex++} ---");
-                for (int i = 0; i < vocab.Length; i++)
-                {
-                    if (row.Features[i] != 0)
-                    {
-                        Console.WriteLine($"{vocab[i]} : {row.Features[i]}");
-                    }
-                }
-            }
-
         }
         public static void Lab14_Embedding()
         {
@@ -147,4 +146,6 @@ namespace MachinelearningClass
         }
         
     }
+    public class InputText { public string Text { get; set; } }
+    public class Output { public float[] BagOfWords { get; set; } }
 }

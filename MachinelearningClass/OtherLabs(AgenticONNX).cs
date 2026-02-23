@@ -2,7 +2,6 @@
 using Microsoft.ML.OnnxRuntime;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SemanticKernel;
@@ -11,12 +10,15 @@ using System.ServiceProcess;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System.Diagnostics;
+using Microsoft.Data.Analysis;
+using MathNet.Numerics.Statistics;
+using static TorchSharp.torch.utils;
 
 namespace MachinelearningClass
 {
     public static class OtherLabs
     {
-        public static void Lab32ConsumingONNX()
+        public static void Lab23ConsumingONNX()
         {
 
             using var session = new InferenceSession(Program.datapath + "\\taxi_fare_model.onnx");
@@ -123,6 +125,83 @@ namespace MachinelearningClass
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(30));
+            }
+        }
+        public static void Lab32DataQuality()
+        {
+            DataFrame df = DataFrame.LoadCsv(Program.datapath + "DataForQuality.csv");
+
+
+            //var age1 = df["Age"].DropNulls().Cast<double>();
+            var age = df["Age"].DropNulls().Cast<float>().Select(x => (double)x);
+            var height = df["Height"].DropNulls().Cast<float>().Select(x => (double)x);
+
+            //var height = df["Height"].DropNulls().Cast<double>();
+            var ageStats = new DescriptiveStatistics(age);
+            var heightStats = new DescriptiveStatistics(height);
+
+            Console.WriteLine($"Remaining Rows: {df.Rows.Count}");
+            Console.WriteLine($"Age Min:        {ageStats.Minimum}");
+            Console.WriteLine($"Age Max:        {ageStats.Maximum}");
+            Console.WriteLine($"Age mean:        {ageStats.Mean}");
+            Console.WriteLine($"Age median:        {age.Median()}");
+
+            Console.WriteLine($"Age std:        {ageStats.StandardDeviation}");
+            Console.WriteLine($"Age CV:        {ageStats.StandardDeviation/ ageStats.Mean}");
+
+            Console.WriteLine($"Age skew:        {ageStats.Skewness}");
+            Console.WriteLine($"Age Kur:        {ageStats.Kurtosis}");
+            Console.WriteLine("=====================================");
+
+
+            Console.WriteLine($"Height Min:        {heightStats.Minimum}");
+            Console.WriteLine($"Height Max:        {heightStats.Maximum}");
+            Console.WriteLine($"Height Mean:        {heightStats.Mean}");
+            Console.WriteLine($"Height Median:        {height.Median()}");
+            Console.WriteLine($"Height standard:        {heightStats.StandardDeviation}");
+            Console.WriteLine($"Height CV:        {heightStats.StandardDeviation / heightStats.Mean}");
+
+            Console.WriteLine($"Height skew:        {heightStats.Skewness}");
+            Console.WriteLine($"Height Kur:        {heightStats.Kurtosis}");
+
+            Console.WriteLine("=====================================");
+            double q1 = height.Percentile(25);
+            double q3 = height.Percentile(75);
+            double iqr = q3 - q1;
+
+            // 2. Calculate the Fences
+            // NARROW (1.0)
+            double lowerNarrow = q1 - (1.0 * iqr);
+            double upperNarrow = q3 + (1.0 * iqr);
+
+            double lowerInner = q1 - (1.5 * iqr);
+            double upperInner = q3 + (1.5 * iqr);
+
+            double lowerOuter = q1 - (3.0 * iqr);
+            double upperOuter = q3 + (3.0 * iqr);
+
+            // 3. Print the Quality Report
+          
+            Console.WriteLine($"Normal Range (IQR): {q1:N1} to {q3:N1}");
+            Console.WriteLine($"Inner Fence (1.5):  {lowerInner:N1} to {upperInner:N1}");
+            Console.WriteLine($"Outer Fence (3.0):  {lowerOuter:N1} to {upperOuter:N1}");
+            var garbageValues = height.Where(x => x < lowerOuter || x > upperOuter).ToArray();
+
+            // 3. Get the Range of the Garbage itself
+            if (garbageValues.Any())
+            {
+                double garbageMin = garbageValues.Min();
+                double garbageMax = garbageValues.Max();
+
+                Console.WriteLine($"--- Garbage Range Report ---");
+                Console.WriteLine($"Safe Boundary:      {lowerOuter:N1} to {upperOuter:N1}");
+                Console.WriteLine($"Actual Garbage Min: {garbageMin}"); // This will show -50
+                Console.WriteLine($"Actual Garbage Max: {garbageMax}"); // This will show 498
+                Console.WriteLine($"Total Garbage Count: {garbageValues.Length} rows");
+            }
+            else
+            {
+                Console.WriteLine("No garbage detected outside the Outer Fences.");
             }
         }
     }

@@ -54,6 +54,14 @@
               "target": "Package",
               "version": "[0.0.3, )"
             },
+            "MathNet.Numerics": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Data.Analysis": {
+              "target": "Package",
+              "version": "[0.23.0, )"
+            },
             "Microsoft.ML": {
               "target": "Package",
               "version": "[4.0.3, )"

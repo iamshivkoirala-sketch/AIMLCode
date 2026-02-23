@@ -17,6 +17,15 @@
           "lib/netstandard2.1/AllMiniLmL6V2Sharp.dll": {}
         }
       },
+      "Apache.Arrow/14.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Apache.Arrow.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Apache.Arrow.dll": {}
+        }
+      },
       "Azure.AI.OpenAI/2.7.0-beta.2": {
         "type": "package",
         "dependencies": {
@@ -139,6 +148,19 @@
           "runtimes/win-x64/native/lightgbm.exe": {
             "assetType": "native",
             "rid": "win-x64"
+          }
+        }
+      },
+      "MathNet.Numerics/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "related": ".xml"
           }
         }
       },
@@ -303,6 +325,25 @@
           },
           "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.Data.Analysis/0.23.0": {
+        "type": "package",
+        "dependencies": {
+          "Apache.Arrow": "14.0.2",
+          "Microsoft.ML.DataView": "5.0.0",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Numerics.Tensors": "9.0.4"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Data.Analysis.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Data.Analysis.dll": {
+            "related": ".xml"
           }
         }
       },
@@ -671,11 +712,13 @@
           }
         }
       },
-      "Microsoft.ML.DataView/4.0.3": {
+      "Microsoft.ML.DataView/5.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections.Immutable": "8.0.0",
-          "System.Memory": "4.6.0"
+          "System.Buffers": "4.6.1",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Memory": "4.6.3",
+          "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {
@@ -1489,13 +1532,13 @@
           }
         }
       },
-      "System.Buffers/4.6.0": {
+      "System.Buffers/4.6.1": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp2.1/_._": {}
+          "lib/netcoreapp2.0/_._": {}
         },
         "runtime": {
-          "lib/netcoreapp2.1/_._": {}
+          "lib/netcoreapp2.0/_._": {}
         }
       },
       "System.ClientModel/1.8.1": {
@@ -1531,7 +1574,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Collections.Immutable/8.0.0": {
+      "System.Collections.Immutable/9.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Collections.Immutable.dll": {
@@ -1544,7 +1587,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Diagnostics.DiagnosticSource/10.0.2": {
@@ -1644,7 +1687,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Memory/4.6.0": {
+      "System.Memory/4.6.3": {
         "type": "package",
         "compile": {
           "lib/netcoreapp2.1/_._": {}
@@ -1732,7 +1775,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.1.0": {
+      "System.Runtime.CompilerServices.Unsafe/6.1.2": {
         "type": "package",
         "compile": {
           "lib/net7.0/_._": {}
@@ -1949,6 +1992,22 @@
         "lib/netstandard2.1/AllMiniLmL6V2Sharp.dll"
       ]
     },
+    "Apache.Arrow/14.0.2": {
+      "sha512": "2xvo9q2ag/Ze7TKSMsZfcQFMk3zZKWcduttJXoYnoevZD2bv+lKnOPeleyxONuR1ZwhZ00D86pPM9TWx2GMY2w==",
+      "type": "package",
+      "path": "apache.arrow/14.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "apache.arrow.14.0.2.nupkg.sha512",
+        "apache.arrow.nuspec",
+        "lib/net6.0/Apache.Arrow.dll",
+        "lib/netcoreapp3.1/Apache.Arrow.dll",
+        "lib/netstandard1.3/Apache.Arrow.dll",
+        "lib/netstandard2.0/Apache.Arrow.dll"
+      ]
+    },
     "Azure.AI.OpenAI/2.7.0-beta.2": {
       "sha512": "HeiOYWoxubHyCPL33hgbGSh1KaDRCofJiyFtaEO86A8RLTZSfoPZx2DosiDZMLCqraOfTSWYaWS0FLxbVHFWzQ==",
       "type": "package",
@@ -2053,6 +2112,28 @@
         "runtimes/osx-x64/native/lib_lightgbm.dylib",
         "runtimes/win-x64/native/lib_lightgbm.dll",
         "runtimes/win-x64/native/lightgbm.exe"
+      ]
+    },
+    "MathNet.Numerics/5.0.0": {
+      "sha512": "pg1W2VwaEQMAiTpGK840hZgzavnqjlCMTVSbtVCXVyT+7AX4mc1o89SPv4TBlAjhgCOo9c1Y+jZ5m3ti2YgGgA==",
+      "type": "package",
+      "path": "mathnet.numerics/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net461/MathNet.Numerics.dll",
+        "lib/net461/MathNet.Numerics.xml",
+        "lib/net48/MathNet.Numerics.dll",
+        "lib/net48/MathNet.Numerics.xml",
+        "lib/net5.0/MathNet.Numerics.dll",
+        "lib/net5.0/MathNet.Numerics.xml",
+        "lib/net6.0/MathNet.Numerics.dll",
+        "lib/net6.0/MathNet.Numerics.xml",
+        "lib/netstandard2.0/MathNet.Numerics.dll",
+        "lib/netstandard2.0/MathNet.Numerics.xml",
+        "mathnet.numerics.5.0.0.nupkg.sha512",
+        "mathnet.numerics.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
@@ -2860,6 +2941,26 @@
         "microsoft.codeanalysis.csharp.nuspec"
       ]
     },
+    "Microsoft.Data.Analysis/0.23.0": {
+      "sha512": "LtIxK1INxHf0+QFruYWnrPYQXUZVFQfn+pxnXX6XuTIDoAKBryQo9uuiRddKNsyL3Tk5+9VVgY3MGRnHLL9f1Q==",
+      "type": "package",
+      "path": "microsoft.data.analysis/0.23.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.TXT",
+        "interactive-extensions/dotnet/Microsoft.Data.Analysis.Interactive.dll",
+        "interactive-extensions/dotnet/Microsoft.Data.Analysis.Interactive.xml",
+        "lib/net8.0/Microsoft.Data.Analysis.dll",
+        "lib/net8.0/Microsoft.Data.Analysis.xml",
+        "lib/netstandard2.0/Microsoft.Data.Analysis.dll",
+        "lib/netstandard2.0/Microsoft.Data.Analysis.xml",
+        "microsoft.data.analysis.0.23.0.nupkg.sha512",
+        "microsoft.data.analysis.nuspec",
+        "mlnetlogo.png"
+      ]
+    },
     "Microsoft.Extensions.AI/10.2.0": {
       "sha512": "hKLdKfwzwQ30Z5hA1DwHFvJJtRuyPmf41Es6t8DXW4PE/6caWK4qSDRY3i+QYmYbIVXnPlVR5xXQjYNz07giNg==",
       "type": "package",
@@ -3237,10 +3338,10 @@
         "runtimes/win-x86/nativeassets/netstandard2.0/CpuMathNative.dll"
       ]
     },
-    "Microsoft.ML.DataView/4.0.3": {
-      "sha512": "AspAQ3efu7zWARfl2d2Y7Uqb/5f2I56He5PfVEN5jIytQCoTm0LAIsWaby3neZlI0MqNALuMB9Nvl5O4FE53Rw==",
+    "Microsoft.ML.DataView/5.0.0": {
+      "sha512": "G8onJ9msBpLYea29WyG+NRV010rg75hJDUIEK3+sSDFAR0OV5p74QjZWnpNbyhT8OkAJdSNkif4l9/iCWZ2LOQ==",
       "type": "package",
-      "path": "microsoft.ml.dataview/4.0.3",
+      "path": "microsoft.ml.dataview/5.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3248,7 +3349,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard2.0/Microsoft.ML.DataView.dll",
         "lib/netstandard2.0/Microsoft.ML.DataView.xml",
-        "microsoft.ml.dataview.4.0.3.nupkg.sha512",
+        "microsoft.ml.dataview.5.0.0.nupkg.sha512",
         "microsoft.ml.dataview.nuspec",
         "mlnetlogo.png"
       ]
@@ -4009,10 +4110,10 @@
         "skiasharp.nativeassets.win32.nuspec"
       ]
     },
-    "System.Buffers/4.6.0": {
-      "sha512": "lN6tZi7Q46zFzAbRYXTIvfXcyvQQgxnY7Xm6C6xQ9784dEL1amjM6S6Iw4ZpsvesAKnRVsM4scrDQaDqSClkjA==",
+    "System.Buffers/4.6.1": {
+      "sha512": "N8GXpmiLMtljq7gwvyS+1QvKT/W2J8sNAvx+HVg4NGmsG/H+2k/y9QI23auLJRterrzCiDH+IWAw4V/GPwsMlw==",
       "type": "package",
-      "path": "system.buffers/4.6.0",
+      "path": "system.buffers/4.6.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4022,10 +4123,11 @@
         "buildTransitive/net462/_._",
         "lib/net462/System.Buffers.dll",
         "lib/net462/System.Buffers.xml",
-        "lib/netcoreapp2.1/_._",
+        "lib/netcoreapp2.0/_._",
         "lib/netstandard2.0/System.Buffers.dll",
         "lib/netstandard2.0/System.Buffers.xml",
-        "system.buffers.4.6.0.nupkg.sha512",
+        "lib/netstandard2.1/_._",
+        "system.buffers.4.6.1.nupkg.sha512",
         "system.buffers.nuspec"
       ]
     },
@@ -4079,10 +4181,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Collections.Immutable/8.0.0": {
-      "sha512": "AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
+    "System.Collections.Immutable/9.0.4": {
+      "sha512": "wfm2NgK22MmBe5qJjp52qzpkeDZKb4l9LbdubhZSehY1z4LS+lld6R+B+UQNb2AZRHu/QJlHxEUcRst5hIEejg==",
       "type": "package",
-      "path": "system.collections.immutable/8.0.0",
+      "path": "system.collections.immutable/9.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4092,19 +4194,17 @@
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Collections.Immutable.targets",
         "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Collections.Immutable.targets",
         "lib/net462/System.Collections.Immutable.dll",
         "lib/net462/System.Collections.Immutable.xml",
-        "lib/net6.0/System.Collections.Immutable.dll",
-        "lib/net6.0/System.Collections.Immutable.xml",
-        "lib/net7.0/System.Collections.Immutable.dll",
-        "lib/net7.0/System.Collections.Immutable.xml",
         "lib/net8.0/System.Collections.Immutable.dll",
         "lib/net8.0/System.Collections.Immutable.xml",
+        "lib/net9.0/System.Collections.Immutable.dll",
+        "lib/net9.0/System.Collections.Immutable.xml",
         "lib/netstandard2.0/System.Collections.Immutable.dll",
         "lib/netstandard2.0/System.Collections.Immutable.xml",
-        "system.collections.immutable.8.0.0.nupkg.sha512",
+        "system.collections.immutable.9.0.4.nupkg.sha512",
         "system.collections.immutable.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -4277,10 +4377,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Memory/4.6.0": {
-      "sha512": "OEkbBQoklHngJ8UD8ez2AERSk2g+/qpAaSWWCBFbpH727HxDq5ydVkuncBaKcKfwRqXGWx64dS6G1SUScMsitg==",
+    "System.Memory/4.6.3": {
+      "sha512": "qdcDOgnFZY40+Q9876JUHnlHu7bosOHX8XISRoH94fwk6hgaeQGSgfZd8srWRZNt5bV9ZW2TljcegDNxsf+96A==",
       "type": "package",
-      "path": "system.memory/4.6.0",
+      "path": "system.memory/4.6.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4293,7 +4393,8 @@
         "lib/netcoreapp2.1/_._",
         "lib/netstandard2.0/System.Memory.dll",
         "lib/netstandard2.0/System.Memory.xml",
-        "system.memory.4.6.0.nupkg.sha512",
+        "lib/netstandard2.1/_._",
+        "system.memory.4.6.3.nupkg.sha512",
         "system.memory.nuspec"
       ]
     },
@@ -4471,10 +4572,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/6.1.0": {
-      "sha512": "5o/HZxx6RVqYlhKSq8/zronDkALJZUT2Vz0hx43f0gwe8mwlM0y2nYlqdBwLMzr262Bwvpikeb/yEwkAa5PADg==",
+    "System.Runtime.CompilerServices.Unsafe/6.1.2": {
+      "sha512": "2hBr6zdbIBTDE3EhK7NSVNdX58uTK6iHW/P/Axmm9sl1xoGSLqDvMtpecn226TNwHByFokYwJmt/aQQNlO5CRw==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/6.1.0",
+      "path": "system.runtime.compilerservices.unsafe/6.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4486,10 +4587,12 @@
         "buildTransitive/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.targets",
         "lib/net462/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/net462/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/net7.0/_._",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.6.1.0.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.6.1.2.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec"
       ]
     },
@@ -4810,6 +4913,8 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "AllMiniLmL6V2Sharp >= 0.0.3",
+      "MathNet.Numerics >= 5.0.0",
+      "Microsoft.Data.Analysis >= 0.23.0",
       "Microsoft.ML >= 4.0.3",
       "Microsoft.ML.AutoML >= 0.22.3",
       "Microsoft.ML.Mkl.Components >= 4.0.3",
@@ -4873,6 +4978,14 @@
           "AllMiniLmL6V2Sharp": {
             "target": "Package",
             "version": "[0.0.3, )"
+          },
+          "MathNet.Numerics": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
+          "Microsoft.Data.Analysis": {
+            "target": "Package",
+            "version": "[0.23.0, )"
           },
           "Microsoft.ML": {
             "target": "Package",

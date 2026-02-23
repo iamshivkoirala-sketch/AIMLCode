@@ -55,7 +55,7 @@ namespace MachinelearningClass
                                      .Concatenate("Features", "Age")
                                      .Append(
                                       mlContext.Regression.Trainers
-                                      .Sdca(labelColumnName: "Premium",
+                                      .LightGbm(labelColumnName: "Premium",
                                              featureColumnName: "Features"
                                        ));
             var model = pipeline.Fit(data); // execution = data + Ols ==> Model

@@ -9,6 +9,8 @@
       "MachinelearningClass/1.0.0": {
         "dependencies": {
           "AllMiniLmL6V2Sharp": "0.0.3",
+          "MathNet.Numerics": "5.0.0",
+          "Microsoft.Data.Analysis": "0.23.0",
           "Microsoft.ML": "4.0.3",
           "Microsoft.ML.AutoML": "0.22.3",
           "Microsoft.ML.Mkl.Components": "4.0.3",
@@ -33,6 +35,14 @@
           "lib/netstandard2.1/AllMiniLmL6V2Sharp.dll": {
             "assemblyVersion": "0.0.3.0",
             "fileVersion": "0.0.3.0"
+          }
+        }
+      },
+      "Apache.Arrow/14.0.2": {
+        "runtime": {
+          "lib/net6.0/Apache.Arrow.dll": {
+            "assemblyVersion": "14.0.2.0",
+            "fileVersion": "14.0.2.0"
           }
         }
       },
@@ -152,6 +162,14 @@
           }
         }
       },
+      "MathNet.Numerics/5.0.0": {
+        "runtime": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -180,9 +198,9 @@
       "Microsoft.CodeAnalysis.Common/4.9.2": {
         "dependencies": {
           "Microsoft.CodeAnalysis.Analyzers": "3.3.4",
-          "System.Collections.Immutable": "8.0.0",
+          "System.Collections.Immutable": "9.0.4",
           "System.Reflection.Metadata": "8.0.0",
-          "System.Runtime.CompilerServices.Unsafe": "6.1.0"
+          "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         },
         "runtime": {
           "lib/net7.0/Microsoft.CodeAnalysis.dll": {
@@ -281,6 +299,20 @@
           },
           "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.Data.Analysis/0.23.0": {
+        "dependencies": {
+          "Apache.Arrow": "14.0.2",
+          "Microsoft.ML.DataView": "5.0.0",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Numerics.Tensors": "10.0.2"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Data.Analysis.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "0.2300.25.55704"
           }
         }
       },
@@ -391,11 +423,11 @@
       "Microsoft.ML/4.0.3": {
         "dependencies": {
           "Microsoft.ML.CpuMath": "4.0.3",
-          "Microsoft.ML.DataView": "4.0.3",
+          "Microsoft.ML.DataView": "5.0.0",
           "Newtonsoft.Json": "13.0.3",
           "System.CodeDom": "8.0.0",
-          "System.Collections.Immutable": "8.0.0",
-          "System.Memory": "4.6.0",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Memory": "4.6.3",
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Threading.Channels": "10.0.2"
         },
@@ -534,15 +566,17 @@
           }
         }
       },
-      "Microsoft.ML.DataView/4.0.3": {
+      "Microsoft.ML.DataView/5.0.0": {
         "dependencies": {
-          "System.Collections.Immutable": "8.0.0",
-          "System.Memory": "4.6.0"
+          "System.Buffers": "4.6.1",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Memory": "4.6.3",
+          "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "4.0.325.52801"
+            "fileVersion": "5.0.25.55704"
           }
         }
       },
@@ -638,8 +672,8 @@
           "Microsoft.ML": "4.0.3",
           "SkiaSharp": "2.88.8",
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.8",
-          "System.Buffers": "4.6.0",
-          "System.Runtime.CompilerServices.Unsafe": "6.1.0"
+          "System.Buffers": "4.6.1",
+          "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.ImageAnalytics.dll": {
@@ -853,7 +887,7 @@
       },
       "Microsoft.ML.OnnxRuntime.Managed/1.23.2": {
         "dependencies": {
-          "System.Memory": "4.6.0",
+          "System.Memory": "4.6.3",
           "System.Numerics.Tensors": "10.0.2"
         },
         "runtime": {
@@ -999,7 +1033,7 @@
           "Microsoft.ML": "4.0.3",
           "Microsoft.ML.ImageAnalytics": "4.0.3",
           "Microsoft.ML.Tokenizers": "1.0.3",
-          "System.Memory": "4.6.0",
+          "System.Memory": "4.6.3",
           "TorchSharp": "0.102.7"
         },
         "runtime": {
@@ -1097,7 +1131,7 @@
       },
       "NumSharp.Lite/0.1.8": {
         "dependencies": {
-          "System.Memory": "4.6.0"
+          "System.Memory": "4.6.3"
         },
         "runtime": {
           "lib/netstandard2.0/NumSharp.Lite.dll": {
@@ -1204,7 +1238,7 @@
           }
         }
       },
-      "System.Buffers/4.6.0": {},
+      "System.Buffers/4.6.1": {},
       "System.ClientModel/1.8.1": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "10.0.2",
@@ -1225,7 +1259,14 @@
           }
         }
       },
-      "System.Collections.Immutable/8.0.0": {},
+      "System.Collections.Immutable/9.0.4": {
+        "runtime": {
+          "lib/net8.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.425.16305"
+          }
+        }
+      },
       "System.Diagnostics.DiagnosticSource/10.0.2": {
         "runtime": {
           "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
@@ -1278,7 +1319,7 @@
           }
         }
       },
-      "System.Memory/4.6.0": {},
+      "System.Memory/4.6.3": {},
       "System.Memory.Data/10.0.0": {
         "dependencies": {
           "System.Text.Json": "10.0.2"
@@ -1309,10 +1350,10 @@
       "System.Reflection.Emit.Lightweight/4.7.0": {},
       "System.Reflection.Metadata/8.0.0": {
         "dependencies": {
-          "System.Collections.Immutable": "8.0.0"
+          "System.Collections.Immutable": "9.0.4"
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.1.0": {},
+      "System.Runtime.CompilerServices.Unsafe/6.1.2": {},
       "System.Security.AccessControl/5.0.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -1393,7 +1434,7 @@
           "Google.Protobuf": "3.27.1",
           "SharpZipLib": "1.4.0",
           "SkiaSharp": "2.88.8",
-          "System.Memory": "4.6.0"
+          "System.Memory": "4.6.3"
         },
         "runtime": {
           "lib/net6.0/TorchSharp.dll": {
@@ -1439,6 +1480,13 @@
       "path": "allminilml6v2sharp/0.0.3",
       "hashPath": "allminilml6v2sharp.0.0.3.nupkg.sha512"
     },
+    "Apache.Arrow/14.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2xvo9q2ag/Ze7TKSMsZfcQFMk3zZKWcduttJXoYnoevZD2bv+lKnOPeleyxONuR1ZwhZ00D86pPM9TWx2GMY2w==",
+      "path": "apache.arrow/14.0.2",
+      "hashPath": "apache.arrow.14.0.2.nupkg.sha512"
+    },
     "Azure.AI.OpenAI/2.7.0-beta.2": {
       "type": "package",
       "serviceable": true,
@@ -1473,6 +1521,13 @@
       "sha512": "sha512-6LwKO13R9q8zZHbYNeHhayUj3/sN410L6B9QZfV/tyzuoaddur1Uy0yV0gK4FfLl3FVC0LxnfiCOrHva0xX3yQ==",
       "path": "lightgbm/3.3.5",
       "hashPath": "lightgbm.3.3.5.nupkg.sha512"
+    },
+    "MathNet.Numerics/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pg1W2VwaEQMAiTpGK840hZgzavnqjlCMTVSbtVCXVyT+7AX4mc1o89SPv4TBlAjhgCOo9c1Y+jZ5m3ti2YgGgA==",
+      "path": "mathnet.numerics/5.0.0",
+      "hashPath": "mathnet.numerics.5.0.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
@@ -1515,6 +1570,13 @@
       "sha512": "sha512-HGIo7E9Mf3exAJbUdYpDFfLoYkSVaHDJXPyusWTYUTBaOPCowGw+Gap5McE1w+K+ryIXre72oiqL88sQHmHBmg==",
       "path": "microsoft.codeanalysis.csharp/4.9.2",
       "hashPath": "microsoft.codeanalysis.csharp.4.9.2.nupkg.sha512"
+    },
+    "Microsoft.Data.Analysis/0.23.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LtIxK1INxHf0+QFruYWnrPYQXUZVFQfn+pxnXX6XuTIDoAKBryQo9uuiRddKNsyL3Tk5+9VVgY3MGRnHLL9f1Q==",
+      "path": "microsoft.data.analysis/0.23.0",
+      "hashPath": "microsoft.data.analysis.0.23.0.nupkg.sha512"
     },
     "Microsoft.Extensions.AI/10.2.0": {
       "type": "package",
@@ -1600,12 +1662,12 @@
       "path": "microsoft.ml.cpumath/4.0.3",
       "hashPath": "microsoft.ml.cpumath.4.0.3.nupkg.sha512"
     },
-    "Microsoft.ML.DataView/4.0.3": {
+    "Microsoft.ML.DataView/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AspAQ3efu7zWARfl2d2Y7Uqb/5f2I56He5PfVEN5jIytQCoTm0LAIsWaby3neZlI0MqNALuMB9Nvl5O4FE53Rw==",
-      "path": "microsoft.ml.dataview/4.0.3",
-      "hashPath": "microsoft.ml.dataview.4.0.3.nupkg.sha512"
+      "sha512": "sha512-G8onJ9msBpLYea29WyG+NRV010rg75hJDUIEK3+sSDFAR0OV5p74QjZWnpNbyhT8OkAJdSNkif4l9/iCWZ2LOQ==",
+      "path": "microsoft.ml.dataview/5.0.0",
+      "hashPath": "microsoft.ml.dataview.5.0.0.nupkg.sha512"
     },
     "Microsoft.ML.DnnImageFeaturizer.AlexNet/0.22.3": {
       "type": "package",
@@ -1838,12 +1900,12 @@
       "path": "skiasharp.nativeassets.win32/2.88.8",
       "hashPath": "skiasharp.nativeassets.win32.2.88.8.nupkg.sha512"
     },
-    "System.Buffers/4.6.0": {
+    "System.Buffers/4.6.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lN6tZi7Q46zFzAbRYXTIvfXcyvQQgxnY7Xm6C6xQ9784dEL1amjM6S6Iw4ZpsvesAKnRVsM4scrDQaDqSClkjA==",
-      "path": "system.buffers/4.6.0",
-      "hashPath": "system.buffers.4.6.0.nupkg.sha512"
+      "sha512": "sha512-N8GXpmiLMtljq7gwvyS+1QvKT/W2J8sNAvx+HVg4NGmsG/H+2k/y9QI23auLJRterrzCiDH+IWAw4V/GPwsMlw==",
+      "path": "system.buffers/4.6.1",
+      "hashPath": "system.buffers.4.6.1.nupkg.sha512"
     },
     "System.ClientModel/1.8.1": {
       "type": "package",
@@ -1859,12 +1921,12 @@
       "path": "system.codedom/8.0.0",
       "hashPath": "system.codedom.8.0.0.nupkg.sha512"
     },
-    "System.Collections.Immutable/8.0.0": {
+    "System.Collections.Immutable/9.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
-      "path": "system.collections.immutable/8.0.0",
-      "hashPath": "system.collections.immutable.8.0.0.nupkg.sha512"
+      "sha512": "sha512-wfm2NgK22MmBe5qJjp52qzpkeDZKb4l9LbdubhZSehY1z4LS+lld6R+B+UQNb2AZRHu/QJlHxEUcRst5hIEejg==",
+      "path": "system.collections.immutable/9.0.4",
+      "hashPath": "system.collections.immutable.9.0.4.nupkg.sha512"
     },
     "System.Diagnostics.DiagnosticSource/10.0.2": {
       "type": "package",
@@ -1901,12 +1963,12 @@
       "path": "system.linq.asyncenumerable/10.0.2",
       "hashPath": "system.linq.asyncenumerable.10.0.2.nupkg.sha512"
     },
-    "System.Memory/4.6.0": {
+    "System.Memory/4.6.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OEkbBQoklHngJ8UD8ez2AERSk2g+/qpAaSWWCBFbpH727HxDq5ydVkuncBaKcKfwRqXGWx64dS6G1SUScMsitg==",
-      "path": "system.memory/4.6.0",
-      "hashPath": "system.memory.4.6.0.nupkg.sha512"
+      "sha512": "sha512-qdcDOgnFZY40+Q9876JUHnlHu7bosOHX8XISRoH94fwk6hgaeQGSgfZd8srWRZNt5bV9ZW2TljcegDNxsf+96A==",
+      "path": "system.memory/4.6.3",
+      "hashPath": "system.memory.4.6.3.nupkg.sha512"
     },
     "System.Memory.Data/10.0.0": {
       "type": "package",
@@ -1943,12 +2005,12 @@
       "path": "system.reflection.metadata/8.0.0",
       "hashPath": "system.reflection.metadata.8.0.0.nupkg.sha512"
     },
-    "System.Runtime.CompilerServices.Unsafe/6.1.0": {
+    "System.Runtime.CompilerServices.Unsafe/6.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5o/HZxx6RVqYlhKSq8/zronDkALJZUT2Vz0hx43f0gwe8mwlM0y2nYlqdBwLMzr262Bwvpikeb/yEwkAa5PADg==",
-      "path": "system.runtime.compilerservices.unsafe/6.1.0",
-      "hashPath": "system.runtime.compilerservices.unsafe.6.1.0.nupkg.sha512"
+      "sha512": "sha512-2hBr6zdbIBTDE3EhK7NSVNdX58uTK6iHW/P/Axmm9sl1xoGSLqDvMtpecn226TNwHByFokYwJmt/aQQNlO5CRw==",
+      "path": "system.runtime.compilerservices.unsafe/6.1.2",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.1.2.nupkg.sha512"
     },
     "System.Security.AccessControl/5.0.0": {
       "type": "package",
