@@ -1,16 +1,18 @@
 
 The Project is organized in the following ways :-
 
--- Every Week whatever lectures we take is available in Week1,Week2 CS files.
+-- "MachineLearningClass" project :- Has the basic C# ML.NET Labs.
 
--- Data folder has all the data which is needed for learning.
+-- "MCPClient" and "MCPServerDotNet" :- Demo of MCP using .NET
 
--- Models.cs files has the classes and models needed to run the learnings.
+-- "AzureAIGuardRail" :- Demo of Security Guard Raid using Azure Content Safety
 
- <img width="381" height="334" alt="image" src="https://github.com/user-attachments/assets/78e82fbb-e9b4-4523-9c7e-0248e1570c4a" />
+-- "GenericEmbeddingAndChatClient" Demo of how to use General interfaces to have decoupled Embedding and LLM's
 
-You can invoke the labs from the program.cs as shown in the below figure.
+<img width="416" height="211" alt="image" src="https://github.com/user-attachments/assets/f7e05a2e-9ef1-447e-a923-b5bcaa3b00b5" />
 
-<img width="499" height="362" alt="image" src="https://github.com/user-attachments/assets/08697b6e-7b77-438c-9cbe-1abb5097026c" />
+You can invoke the labs from the program.cs of MachineLearningClass project as shown in the below figure. All Labs are Lab1 and Lab2 , please check the document to see which labs are what.
+
+<img width="629" height="432" alt="image" src="https://github.com/user-attachments/assets/01671305-6c85-4f39-9a29-5b75b7aa9448" />
 
  
