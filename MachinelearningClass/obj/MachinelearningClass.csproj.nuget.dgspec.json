@@ -62,6 +62,10 @@
               "target": "Package",
               "version": "[0.23.0, )"
             },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[6.1.4, )"
+            },
             "Microsoft.ML": {
               "target": "Package",
               "version": "[4.0.3, )"
@@ -78,13 +82,17 @@
               "target": "Package",
               "version": "[1.23.2, )"
             },
+            "Microsoft.ML.Parquet": {
+              "target": "Package",
+              "version": "[0.21.1, )"
+            },
             "Microsoft.SemanticKernel": {
               "target": "Package",
               "version": "[1.70.0, )"
             },
-            "OpenAI": {
+            "ParquetSharp": {
               "target": "Package",
-              "version": "[2.7.0, )"
+              "version": "[21.0.0, )"
             },
             "System.Diagnostics.EventLog": {
               "target": "Package",

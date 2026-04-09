@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachinelearningClass", "MachinelearningClass\MachinelearningClass.csproj", "{FC348251-9BE5-4BA9-831D-7750ECD90EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachinelearningClass", "MachinelearningClass\MachinelearningClass.csproj", "{FC348251-9BE5-4BA9-831D-7750ECD90EC3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericEmbeddingAndChatClient", "GenericEmbeddingClient\GenericEmbeddingAndChatClient.csproj", "{4CF3025A-B841-4041-B8CC-D373D4B8C49C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCPServerDotNet", "MCPServerDotNet\MCPServerDotNet.csproj", "{91E377CA-062D-49DA-879C-5E670700CB90}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCPClient", "MCPClient\MCPClient.csproj", "{42A1C1AA-FFBA-4425-ACB6-870A1AA72E8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAIGuardRail", "AzureAIGuardRail\AzureAIGuardRail.csproj", "{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{FC348251-9BE5-4BA9-831D-7750ECD90EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC348251-9BE5-4BA9-831D-7750ECD90EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC348251-9BE5-4BA9-831D-7750ECD90EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CF3025A-B841-4041-B8CC-D373D4B8C49C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CF3025A-B841-4041-B8CC-D373D4B8C49C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CF3025A-B841-4041-B8CC-D373D4B8C49C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CF3025A-B841-4041-B8CC-D373D4B8C49C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91E377CA-062D-49DA-879C-5E670700CB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91E377CA-062D-49DA-879C-5E670700CB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91E377CA-062D-49DA-879C-5E670700CB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91E377CA-062D-49DA-879C-5E670700CB90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42A1C1AA-FFBA-4425-ACB6-870A1AA72E8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42A1C1AA-FFBA-4425-ACB6-870A1AA72E8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42A1C1AA-FFBA-4425-ACB6-870A1AA72E8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42A1C1AA-FFBA-4425-ACB6-870A1AA72E8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

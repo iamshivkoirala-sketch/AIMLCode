@@ -10,8 +10,8 @@ namespace MachinelearningClass
         public static string datapath = "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\";
          static  void Main(string[] args)
         {
-
-            OtherLabs.Lab32DataQuality();
+            AllLabs.Lab11_SimpleCustering(); 
+           
             Console.Read();
         }
         

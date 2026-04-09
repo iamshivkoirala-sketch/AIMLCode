@@ -111,9 +111,9 @@ namespace MachinelearningClass
 
 
                     ChatMessageContent response = await chat.GetChatMessageContentAsync(
-                    history,
+                    history,// prompt
                     executionSettings,
-                    kernel
+                    kernel // LLM + tools
                     );
 
                     Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] NEW ERROR ALERT");

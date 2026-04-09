@@ -41,21 +41,39 @@ namespace MachinelearningClass.Regression
 
             return samples.ToList();
         }
+        
         public static List<InsuranceData> GetLinearInsuranceData()
         {
             return new List<InsuranceData>
             {
                 new InsuranceData { Age = 10, Premium = 2000 },
-                new InsuranceData { Age = 20, Premium = 4000 },
+                new InsuranceData { Age = 20, Premium = 2500 },
                 new InsuranceData { Age = 30, Premium = 6000 },
-                new InsuranceData { Age = 40, Premium = 8000 },
-                new InsuranceData { Age = 50, Premium = 10000 },
+                new InsuranceData { Age = 40, Premium = 9000 },
+                new InsuranceData { Age = 50, Premium = 11000 },
                 new InsuranceData { Age = 60, Premium = 12000 },
                 new InsuranceData { Age = 70, Premium = 14000 },
                 new InsuranceData { Age = 80, Premium = 16000 },
                 new InsuranceData { Age = 90, Premium = 18000 },
-                new InsuranceData { Age = 100, Premium = 20000 }
+                new InsuranceData { Age = 100, Premium = 21000 }
             };
+        }
+        public static List<InsuranceData> GetLinearInsuranceDataMultiFeature()
+        {
+            var data = new List<InsuranceData>
+            {
+                new InsuranceData { Age = 10, HighBp= 110, LowBp = 70, Premium = 2000 },
+                new InsuranceData { Age = 20, HighBp= 115, LowBp= 75, Premium = 2500 },
+                new InsuranceData { Age = 30, HighBp= 120, LowBp= 80, Premium = 6000 },
+                new InsuranceData { Age = 40, HighBp= 125, LowBp= 82, Premium = 9000 },
+                new InsuranceData { Age = 50, HighBp= 130, LowBp= 85, Premium = 11000 },
+                new InsuranceData { Age = 60, HighBp= 135, LowBp= 88, Premium = 12500 },
+                new InsuranceData { Age = 70, HighBp= 140, LowBp= 90, Premium = 18000 },
+                new InsuranceData { Age = 80, HighBp= 145, LowBp= 92, Premium = 19000 },
+                new InsuranceData { Age = 90, HighBp= 150, LowBp= 95, Premium = 19500 },
+                new InsuranceData { Age = 100,HighBp = 155,LowBp = 98, Premium = 21000 }
+            };
+            return data;
         }
         public  static List<InsuranceData> GetTestData()
         {
