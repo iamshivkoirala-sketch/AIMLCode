@@ -3,31 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MachinelearningClass.Cohort;
 
 namespace MachinelearningClass
 {
     public static  class Data
     {
-         public class CustomerData
-        {
-            public float Age { get; set; }
-            public float Spending { get; set; }
-        }
-
-        public class FruitData
-        {
-            public float Weight { get; set; }
-            public string Color { get; set; }
-            public bool IsApple { get; set; }
-            public string FruitType { get; set; }
-        }
-
-        public class InsuranceData
-        {
-            public float Age { get; set; }
-            public float Premium { get; set; }
-        }
-
         public static List<CustomerData> GetCustomerData()
         {
             var customers = new[]
@@ -41,7 +22,6 @@ namespace MachinelearningClass
             };
             return customers.ToList<CustomerData>();
         }
-
         public static List<FruitData> GetFruitData()
         {
             var samples = new[]
