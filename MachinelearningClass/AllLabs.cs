@@ -683,50 +683,7 @@ namespace MachinelearningClass
             Console.WriteLine("Interview Complete!");
             Console.WriteLine($"Successfully recorded responses for all {interviewQuestions.Length} questions locally.");
         }
-        public static async Task<List<RAGLookup>> BuildInmemoryRag()
-        {
-            var key = Environment.GetEnvironmentVariable("aikey");
-            var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
-            var chat = new ChatClient(model: "gpt-4o-mini", key);
-            List<RAGLookup> lookupStore = DataforNlp.getRAGData();
-
-            foreach (var item in lookupStore)
-            {
-                var embed = await embeddingClient.GenerateEmbeddingAsync(item.Description);
-                item.DescriptionEmbedding = embed.Value.ToFloats().ToArray();
-                // take all question and store in DB for now DB is inmemory
-                var messages = new List<ChatMessage>
-                {
-                new SystemChatMessage(
-                $"You are a technical interviewer. Based on this experience: '{item.Description} ' , " +
-                "generate exactly 10 distinct, non-overlapping interview questions covering + " + item.QuestionstobeAsked  + 
-                ".Return ONLY the questions, each on a fresh new line starting with its number (e.g., '1. ', '2. '). " +
-                "Do NOT include introductory remarks, markdown formatting, greetings, or conversational filler text.")
-                };
-
-                Console.WriteLine("Open AI Calling and loading questions for " + item.Description);
-
-                var completion = await chat.CompleteChatAsync(messages);
-                string fullResponse = completion.Value.Content.Last().Text;
-
-                ChatTokenUsage usage = completion.Value.Usage;
-                Console.WriteLine($"Input (Prompt) Tokens: {usage.InputTokenCount}");
-                Console.WriteLine($"Output (Completion) Tokens: {usage.OutputTokenCount}");
-                Console.WriteLine($"Total Tokens Consumed: {usage.TotalTokenCount}");
-
-                string[] interviewQuestions = fullResponse.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var question in interviewQuestions)
-                {
-                    item.Questions.Add(question);
-                }
-               
-
-            }
-            return lookupStore;
-        }
-        
-        public static async Task Lab19_Rag()
+        public static async Task Lab19_RagInMemory()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
             var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
@@ -773,107 +730,6 @@ namespace MachinelearningClass
                 }
             }
         }
-        public static async Task Lab19_PromptUnderstanding()
-        {
-            var key = Environment.GetEnvironmentVariable("aikey");
-            var client = new OpenAIClient(key);
-            var chat = new ChatClient(model: "gpt-4o-mini", key);
-            var messages = new List<ChatMessage>
-            {
-                new SystemChatMessage("Take c# interview . Only ask ASP.NET core question if he does not answr " +
-                "                   that ask him basic OOP. Do not repeat question once asked. Ask one question at a time. " +
-                "                   Do not answer yourself.")
-            };
-            while (true)
-            {
-                var completion = await chat.CompleteChatAsync(messages);
-                string questionfromchatgpt = completion.Value.Content.Last().Text;
-                messages.Add(new AssistantChatMessage(questionfromchatgpt));
-                Console.WriteLine($"{questionfromchatgpt}");
-                var userResponse = "";
-                userResponse = Console.ReadLine(); // answr
-                messages.Add(new UserChatMessage(userResponse)); // chat gpt
-
-            }
-
-
-        }
-        public static async Task ProjectPOCForIChatClient()
-        {
-            // -----------------------------
-            // OLLAMA
-            // -----------------------------
-            IChatClient chatClient = new OllamaApiClient(
-                new Uri("http://localhost:11434"),
-                "llama3.2"
-            );
-
-
-
-
-            var ollamaResponse =
-                await chatClient.GetResponseAsync(
-                    "Explain Dependency Injection in C#.");
-
-            Console.WriteLine("OLLAMA RESPONSE");
-            Console.WriteLine(ollamaResponse.Text);
-
-            // -----------------------------
-            // OPENAI
-            // -----------------------------
-            var openAiClient =
-                new OpenAIClient(Environment.GetEnvironmentVariable("aikey"));
-
-            IChatClient openAiChatClient =
-                openAiClient.GetChatClient("gpt-4o-mini")
-                            .AsIChatClient();
-
-            var openAiResponse =
-                await openAiChatClient.GetResponseAsync(
-                    "Explain Dependency Injection in C#.");
-
-            Console.WriteLine();
-            Console.WriteLine("OPENAI RESPONSE");
-            Console.WriteLine(openAiResponse.Text);
-            Console.ReadLine();
-        }
-        //public static async Task ProjectPOCEmbedding()
-        //{
-        //    string text = "C# ASP.NET Core Microservices";
-
-        //    IChatClient chatClient = new OllamaApiClient(
-        //       new Uri("http://localhost:11434"),
-        //       "llama3.2"
-        //   );
-
-        //    IEmbeddingGenerator<string, Embedding<float>> generator =
-        //    new OllamaApiClient(new Uri("http://localhost:11434"))
-        //    .AsEmbeddingGenerationService(modelId: "nomic-embed-text");
-
-        //    var embedding =
-        //        await generator.GenerateAsync(
-        //            "What is Dependency Injection?");
-
-        //    Console.WriteLine(
-        //        embedding.Vector.Length);
-
-        //    // -----------------------------------
-        //    // OpenAI Embeddings
-        //    // -----------------------------------
-        //    var openAIClient =
-        //        new OpenAIClient(Environment.GetEnvironmentVariable("aikey"));
-
-        //    IEmbeddingGenerator<string, Embedding<float>> openAIGenerator =
-        //        openAIClient
-        //            .GetEmbeddingClient("text-embedding-3-small")
-        //            .AsIEmbeddingGenerator();
-
-        //    Embedding<float> openAIEmbedding =
-        //        await openAIGenerator.GenerateAsync(text);
-
-        //    Console.WriteLine(
-        //        $"OpenAI Vector Size : {openAIEmbedding.Vector.Length}");
-        //}
 
 
         public class BertInput
@@ -1173,6 +1029,48 @@ ORDER BY Id;";
 
 
 
+        }
+        public static async Task<List<RAGLookup>> BuildInmemoryRag()
+        {
+            var key = Environment.GetEnvironmentVariable("aikey");
+            var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
+            var chat = new ChatClient(model: "gpt-4o-mini", key);
+            List<RAGLookup> lookupStore = DataforNlp.getRAGData();
+
+            foreach (var item in lookupStore)
+            {
+                var embed = await embeddingClient.GenerateEmbeddingAsync(item.Description);
+                item.DescriptionEmbedding = embed.Value.ToFloats().ToArray();
+                // take all question and store in DB for now DB is inmemory
+                var messages = new List<ChatMessage>
+                {
+                new SystemChatMessage(
+                $"You are a technical interviewer. Based on this experience: '{item.Description} ' , " +
+                "generate exactly 10 distinct, non-overlapping interview questions covering + " + item.QuestionstobeAsked  +
+                ".Return ONLY the questions, each on a fresh new line starting with its number (e.g., '1. ', '2. '). " +
+                "Do NOT include introductory remarks, markdown formatting, greetings, or conversational filler text.")
+                };
+
+                Console.WriteLine("Open AI Calling and loading questions for " + item.Description);
+
+                var completion = await chat.CompleteChatAsync(messages);
+                string fullResponse = completion.Value.Content.Last().Text;
+
+                ChatTokenUsage usage = completion.Value.Usage;
+                Console.WriteLine($"Input (Prompt) Tokens: {usage.InputTokenCount}");
+                Console.WriteLine($"Output (Completion) Tokens: {usage.OutputTokenCount}");
+                Console.WriteLine($"Total Tokens Consumed: {usage.TotalTokenCount}");
+
+                string[] interviewQuestions = fullResponse.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var question in interviewQuestions)
+                {
+                    item.Questions.Add(question);
+                }
+
+
+            }
+            return lookupStore;
         }
     }
 }
