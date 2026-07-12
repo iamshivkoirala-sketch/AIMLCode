@@ -54,8 +54,14 @@ namespace MachinelearningClass.InterviewQuestions
     }
     public class RAGLookup
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public string QuestionstobeAsked { get; set; }
         public float[] DescriptionEmbedding { get; set; }
+        public List<String> Questions { get; set; }
+        public RAGLookup()
+        {
+            Questions = new List<String>();
+        }
     }
 }

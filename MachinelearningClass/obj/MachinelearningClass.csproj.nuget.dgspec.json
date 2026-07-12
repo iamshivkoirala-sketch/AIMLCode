@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -53,6 +53,14 @@
             "AllMiniLmL6V2Sharp": {
               "target": "Package",
               "version": "[0.0.3, )"
+            },
+            "LangChain.Providers.OpenAI": {
+              "target": "Package",
+              "version": "[0.17.0, )"
+            },
+            "LangChain.Splitters.CSharp": {
+              "target": "Package",
+              "version": "[0.17.1, )"
             },
             "MathNet.Numerics": {
               "target": "Package",
@@ -65,6 +73,10 @@
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[6.1.4, )"
+            },
+            "Microsoft.Extensions.AI": {
+              "target": "Package",
+              "version": "[10.7.0, )"
             },
             "Microsoft.ML": {
               "target": "Package",
@@ -90,9 +102,13 @@
               "target": "Package",
               "version": "[1.70.0, )"
             },
-            "ParquetSharp": {
+            "Neo4j.Driver": {
               "target": "Package",
-              "version": "[21.0.0, )"
+              "version": "[6.1.2, )"
+            },
+            "OllamaSharp": {
+              "target": "Package",
+              "version": "[5.4.25, )"
             },
             "System.Diagnostics.EventLog": {
               "target": "Package",
@@ -119,7 +135,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

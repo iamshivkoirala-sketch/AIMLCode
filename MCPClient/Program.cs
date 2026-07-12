@@ -72,9 +72,7 @@ namespace MCPClient
                  "As per the current date and time if its evening , morning , night call the methods" +
                  "of the tool accordingly" +
                  "pass the person name to the method and invoke it";
-               // var bool1 = GuardRailsExample.Check(prompt);
-                //Console.WriteLine(bool1);
-                //" Do not add any formatting to the output of the tools ";
+              
                 var response = await client.GetResponseAsync(
                  prompt,
                    new ChatOptions

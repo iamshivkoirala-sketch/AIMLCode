@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCPServerDotNet", "MCPServe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCPClient", "MCPClient\MCPClient.csproj", "{42A1C1AA-FFBA-4425-ACB6-870A1AA72E8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAIGuardRail", "AzureAIGuardRail\AzureAIGuardRail.csproj", "{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAIGuardRail", "AzureAIGuardRail\AzureAIGuardRail.csproj", "{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PythonAzureFiles", "PythonAzureFiles", "{9CF9689C-E02C-41BD-89E8-4C9C01F0134A}"
+	ProjectSection(SolutionItems) = preProject
+		Insurance.py = Insurance.py
+		score.py = score.py
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterviewAssistant", "InterviewAssistant\InterviewAssistant.csproj", "{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,10 @@ Global
 		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

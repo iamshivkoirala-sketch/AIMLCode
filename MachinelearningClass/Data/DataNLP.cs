@@ -15,8 +15,8 @@ namespace MachinelearningClass.DataNLP
             {
             new RAGLookup
             {
-                Description = "1 year experience .NET developer",
-                QuestionstobeAsked = "Basics of C#, OOP, ASP.NET Core fundamentals."
+                Description = "0-3 yrs year experience .NET developer",
+                QuestionstobeAsked = "Basics of C#, OOP, SQL Server."
             },
             new RAGLookup
             {
@@ -30,5 +30,6 @@ namespace MachinelearningClass.DataNLP
             }
             };
         }
+     
     }
 }

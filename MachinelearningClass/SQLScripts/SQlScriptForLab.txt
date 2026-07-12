@@ -1,0 +1,85 @@
+﻿-- ===========================================
+-- Drop existing tables (Optional)
+-- ===========================================
+
+IF OBJECT_ID('dbo.tblQuestions', 'U') IS NOT NULL
+    DROP TABLE dbo.tblQuestions;
+GO
+
+IF OBJECT_ID('dbo.tblExp1', 'U') IS NOT NULL
+    DROP TABLE dbo.tblExp1;
+GO
+
+-- ===========================================
+-- Parent Table
+-- ===========================================
+
+CREATE TABLE dbo.tblExp1
+(
+    Id INT IDENTITY(1,1) NOT NULL
+        CONSTRAINT PK_tblExp1 PRIMARY KEY,
+
+    Expierience NVARCHAR(MAX) NOT NULL,
+
+    ExpVector VECTOR(1536) NULL,
+
+    Questions VARCHAR(1000) NULL
+);
+GO
+
+-- ===========================================
+-- Child Table
+-- ===========================================
+
+CREATE TABLE dbo.tblQuestions
+(
+    Id INT IDENTITY(1,1) NOT NULL
+        CONSTRAINT PK_tblQuestions PRIMARY KEY,
+
+    ExpId INT NOT NULL,
+
+    Question VARCHAR(1000) NOT NULL,
+
+    CONSTRAINT FK_tblQuestions_tblExp1
+        FOREIGN KEY (ExpId)
+        REFERENCES dbo.tblExp1(Id)
+        ON DELETE CASCADE
+);
+GO
+
+-- ===========================================
+-- Index for faster joins
+-- ===========================================
+
+CREATE INDEX IX_tblQuestions_ExpId
+ON dbo.tblQuestions(ExpId);
+GO
+
+-- ===========================================
+-- Optional Vector Index (SQL Server 2025)
+-- Create after loading embeddings
+-- ===========================================
+
+/*
+CREATE VECTOR INDEX IX_tblExp1_ExpVector
+ON dbo.tblExp1(ExpVector)
+WITH (
+    METRIC = 'cosine'
+);
+GO
+*/
+
+INSERT INTO dbo.tblExp1 (Expierience, Questions)
+VALUES
+(
+    '0-3 yrs year experience .NET developer',
+    'Basics of C#, OOP, ASP.NET Core fundamentals.'
+),
+(
+    'Senior .NET developer with 5+ years',
+    'Advanced ASP.NET Core, microservices, cloud, design patterns.'
+),
+(
+    'Architect 10+ years',
+    'Distributed systems, DDD, Azure architecture, performance tuning.'
+);

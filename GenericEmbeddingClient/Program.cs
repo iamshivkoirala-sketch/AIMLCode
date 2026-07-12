@@ -26,8 +26,11 @@ namespace GenericEmbeddingClient
             // 2. Wrap it in the universal interface
             // This specifies the model (e.g., "text-embedding-3-small")
             //IEmbeddingGenerator<string, Embedding<float>> generator = client.AsIEmbeddingGenerator("text-embedding-3-small");
-            IEmbeddingGenerator<string, Embedding<float>> embedding = new LocalOnnxGenerator(
-            Program.datapath + @"\Model.onnx",
+            
+            IEmbeddingGenerator<string, 
+            Embedding<float>> embedding = new LocalOnnxGenerator(
+            
+              Program.datapath + @"\Model.onnx",
             Program.datapath + @"\vocab.txt");
             //MakeEmbedding(embedding);
             var res = SemanticSearch(embedding).Result.ToString();

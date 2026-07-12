@@ -45,7 +45,19 @@ class Program
         await PostAndPrint(client, url, payload);
     }
 
-    
+    static async Task RunTextModeration(HttpClient client)
+    {
+        Console.WriteLine("\n[5/5] Testing Text Moderation...");
+        string url = $"{endpoint}contentsafety/text:analyze?api-version=2024-09-01";
+        var payload = new
+        {
+            text = "i saw blood everywhere",
+            categories = new[] { "Hate", "Sexual", "SelfHarm", "Violence" },
+            outputType = "FourSeverityLevels"
+        };
+        await PostAndPrint(client, url, payload);
+    }
+
     static async Task RunGroundednessCheck(HttpClient client)
     {
         Console.WriteLine("\n[2/5] Testing Groundedness Detection...");
@@ -108,18 +120,7 @@ class Program
     }
 
    
-    static async Task RunTextModeration(HttpClient client)
-    {
-        Console.WriteLine("\n[5/5] Testing Text Moderation...");
-        string url = $"{endpoint}contentsafety/text:analyze?api-version=2024-09-01";
-        var payload = new
-        {
-            text = "i saw blood everywhere",
-            categories = new[] { "Hate", "Sexual", "SelfHarm", "Violence" },
-            outputType = "FourSeverityLevels"
-        };
-        await PostAndPrint(client, url, payload);
-    }
+    
 
     private static async Task PostAndPrint(HttpClient client, string url, object payload)
     {

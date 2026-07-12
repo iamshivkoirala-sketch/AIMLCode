@@ -14,7 +14,9 @@ namespace MachinelearningClass.ModelNLP
 
     public class FruitFeatures
     {
-       // [VectorType]
+        public string Fruit { get; set; } = string.Empty;
+
+        // [VectorType]
         public float[] FruitEncoded { get; set; }
     }
     public class InputText

@@ -7,11 +7,15 @@ namespace MachinelearningClass
 {
     internal class Program
     {
+        public static string sqlConnectionString = "Data Source=DESKTOP-ILFSBH1\\SQLEXPRESS01;Initial Catalog=Test;Integrated Security=True;Trust Server Certificate=True";
+
         public static string datapath = "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\";
          static  void Main(string[] args)
         {
-            AllLabs.Lab11_SimpleCustering(); 
-           
+
+            //AllLabs.BuildSQLServerRAG();
+            AllLabs.Lab20_RagWithSQLServer().Wait();
+            //ChunkingLessons.FixedAndRecursiveChunking();
             Console.Read();
         }
         

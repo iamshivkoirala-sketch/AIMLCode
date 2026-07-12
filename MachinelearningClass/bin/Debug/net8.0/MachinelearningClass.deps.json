@@ -9,16 +9,20 @@
       "MachinelearningClass/1.0.0": {
         "dependencies": {
           "AllMiniLmL6V2Sharp": "0.0.3",
+          "LangChain.Providers.OpenAI": "0.17.0",
+          "LangChain.Splitters.CSharp": "0.17.1",
           "MathNet.Numerics": "5.0.0",
           "Microsoft.Data.Analysis": "0.23.0",
           "Microsoft.Data.SqlClient": "6.1.4",
+          "Microsoft.Extensions.AI": "10.7.0",
           "Microsoft.ML": "4.0.3",
           "Microsoft.ML.AutoML": "0.22.3",
           "Microsoft.ML.Mkl.Components": "4.0.3",
           "Microsoft.ML.OnnxRuntime": "1.23.2",
           "Microsoft.ML.Parquet": "0.21.1",
           "Microsoft.SemanticKernel": "1.70.0",
-          "ParquetSharp": "21.0.0",
+          "Neo4j.Driver": "6.1.2",
+          "OllamaSharp": "5.4.25",
           "System.Diagnostics.EventLog": "10.0.2",
           "System.ServiceProcess.ServiceController": "10.0.2"
         },
@@ -86,11 +90,84 @@
           }
         }
       },
+      "CSharpToJsonSchema/3.10.1": {
+        "dependencies": {
+          "System.Text.Json": "10.0.9"
+        },
+        "runtime": {
+          "lib/net8.0/CSharpToJsonSchema.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.10.1.0"
+          }
+        }
+      },
       "Google.Protobuf/3.27.1": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
             "assemblyVersion": "3.27.1.0",
             "fileVersion": "3.27.1.0"
+          }
+        }
+      },
+      "Humanizer.Core/2.14.1": {
+        "runtime": {
+          "lib/net6.0/Humanizer.dll": {
+            "assemblyVersion": "2.14.0.0",
+            "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "LangChain.Polyfills/0.16.0": {
+        "runtime": {
+          "lib/net8.0/LangChain.Polyfills.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.16.0.0"
+          }
+        }
+      },
+      "LangChain.Providers.Abstractions/0.17.0": {
+        "dependencies": {
+          "CSharpToJsonSchema": "3.10.1",
+          "System.Memory.Data": "10.0.0",
+          "System.Text.Json": "10.0.9"
+        },
+        "runtime": {
+          "lib/net8.0/LangChain.Providers.Abstractions.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.17.0.0"
+          }
+        }
+      },
+      "LangChain.Providers.OpenAI/0.17.0": {
+        "dependencies": {
+          "LangChain.Polyfills": "0.16.0",
+          "LangChain.Providers.Abstractions": "0.17.0",
+          "tryAGI.OpenAI": "4.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/LangChain.Providers.OpenAI.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.17.0.0"
+          }
+        }
+      },
+      "LangChain.Splitters.Abstractions/0.17.1": {
+        "runtime": {
+          "lib/net8.0/LangChain.Splitters.Abstractions.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.17.1.0"
+          }
+        }
+      },
+      "LangChain.Splitters.CSharp/0.17.1": {
+        "dependencies": {
+          "LangChain.Splitters.Abstractions": "0.17.1",
+          "Microsoft.CodeAnalysis.CSharp.Workspaces": "5.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/LangChain.Splitters.CSharp.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.17.1.0"
           }
         }
       },
@@ -209,110 +286,230 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.Analyzers/3.3.4": {},
-      "Microsoft.CodeAnalysis.Common/4.9.2": {
+      "Microsoft.CodeAnalysis.Analyzers/5.3.0-2.25625.1": {},
+      "Microsoft.CodeAnalysis.Common/5.3.0": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Analyzers": "3.3.4",
+          "Microsoft.CodeAnalysis.Analyzers": "5.3.0-2.25625.1",
           "System.Collections.Immutable": "9.0.4",
-          "System.Reflection.Metadata": "8.0.0",
-          "System.Runtime.CompilerServices.Unsafe": "6.1.2"
+          "System.Reflection.Metadata": "9.0.0"
         },
         "runtime": {
-          "lib/net7.0/Microsoft.CodeAnalysis.dll": {
-            "assemblyVersion": "4.9.0.0",
-            "fileVersion": "4.900.224.12906"
+          "lib/net8.0/Microsoft.CodeAnalysis.dll": {
+            "assemblyVersion": "5.3.0.0",
+            "fileVersion": "5.300.26.7805"
           }
         },
         "resources": {
-          "lib/net7.0/cs/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/cs/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "cs"
           },
-          "lib/net7.0/de/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/de/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "de"
           },
-          "lib/net7.0/es/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/es/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "es"
           },
-          "lib/net7.0/fr/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/fr/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "fr"
           },
-          "lib/net7.0/it/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/it/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "it"
           },
-          "lib/net7.0/ja/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/ja/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "ja"
           },
-          "lib/net7.0/ko/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/ko/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "ko"
           },
-          "lib/net7.0/pl/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/pl/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "pl"
           },
-          "lib/net7.0/pt-BR/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "pt-BR"
           },
-          "lib/net7.0/ru/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/ru/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "ru"
           },
-          "lib/net7.0/tr/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/tr/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "tr"
           },
-          "lib/net7.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "zh-Hans"
           },
-          "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll": {
+          "lib/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "zh-Hant"
           }
         }
       },
-      "Microsoft.CodeAnalysis.CSharp/4.9.2": {
+      "Microsoft.CodeAnalysis.CSharp/5.3.0": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Common": "4.9.2"
+          "Microsoft.CodeAnalysis.Analyzers": "5.3.0-2.25625.1",
+          "Microsoft.CodeAnalysis.Common": "5.3.0",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Reflection.Metadata": "9.0.0"
         },
         "runtime": {
-          "lib/net7.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "assemblyVersion": "4.9.0.0",
-            "fileVersion": "4.900.224.12906"
+          "lib/net8.0/Microsoft.CodeAnalysis.CSharp.dll": {
+            "assemblyVersion": "5.3.0.0",
+            "fileVersion": "5.300.26.7805"
           }
         },
         "resources": {
-          "lib/net7.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "cs"
           },
-          "lib/net7.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "de"
           },
-          "lib/net7.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "es"
           },
-          "lib/net7.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "fr"
           },
-          "lib/net7.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "it"
           },
-          "lib/net7.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "ja"
           },
-          "lib/net7.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "ko"
           },
-          "lib/net7.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "pl"
           },
-          "lib/net7.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "pt-BR"
           },
-          "lib/net7.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "ru"
           },
-          "lib/net7.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "tr"
           },
-          "lib/net7.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "zh-Hans"
           },
-          "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+          "lib/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.CodeAnalysis.CSharp.Workspaces/5.3.0": {
+        "dependencies": {
+          "Humanizer.Core": "2.14.1",
+          "Microsoft.CodeAnalysis.Analyzers": "5.3.0-2.25625.1",
+          "Microsoft.CodeAnalysis.CSharp": "5.3.0",
+          "Microsoft.CodeAnalysis.Common": "5.3.0",
+          "Microsoft.CodeAnalysis.Workspaces.Common": "5.3.0",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Composition": "9.0.0",
+          "System.IO.Pipelines": "10.0.9",
+          "System.Reflection.Metadata": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
+            "assemblyVersion": "5.3.0.0",
+            "fileVersion": "5.300.26.7805"
+          }
+        },
+        "resources": {
+          "lib/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.CodeAnalysis.Workspaces.Common/5.3.0": {
+        "dependencies": {
+          "Humanizer.Core": "2.14.1",
+          "Microsoft.CodeAnalysis.Analyzers": "5.3.0-2.25625.1",
+          "Microsoft.CodeAnalysis.Common": "5.3.0",
+          "System.Collections.Immutable": "9.0.4",
+          "System.Composition": "9.0.0",
+          "System.IO.Pipelines": "10.0.9",
+          "System.Reflection.Metadata": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.CodeAnalysis.Workspaces.dll": {
+            "assemblyVersion": "5.3.0.0",
+            "fileVersion": "5.300.26.7805"
+          }
+        },
+        "resources": {
+          "lib/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "zh-Hant"
           }
         }
@@ -322,7 +519,7 @@
           "Apache.Arrow": "14.0.2",
           "Microsoft.ML.DataView": "5.0.0",
           "System.Collections.Immutable": "9.0.4",
-          "System.Numerics.Tensors": "10.0.2"
+          "System.Numerics.Tensors": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Data.Analysis.dll": {
@@ -342,7 +539,7 @@
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.7.1",
           "Microsoft.SqlServer.Server": "1.0.0",
           "System.Configuration.ConfigurationManager": "8.0.1",
-          "System.Diagnostics.DiagnosticSource": "10.0.2",
+          "System.Diagnostics.DiagnosticSource": "10.0.9",
           "System.IdentityModel.Tokens.Jwt": "7.7.1",
           "System.Security.Cryptography.Pkcs": "8.0.1"
         },
@@ -427,41 +624,41 @@
           }
         }
       },
-      "Microsoft.Extensions.AI/10.2.0": {
+      "Microsoft.Extensions.AI/10.7.0": {
         "dependencies": {
-          "Microsoft.Extensions.AI.Abstractions": "10.2.0",
-          "Microsoft.Extensions.Caching.Abstractions": "10.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.2",
-          "System.Diagnostics.DiagnosticSource": "10.0.2",
-          "System.Numerics.Tensors": "10.0.2",
-          "System.Text.Json": "10.0.2",
-          "System.Threading.Channels": "10.0.2"
+          "Microsoft.Extensions.AI.Abstractions": "10.7.0",
+          "Microsoft.Extensions.Caching.Abstractions": "10.0.9",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.9",
+          "System.Diagnostics.DiagnosticSource": "10.0.9",
+          "System.Numerics.Tensors": "10.0.9",
+          "System.Text.Json": "10.0.9",
+          "System.Threading.Channels": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.AI.dll": {
-            "assemblyVersion": "10.2.0.0",
-            "fileVersion": "10.200.26.6302"
+            "assemblyVersion": "10.7.0.0",
+            "fileVersion": "10.700.26.30905"
           }
         }
       },
-      "Microsoft.Extensions.AI.Abstractions/10.2.0": {
+      "Microsoft.Extensions.AI.Abstractions/10.7.0": {
         "dependencies": {
-          "System.Text.Json": "10.0.2"
+          "System.Text.Json": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.AI.Abstractions.dll": {
-            "assemblyVersion": "10.2.0.0",
-            "fileVersion": "10.200.26.6302"
+            "assemblyVersion": "10.7.0.0",
+            "fileVersion": "10.700.26.30905"
           }
         }
       },
       "Microsoft.Extensions.AI.OpenAI/10.0.1-preview.1.25571.5": {
         "dependencies": {
-          "Microsoft.Extensions.AI.Abstractions": "10.2.0",
+          "Microsoft.Extensions.AI.Abstractions": "10.7.0",
           "OpenAI": "2.7.0",
           "System.Memory.Data": "10.0.0",
-          "System.Text.Json": "10.0.2"
+          "System.Text.Json": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.AI.OpenAI.dll": {
@@ -470,24 +667,24 @@
           }
         }
       },
-      "Microsoft.Extensions.Caching.Abstractions/10.0.2": {
+      "Microsoft.Extensions.Caching.Abstractions/10.0.9": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "10.0.2"
+          "Microsoft.Extensions.Primitives": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
       "Microsoft.Extensions.Caching.Memory/8.0.1": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "10.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.2",
+          "Microsoft.Extensions.Caching.Abstractions": "10.0.9",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.9",
           "Microsoft.Extensions.Options": "8.0.2",
-          "Microsoft.Extensions.Primitives": "10.0.2"
+          "Microsoft.Extensions.Primitives": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
@@ -498,7 +695,7 @@
       },
       "Microsoft.Extensions.DependencyInjection/10.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
@@ -507,30 +704,30 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.2": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.9": {
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/10.0.2": {
+      "Microsoft.Extensions.Logging.Abstractions/10.0.9": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2",
-          "System.Diagnostics.DiagnosticSource": "10.0.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9",
+          "System.Diagnostics.DiagnosticSource": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
       "Microsoft.Extensions.Options/8.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2",
-          "Microsoft.Extensions.Primitives": "10.0.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9",
+          "Microsoft.Extensions.Primitives": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Options.dll": {
@@ -539,17 +736,17 @@
           }
         }
       },
-      "Microsoft.Extensions.Primitives/10.0.2": {
+      "Microsoft.Extensions.Primitives/10.0.9": {
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
       "Microsoft.Extensions.VectorData.Abstractions/9.7.0": {
         "dependencies": {
-          "Microsoft.Extensions.AI.Abstractions": "10.2.0"
+          "Microsoft.Extensions.AI.Abstractions": "10.7.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.VectorData.Abstractions.dll": {
@@ -561,7 +758,7 @@
       "Microsoft.Identity.Client/4.80.0": {
         "dependencies": {
           "Microsoft.IdentityModel.Abstractions": "8.14.0",
-          "System.Diagnostics.DiagnosticSource": "10.0.2",
+          "System.Diagnostics.DiagnosticSource": "10.0.9",
           "System.ValueTuple": "4.5.0"
         },
         "runtime": {
@@ -656,7 +853,7 @@
           "System.Collections.Immutable": "9.0.4",
           "System.Memory": "4.6.3",
           "System.Reflection.Emit.Lightweight": "4.7.0",
-          "System.Threading.Channels": "10.0.2"
+          "System.Threading.Channels": "10.0.9"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.Core.dll": {
@@ -754,7 +951,7 @@
       },
       "Microsoft.ML.AutoML/0.22.3": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.CSharp": "4.9.2",
+          "Microsoft.CodeAnalysis.CSharp": "5.3.0",
           "Microsoft.Extensions.DependencyInjection": "10.0.2",
           "Microsoft.ML": "4.0.3",
           "Microsoft.ML.CpuMath": "4.0.3",
@@ -784,7 +981,7 @@
       },
       "Microsoft.ML.CpuMath/4.0.3": {
         "dependencies": {
-          "System.Numerics.Tensors": "10.0.2"
+          "System.Numerics.Tensors": "10.0.9"
         },
         "runtime": {
           "lib/net6.0/Microsoft.ML.CpuMath.dll": {
@@ -1115,7 +1312,7 @@
       "Microsoft.ML.OnnxRuntime.Managed/1.23.2": {
         "dependencies": {
           "System.Memory": "4.6.3",
-          "System.Numerics.Tensors": "10.0.2"
+          "System.Numerics.Tensors": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.ML.OnnxRuntime.dll": {
@@ -1257,7 +1454,7 @@
       "Microsoft.ML.Tokenizers/1.0.3": {
         "dependencies": {
           "Google.Protobuf": "3.27.1",
-          "System.Text.Json": "10.0.2"
+          "System.Text.Json": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.ML.Tokenizers.dll": {
@@ -1310,10 +1507,10 @@
       "Microsoft.SemanticKernel.Abstractions/1.70.0": {
         "dependencies": {
           "Microsoft.Bcl.HashCode": "1.1.1",
-          "Microsoft.Extensions.AI": "10.2.0",
+          "Microsoft.Extensions.AI": "10.7.0",
           "Microsoft.Extensions.VectorData.Abstractions": "9.7.0",
           "System.Linq.AsyncEnumerable": "10.0.2",
-          "System.Text.Json": "10.0.2"
+          "System.Text.Json": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.SemanticKernel.Abstractions.dll": {
@@ -1352,7 +1549,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "10.0.2",
           "Microsoft.SemanticKernel.Abstractions": "1.70.0",
-          "System.Numerics.Tensors": "10.0.2"
+          "System.Numerics.Tensors": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/Microsoft.SemanticKernel.Core.dll": {
@@ -1374,6 +1571,17 @@
           "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
+        }
+      },
+      "Neo4j.Driver/6.1.2": {
+        "dependencies": {
+          "System.IO.Pipelines": "10.0.9"
+        },
+        "runtime": {
+          "lib/net8.0/Neo4j.Driver.dll": {
+            "assemblyVersion": "6.1.8.2",
+            "fileVersion": "6.1.2.0"
+          }
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -1443,6 +1651,17 @@
           }
         }
       },
+      "OllamaSharp/5.4.25": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.7.0"
+        },
+        "runtime": {
+          "lib/net8.0/OllamaSharp.dll": {
+            "assemblyVersion": "5.4.25.0",
+            "fileVersion": "5.4.25.0"
+          }
+        }
+      },
       "OpenAI/2.7.0": {
         "dependencies": {
           "System.ClientModel": "1.8.1",
@@ -1464,44 +1683,6 @@
           "lib/netstandard1.4/Parquet.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.1.3.0"
-          }
-        }
-      },
-      "ParquetSharp/21.0.0": {
-        "dependencies": {
-          "Apache.Arrow": "14.0.2"
-        },
-        "runtime": {
-          "lib/net6.0/ParquetSharp.dll": {
-            "assemblyVersion": "21.0.0.0",
-            "fileVersion": "21.0.0.0"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/linux-arm64/native/ParquetSharpNative.so": {
-            "rid": "linux-arm64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/linux-x64/native/ParquetSharpNative.so": {
-            "rid": "linux-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/osx-arm64/native/ParquetSharpNative.dylib": {
-            "rid": "osx-arm64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/osx-x64/native/ParquetSharpNative.dylib": {
-            "rid": "osx-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/ParquetSharpNative.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -1647,7 +1828,7 @@
       "System.Buffers/4.6.1": {},
       "System.ClientModel/1.8.1": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.2",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.9",
           "System.Memory.Data": "10.0.0"
         },
         "runtime": {
@@ -1694,6 +1875,66 @@
           }
         }
       },
+      "System.Composition/9.0.0": {
+        "dependencies": {
+          "System.Composition.AttributedModel": "9.0.0",
+          "System.Composition.Convention": "9.0.0",
+          "System.Composition.Hosting": "9.0.0",
+          "System.Composition.Runtime": "9.0.0",
+          "System.Composition.TypedParts": "9.0.0"
+        }
+      },
+      "System.Composition.AttributedModel/9.0.0": {
+        "runtime": {
+          "lib/net8.0/System.Composition.AttributedModel.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "System.Composition.Convention/9.0.0": {
+        "dependencies": {
+          "System.Composition.AttributedModel": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Composition.Convention.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "System.Composition.Hosting/9.0.0": {
+        "dependencies": {
+          "System.Composition.Runtime": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Composition.Hosting.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "System.Composition.Runtime/9.0.0": {
+        "runtime": {
+          "lib/net8.0/System.Composition.Runtime.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "System.Composition.TypedParts/9.0.0": {
+        "dependencies": {
+          "System.Composition.AttributedModel": "9.0.0",
+          "System.Composition.Hosting": "9.0.0",
+          "System.Composition.Runtime": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Composition.TypedParts.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
       "System.Configuration.ConfigurationManager/8.0.1": {
         "dependencies": {
           "System.Diagnostics.EventLog": "10.0.2",
@@ -1722,11 +1963,11 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Diagnostics.DiagnosticSource/10.0.2": {
+      "System.Diagnostics.DiagnosticSource/10.0.9": {
         "runtime": {
           "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
@@ -1867,11 +2108,11 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.IO.Pipelines/10.0.2": {
+      "System.IO.Pipelines/10.0.9": {
         "runtime": {
           "lib/net8.0/System.IO.Pipelines.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
@@ -1916,7 +2157,7 @@
       "System.Memory/4.6.3": {},
       "System.Memory.Data/10.0.0": {
         "dependencies": {
-          "System.Text.Json": "10.0.2"
+          "System.Text.Json": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/System.Memory.Data.dll": {
@@ -1930,7 +2171,7 @@
           "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.DiagnosticSource": "10.0.2",
+          "System.Diagnostics.DiagnosticSource": "10.0.9",
           "System.Diagnostics.Tracing": "4.3.0",
           "System.Globalization": "4.3.0",
           "System.Globalization.Extensions": "4.3.0",
@@ -1981,11 +2222,11 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Numerics.Tensors/10.0.2": {
+      "System.Numerics.Tensors/10.0.9": {
         "runtime": {
           "lib/net8.0/System.Numerics.Tensors.dll": {
-            "assemblyVersion": "10.0.0.2",
-            "fileVersion": "10.0.225.61305"
+            "assemblyVersion": "10.0.0.9",
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
@@ -2032,9 +2273,15 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Reflection.Metadata/8.0.0": {
+      "System.Reflection.Metadata/9.0.0": {
         "dependencies": {
           "System.Collections.Immutable": "9.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/System.Reflection.Metadata.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
         }
       },
       "System.Reflection.Primitives/4.3.0": {
@@ -2297,11 +2544,11 @@
           "System.Text.Encoding": "4.3.0"
         }
       },
-      "System.Text.Encodings.Web/10.0.2": {
+      "System.Text.Encodings.Web/10.0.9": {
         "runtime": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         },
         "runtimeTargets": {
@@ -2309,19 +2556,19 @@
             "rid": "browser",
             "assetType": "runtime",
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
-      "System.Text.Json/10.0.2": {
+      "System.Text.Json/10.0.9": {
         "dependencies": {
-          "System.IO.Pipelines": "10.0.2",
-          "System.Text.Encodings.Web": "10.0.2"
+          "System.IO.Pipelines": "10.0.9",
+          "System.Text.Encodings.Web": "10.0.9"
         },
         "runtime": {
           "lib/net8.0/System.Text.Json.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
@@ -2336,11 +2583,11 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Threading.Channels/10.0.2": {
+      "System.Threading.Channels/10.0.9": {
         "runtime": {
           "lib/net8.0/System.Threading.Channels.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.225.61305"
+            "fileVersion": "10.0.926.27113"
           }
         }
       },
@@ -2414,6 +2661,60 @@
           }
         }
       },
+      "Tiktoken/2.2.0": {
+        "dependencies": {
+          "Tiktoken.Core": "2.2.0",
+          "Tiktoken.Encodings.cl100k": "2.2.0",
+          "Tiktoken.Encodings.o200k": "2.2.0"
+        },
+        "runtime": {
+          "lib/net8.0/Tiktoken.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "Tiktoken.Core/2.2.0": {
+        "dependencies": {
+          "Tiktoken.Encodings.Abstractions": "2.2.0"
+        },
+        "runtime": {
+          "lib/net8.0/Tiktoken.Core.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "Tiktoken.Encodings.Abstractions/2.2.0": {
+        "runtime": {
+          "lib/net8.0/Tiktoken.Encodings.Abstractions.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "Tiktoken.Encodings.cl100k/2.2.0": {
+        "dependencies": {
+          "Tiktoken.Encodings.Abstractions": "2.2.0"
+        },
+        "runtime": {
+          "lib/net8.0/Tiktoken.Encodings.cl100k.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "Tiktoken.Encodings.o200k/2.2.0": {
+        "dependencies": {
+          "Tiktoken.Encodings.Abstractions": "2.2.0"
+        },
+        "runtime": {
+          "lib/net8.0/Tiktoken.Encodings.o200k.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
       "TorchSharp/0.102.7": {
         "dependencies": {
           "Google.Protobuf": "3.27.1",
@@ -2447,6 +2748,19 @@
             "rid": "win-x64",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "tryAGI.OpenAI/4.0.0": {
+        "dependencies": {
+          "CSharpToJsonSchema": "3.10.1",
+          "System.Text.Json": "10.0.9",
+          "Tiktoken": "2.2.0"
+        },
+        "runtime": {
+          "lib/net8.0/tryAGI.OpenAI.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
           }
         }
       }
@@ -2493,12 +2807,61 @@
       "path": "azure.identity/1.17.1",
       "hashPath": "azure.identity.1.17.1.nupkg.sha512"
     },
+    "CSharpToJsonSchema/3.10.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-d01LmVhNR2XRT5+XWrL8VKL4WKL7EGV9fSjCWRnnikgxq9y8vPj6XVxRPkcqCDruSlsB9mjdOeg5auIq9yjbig==",
+      "path": "csharptojsonschema/3.10.1",
+      "hashPath": "csharptojsonschema.3.10.1.nupkg.sha512"
+    },
     "Google.Protobuf/3.27.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-7IVz9TzhYCZ8qY0rPhXUnyJSXYdshUqmmxmTI763XmDDSJJFnyfKH43FFcMJu/CZgBcE98xlFztrKwhzcRkiPg==",
       "path": "google.protobuf/3.27.1",
       "hashPath": "google.protobuf.3.27.1.nupkg.sha512"
+    },
+    "Humanizer.Core/2.14.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
+      "path": "humanizer.core/2.14.1",
+      "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "LangChain.Polyfills/0.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ED5210CwLL7RlH6Tm/hhXA8CfyHCU9+gkJkoNVgVUT0D71uJhKxK2wvF3FGLAIidYe41Ai0rzSSBYii/HIqWTA==",
+      "path": "langchain.polyfills/0.16.0",
+      "hashPath": "langchain.polyfills.0.16.0.nupkg.sha512"
+    },
+    "LangChain.Providers.Abstractions/0.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o8hEicJT7+ixH/1PXsHgBeL9VS31OTFlsOhCdYOyfGVyLUd1coPdGfOeRgGJT/ZXPM/W7eSHIF8otpgzKyF5vw==",
+      "path": "langchain.providers.abstractions/0.17.0",
+      "hashPath": "langchain.providers.abstractions.0.17.0.nupkg.sha512"
+    },
+    "LangChain.Providers.OpenAI/0.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CV3K/ADf1U7iW/rkwhO1H7mVHmQSDTtUkgciYvFm3EUKOeRe++//o5ry1tLp3cZI8ME7Kb2cb2BCq5KhsDRh8w==",
+      "path": "langchain.providers.openai/0.17.0",
+      "hashPath": "langchain.providers.openai.0.17.0.nupkg.sha512"
+    },
+    "LangChain.Splitters.Abstractions/0.17.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1pNb4Lz5TBoxcc4W8Ealx7VHwUk+i1+SH6p0zTgMhDDZi+nh0UHQ22lGkjwZl/WvPSKzgugXN/KOP3/xhTTG3g==",
+      "path": "langchain.splitters.abstractions/0.17.1",
+      "hashPath": "langchain.splitters.abstractions.0.17.1.nupkg.sha512"
+    },
+    "LangChain.Splitters.CSharp/0.17.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-M5M7h1qJEqziBxWu9hD1RBdvGaQLCHzyuRZh2zHGfUTDATVQpy5kKrEsr5/j12HtcuwoU2gFzDJOVXrlZ9402w==",
+      "path": "langchain.splitters.csharp/0.17.1",
+      "hashPath": "langchain.splitters.csharp.0.17.1.nupkg.sha512"
     },
     "libtorch-cpu-win-x64/2.1.0.1": {
       "type": "package",
@@ -2542,26 +2905,40 @@
       "path": "microsoft.bcl.memory/9.0.0",
       "hashPath": "microsoft.bcl.memory.9.0.0.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Analyzers/3.3.4": {
+    "Microsoft.CodeAnalysis.Analyzers/5.3.0-2.25625.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AxkxcPR+rheX0SmvpLVIGLhOUXAKG56a64kV9VQZ4y9gR9ZmPXnqZvHJnmwLSwzrEP6junUF11vuc+aqo5r68g==",
-      "path": "microsoft.codeanalysis.analyzers/3.3.4",
-      "hashPath": "microsoft.codeanalysis.analyzers.3.3.4.nupkg.sha512"
+      "sha512": "sha512-4Yhh2fnu3G+J0J1lDc8WZVgMjgbynSeTfkl5IFJMFrmiIO0sc7Tjx+f3sFVV8Sd35PrIUWfof0RWc3lAMl7Azg==",
+      "path": "microsoft.codeanalysis.analyzers/5.3.0-2.25625.1",
+      "hashPath": "microsoft.codeanalysis.analyzers.5.3.0-2.25625.1.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Common/4.9.2": {
+    "Microsoft.CodeAnalysis.Common/5.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-M5PThug7b2AdxL7xKmQs50KzAQTl9jENw5jMT3iUt16k+DAFlw1S87juU3UuPs3gvBm8trMBSOEvSFDr31c9Vw==",
-      "path": "microsoft.codeanalysis.common/4.9.2",
-      "hashPath": "microsoft.codeanalysis.common.4.9.2.nupkg.sha512"
+      "sha512": "sha512-uC0qk3jzTQY7i90ehfnCqaOZpBUGJyPMiHJ3c0jOb8yaPBjWzIhVdNxPbeVzI74DB0C+YgBKPLqUkgFZzua5Mg==",
+      "path": "microsoft.codeanalysis.common/5.3.0",
+      "hashPath": "microsoft.codeanalysis.common.5.3.0.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.CSharp/4.9.2": {
+    "Microsoft.CodeAnalysis.CSharp/5.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HGIo7E9Mf3exAJbUdYpDFfLoYkSVaHDJXPyusWTYUTBaOPCowGw+Gap5McE1w+K+ryIXre72oiqL88sQHmHBmg==",
-      "path": "microsoft.codeanalysis.csharp/4.9.2",
-      "hashPath": "microsoft.codeanalysis.csharp.4.9.2.nupkg.sha512"
+      "sha512": "sha512-SQFNGQF4f7UfDXKxMzzGNMr3fjrPDIjLfmRvvVgDCw+dyvEHDaRfHuKA5q0Pr0/JW0Gcw89TxrxrS/MjwBvluQ==",
+      "path": "microsoft.codeanalysis.csharp/5.3.0",
+      "hashPath": "microsoft.codeanalysis.csharp.5.3.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.CSharp.Workspaces/5.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mRwxchBs3ewXK4dqK4R/eVCx99VIq1k/lhwArlu+fJuV0uzmbkTTRw4jR9gN9sOcAQfX0uV9KQlmCk1yC0JNog==",
+      "path": "microsoft.codeanalysis.csharp.workspaces/5.3.0",
+      "hashPath": "microsoft.codeanalysis.csharp.workspaces.5.3.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Workspaces.Common/5.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QSf1ge9A+XFZbGL+gIqXYBIKlm8QdQVLvHDPZiydG11W6mJY7XBMusrsgIEz6L8GYMzGJKTM78m9icliGMF7NA==",
+      "path": "microsoft.codeanalysis.workspaces.common/5.3.0",
+      "hashPath": "microsoft.codeanalysis.workspaces.common.5.3.0.nupkg.sha512"
     },
     "Microsoft.Data.Analysis/0.23.0": {
       "type": "package",
@@ -2584,19 +2961,19 @@
       "path": "microsoft.data.sqlclient.sni.runtime/6.0.2",
       "hashPath": "microsoft.data.sqlclient.sni.runtime.6.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.AI/10.2.0": {
+    "Microsoft.Extensions.AI/10.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hKLdKfwzwQ30Z5hA1DwHFvJJtRuyPmf41Es6t8DXW4PE/6caWK4qSDRY3i+QYmYbIVXnPlVR5xXQjYNz07giNg==",
-      "path": "microsoft.extensions.ai/10.2.0",
-      "hashPath": "microsoft.extensions.ai.10.2.0.nupkg.sha512"
+      "sha512": "sha512-r8z4uyPq0kTk4+jH92/hPshf3HNUXKOQ9axJwp57QFz43G45BG4DNYpVE0vuSan1dI69LtWx9ttF0Z2ibnghNg==",
+      "path": "microsoft.extensions.ai/10.7.0",
+      "hashPath": "microsoft.extensions.ai.10.7.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.AI.Abstractions/10.2.0": {
+    "Microsoft.Extensions.AI.Abstractions/10.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ONGlIBht0ygEdKc0bCt9XWUiq19/460dAu7fCKzPM34OFJSMQIohEDTJwjCJ8vVp8znNakloc9xFF9+R/eDCYQ==",
-      "path": "microsoft.extensions.ai.abstractions/10.2.0",
-      "hashPath": "microsoft.extensions.ai.abstractions.10.2.0.nupkg.sha512"
+      "sha512": "sha512-Lf822igMm8NkTYHZhTp7kjoNYkLLEvJnX3SkG/LVBvsZHC0Y9choogHz8YtITBoy0TOylM3kVUZ6iaHf0my0ug==",
+      "path": "microsoft.extensions.ai.abstractions/10.7.0",
+      "hashPath": "microsoft.extensions.ai.abstractions.10.7.0.nupkg.sha512"
     },
     "Microsoft.Extensions.AI.OpenAI/10.0.1-preview.1.25571.5": {
       "type": "package",
@@ -2605,12 +2982,12 @@
       "path": "microsoft.extensions.ai.openai/10.0.1-preview.1.25571.5",
       "hashPath": "microsoft.extensions.ai.openai.10.0.1-preview.1.25571.5.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.Abstractions/10.0.2": {
+    "Microsoft.Extensions.Caching.Abstractions/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WIRPDa/qoKHmJhTAPCO/zLu9kRLQ2Fd6HD5tzgdXJ3xGEVXDHP6FvakKJjynwKrVDld8H4G4tcbW53wuC/wxMQ==",
-      "path": "microsoft.extensions.caching.abstractions/10.0.2",
-      "hashPath": "microsoft.extensions.caching.abstractions.10.0.2.nupkg.sha512"
+      "sha512": "sha512-5fGxcw2vuYp8s0wio9H1ECiuk4iKSdTIlNuigdLIrkhg+5XAwgFVDB/5Ots3pfN/QhABLYXutA79JFtnUKDSHA==",
+      "path": "microsoft.extensions.caching.abstractions/10.0.9",
+      "hashPath": "microsoft.extensions.caching.abstractions.10.0.9.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Memory/8.0.1": {
       "type": "package",
@@ -2626,19 +3003,19 @@
       "path": "microsoft.extensions.dependencyinjection/10.0.2",
       "hashPath": "microsoft.extensions.dependencyinjection.10.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.2": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zOIurr59+kUf9vNcsUkCvKWZv+fPosUZXURZesYkJCvl0EzTc9F7maAO4Cd2WEV7ZJJ0AZrFQvuH6Npph9wdBw==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.2",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.10.0.2.nupkg.sha512"
+      "sha512": "sha512-g41l/30G3K4B/d/L8kjux0+30e27c8D0FVQ/PFCpbekgfDpj9mnDhieP67EqXWvl1EWNeZh2rpR4F5B/jcDOHA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.9",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.10.0.9.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Abstractions/10.0.2": {
+    "Microsoft.Extensions.Logging.Abstractions/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RZkez/JjpnO+MZ6efKkSynN6ZztLpw3WbxNzjLCPBd97wWj1S9ZYPWi0nmT4kWBRa6atHsdM1ydGkUr8GudyDQ==",
-      "path": "microsoft.extensions.logging.abstractions/10.0.2",
-      "hashPath": "microsoft.extensions.logging.abstractions.10.0.2.nupkg.sha512"
+      "sha512": "sha512-9S/DFt4cohlMPpzIxjG6kk0L8MuN2vDm9pbMCulxtJzzk82oJHVLBd8vuQxaPskaYQwKqmFmbannf5eoChgjYg==",
+      "path": "microsoft.extensions.logging.abstractions/10.0.9",
+      "hashPath": "microsoft.extensions.logging.abstractions.10.0.9.nupkg.sha512"
     },
     "Microsoft.Extensions.Options/8.0.2": {
       "type": "package",
@@ -2647,12 +3024,12 @@
       "path": "microsoft.extensions.options/8.0.2",
       "hashPath": "microsoft.extensions.options.8.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.Primitives/10.0.2": {
+    "Microsoft.Extensions.Primitives/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QmSiO+oLBEooGgB3i0GRXyeYRDHjllqt3k365jwfZlYWhvSHA3UL2NEVV5m8aZa041eIlblo6KMI5txvTMpTwA==",
-      "path": "microsoft.extensions.primitives/10.0.2",
-      "hashPath": "microsoft.extensions.primitives.10.0.2.nupkg.sha512"
+      "sha512": "sha512-fmEbAUFsaIKirgLt/lYhuFRBwhcSJN31jjHgCdbQxJiWOum6EdLjkbgGuukSP9z/a+9LibaxII/kF+GwOXgC4g==",
+      "path": "microsoft.extensions.primitives/10.0.9",
+      "hashPath": "microsoft.extensions.primitives.10.0.9.nupkg.sha512"
     },
     "Microsoft.Extensions.VectorData.Abstractions/9.7.0": {
       "type": "package",
@@ -2941,6 +3318,13 @@
       "path": "microsoft.win32.primitives/4.3.0",
       "hashPath": "microsoft.win32.primitives.4.3.0.nupkg.sha512"
     },
+    "Neo4j.Driver/6.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fykPjT4ZDHXpXeX3A+QOiMcCOGtSIs83AMczQ1MP1qZcEjLXMxMfnUSY16L4Jc6jnIAGbPh9FQtAGKPeVlJY4w==",
+      "path": "neo4j.driver/6.1.2",
+      "hashPath": "neo4j.driver.6.1.2.nupkg.sha512"
+    },
     "NETStandard.Library/1.6.1": {
       "type": "package",
       "serviceable": true,
@@ -2962,6 +3346,13 @@
       "path": "numsharp.lite/0.1.8",
       "hashPath": "numsharp.lite.0.1.8.nupkg.sha512"
     },
+    "OllamaSharp/5.4.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EqkPM1gbkE+RbHgKUMzp4lYjpFymWUIgJntx3u4uDXAfAIFUXJ0MGklNFCi/PdCaxNAPRpcf205yx+g6jLLhZg==",
+      "path": "ollamasharp/5.4.25",
+      "hashPath": "ollamasharp.5.4.25.nupkg.sha512"
+    },
     "OpenAI/2.7.0": {
       "type": "package",
       "serviceable": true,
@@ -2975,13 +3366,6 @@
       "sha512": "sha512-ga4eZj9ZeBr7SYkuGugy6le7AkgFpr1aFwo58hW1GjT6w6+XoONMOJ5OMh8abqvvUzfh+Dm92LOROPz75xua9w==",
       "path": "parquet.net/2.1.3",
       "hashPath": "parquet.net.2.1.3.nupkg.sha512"
-    },
-    "ParquetSharp/21.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-mxKK/hDqjBekjRvhvb1lFh3AOz+4j8tGOtPbX4spmIsx96cx7fCs0I6uB2CO4cexQ5A/jCNQ2DWwPDY6vi6vwg==",
-      "path": "parquetsharp/21.0.0",
-      "hashPath": "parquetsharp.21.0.0.nupkg.sha512"
     },
     "Protobuf.Text/0.4.0": {
       "type": "package",
@@ -3186,6 +3570,48 @@
       "path": "system.collections.immutable/9.0.4",
       "hashPath": "system.collections.immutable.9.0.4.nupkg.sha512"
     },
+    "System.Composition/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3Djj70fFTraOarSKmRnmRy/zm4YurICm+kiCtI0dYRqGJnLX6nJ+G3WYuFJ173cAPax/gh96REcbNiVqcrypFQ==",
+      "path": "system.composition/9.0.0",
+      "hashPath": "system.composition.9.0.0.nupkg.sha512"
+    },
+    "System.Composition.AttributedModel/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iri00l/zIX9g4lHMY+Nz0qV1n40+jFYAmgsaiNn16xvt2RDwlqByNG4wgblagnDYxm3YSQQ0jLlC/7Xlk9CzyA==",
+      "path": "system.composition.attributedmodel/9.0.0",
+      "hashPath": "system.composition.attributedmodel.9.0.0.nupkg.sha512"
+    },
+    "System.Composition.Convention/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+vuqVP6xpi582XIjJi6OCsIxuoTZfR0M7WWufk3uGDeCl3wGW6KnpylUJ3iiXdPByPE0vR5TjJgR6hDLez4FQg==",
+      "path": "system.composition.convention/9.0.0",
+      "hashPath": "system.composition.convention.9.0.0.nupkg.sha512"
+    },
+    "System.Composition.Hosting/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OFqSeFeJYr7kHxDfaViGM1ymk7d4JxK//VSoNF9Ux0gpqkLsauDZpu89kTHHNdCWfSljbFcvAafGyBoY094btQ==",
+      "path": "system.composition.hosting/9.0.0",
+      "hashPath": "system.composition.hosting.9.0.0.nupkg.sha512"
+    },
+    "System.Composition.Runtime/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-w1HOlQY1zsOWYussjFGZCEYF2UZXgvoYnS94NIu2CBnAGMbXFAX8PY8c92KwUItPmowal68jnVLBCzdrWLeEKA==",
+      "path": "system.composition.runtime/9.0.0",
+      "hashPath": "system.composition.runtime.9.0.0.nupkg.sha512"
+    },
+    "System.Composition.TypedParts/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aRZlojCCGEHDKqh43jaDgaVpYETsgd7Nx4g1zwLKMtv4iTo0627715ajEFNpEEBTgLmvZuv8K0EVxc3sM4NWJA==",
+      "path": "system.composition.typedparts/9.0.0",
+      "hashPath": "system.composition.typedparts.9.0.0.nupkg.sha512"
+    },
     "System.Configuration.ConfigurationManager/8.0.1": {
       "type": "package",
       "serviceable": true,
@@ -3207,12 +3633,12 @@
       "path": "system.diagnostics.debug/4.3.0",
       "hashPath": "system.diagnostics.debug.4.3.0.nupkg.sha512"
     },
-    "System.Diagnostics.DiagnosticSource/10.0.2": {
+    "System.Diagnostics.DiagnosticSource/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lYWBy8fKkJHaRcOuw30d67PrtVjR5754sz5Wl76s8P+vJ9FSThh9b7LIcTSODx1LY7NB3Srvg+JMnzd67qNZOw==",
-      "path": "system.diagnostics.diagnosticsource/10.0.2",
-      "hashPath": "system.diagnostics.diagnosticsource.10.0.2.nupkg.sha512"
+      "sha512": "sha512-VzIU41Sb23Em98hDQc71LPwKTC72xkiG7lpCZaIkf84jBJW+ViaKPa24qqR4FPmj1N4vDWilzs6Dq5Om8aFj+Q==",
+      "path": "system.diagnostics.diagnosticsource/10.0.9",
+      "hashPath": "system.diagnostics.diagnosticsource.10.0.9.nupkg.sha512"
     },
     "System.Diagnostics.EventLog/10.0.2": {
       "type": "package",
@@ -3305,12 +3731,12 @@
       "path": "system.io.filesystem.primitives/4.3.0",
       "hashPath": "system.io.filesystem.primitives.4.3.0.nupkg.sha512"
     },
-    "System.IO.Pipelines/10.0.2": {
+    "System.IO.Pipelines/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EqMsn9r18ABvTDxrDce4OWDhBE3y+rR23ilG7Y3BudDKrDKrLG/hkD/JmeFZbctAPxSkCjyJ/Ddwbn/g7ufRJA==",
-      "path": "system.io.pipelines/10.0.2",
-      "hashPath": "system.io.pipelines.10.0.2.nupkg.sha512"
+      "sha512": "sha512-raEAXJHu1ERuQnLhfaMUhK19A+i/CLHH5tFWi+azKxq2O4kzgvdeNuZTzMzyT7pyM1+zE2Pqb2g/DXJsuPp/LQ==",
+      "path": "system.io.pipelines/10.0.9",
+      "hashPath": "system.io.pipelines.10.0.9.nupkg.sha512"
     },
     "System.Linq/4.3.0": {
       "type": "package",
@@ -3375,12 +3801,12 @@
       "path": "system.net.sockets/4.3.0",
       "hashPath": "system.net.sockets.4.3.0.nupkg.sha512"
     },
-    "System.Numerics.Tensors/10.0.2": {
+    "System.Numerics.Tensors/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EzimXy5WX7RJxf1pHBfolBApA4GR7qje1cY9XofD4C+cQepx0a5ZVlZjde8NHk+W1+6kltrbbfa8LIOVpTM6yQ==",
-      "path": "system.numerics.tensors/10.0.2",
-      "hashPath": "system.numerics.tensors.10.0.2.nupkg.sha512"
+      "sha512": "sha512-Rb71S3gggYVwEce9ugNw91vbr4vC4gThtx/imSJtLBW3AupEKujJPPQL6xF9q0DcNm6+z7hnYk7XqXaUpA4wDg==",
+      "path": "system.numerics.tensors/10.0.9",
+      "hashPath": "system.numerics.tensors.10.0.9.nupkg.sha512"
     },
     "System.ObjectModel/4.3.0": {
       "type": "package",
@@ -3424,12 +3850,12 @@
       "path": "system.reflection.extensions/4.3.0",
       "hashPath": "system.reflection.extensions.4.3.0.nupkg.sha512"
     },
-    "System.Reflection.Metadata/8.0.0": {
+    "System.Reflection.Metadata/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ptvgrFh7PvWI8bcVqG5rsA/weWM09EnthFHR5SCnS6IN+P4mj6rE1lBDC4U8HL9/57htKAqy4KQ3bBj84cfYyQ==",
-      "path": "system.reflection.metadata/8.0.0",
-      "hashPath": "system.reflection.metadata.8.0.0.nupkg.sha512"
+      "sha512": "sha512-ANiqLu3DxW9kol/hMmTWbt3414t9ftdIuiIU7j80okq2YzAueo120M442xk1kDJWtmZTqWQn7wHDvMRipVOEOQ==",
+      "path": "system.reflection.metadata/9.0.0",
+      "hashPath": "system.reflection.metadata.9.0.0.nupkg.sha512"
     },
     "System.Reflection.Primitives/4.3.0": {
       "type": "package",
@@ -3599,19 +4025,19 @@
       "path": "system.text.encoding.extensions/4.3.0",
       "hashPath": "system.text.encoding.extensions.4.3.0.nupkg.sha512"
     },
-    "System.Text.Encodings.Web/10.0.2": {
+    "System.Text.Encodings.Web/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Ro4cLT4qpRy64crfLAy3ekihtXckeXrD5eI6qb6NDSEVyHcHsmH7KgN4dbnIuiBmXIoaCslx4SynLYxag1SLSQ==",
-      "path": "system.text.encodings.web/10.0.2",
-      "hashPath": "system.text.encodings.web.10.0.2.nupkg.sha512"
+      "sha512": "sha512-65bbI+LWcVgq1mzPtv6bJF+ZXeeIawld/puK9ixD1l3gJGM2IU4gkYbZoKLVjsXJXbrZqSRf86RlKf1TcCTY1Q==",
+      "path": "system.text.encodings.web/10.0.9",
+      "hashPath": "system.text.encodings.web.10.0.9.nupkg.sha512"
     },
-    "System.Text.Json/10.0.2": {
+    "System.Text.Json/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zy8ey7I16G9neZ6uzxrnYwS7pidElzN8XarsBjGu7lE2m7afTKMEe18KbY3ZSmh/z/bR40oxjd6hlUcmOEaMHw==",
-      "path": "system.text.json/10.0.2",
-      "hashPath": "system.text.json.10.0.2.nupkg.sha512"
+      "sha512": "sha512-mD4f7hUvjXEbLAnROibQswbYguGnfzN17gtkuqAHU1a0gJsqe7LXtV+0tItJsYrCBBpPYHiHFlLtjzG2ZEt5uQ==",
+      "path": "system.text.json/10.0.9",
+      "hashPath": "system.text.json.10.0.9.nupkg.sha512"
     },
     "System.Text.RegularExpressions/4.3.0": {
       "type": "package",
@@ -3627,12 +4053,12 @@
       "path": "system.threading/4.3.0",
       "hashPath": "system.threading.4.3.0.nupkg.sha512"
     },
-    "System.Threading.Channels/10.0.2": {
+    "System.Threading.Channels/10.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-knsF221yxwV4R17WUjMD/AlE3+po8q0D94GYwHN/grrSs3t7WSzQyJi0vIQ9e52jeHRU9XFf5AI6BnRS+G3RAA==",
-      "path": "system.threading.channels/10.0.2",
-      "hashPath": "system.threading.channels.10.0.2.nupkg.sha512"
+      "sha512": "sha512-z1TyDUuHghvrdaA5IA4m5EWpuyw4ywy7822tK2q2vw4475gsOuGFj8DCnKrYluiXLB0NfyrJXzHOaaDhsO9adQ==",
+      "path": "system.threading.channels/10.0.9",
+      "hashPath": "system.threading.channels.10.0.9.nupkg.sha512"
     },
     "System.Threading.Tasks/4.3.0": {
       "type": "package",
@@ -3683,12 +4109,54 @@
       "path": "tensorflow.net/0.20.1",
       "hashPath": "tensorflow.net.0.20.1.nupkg.sha512"
     },
+    "Tiktoken/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zOwPjC2CHlN56cdwsMDaCehUXZ0K8cflVZaiXNvyTbyrKTeBVtpioaHRL8PsndruKfwG9vkbOdbz7MHI/DNyag==",
+      "path": "tiktoken/2.2.0",
+      "hashPath": "tiktoken.2.2.0.nupkg.sha512"
+    },
+    "Tiktoken.Core/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VUAPJElUMGTtAmVD63IVmHAZ4D3Ac5HzfVORQXF+XuPJ1PCrlt/T9l9xPghdPT+3jL7iDgYMvaTug/Uhe146OA==",
+      "path": "tiktoken.core/2.2.0",
+      "hashPath": "tiktoken.core.2.2.0.nupkg.sha512"
+    },
+    "Tiktoken.Encodings.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UTZNDsdhrAa0C3c4xasumGAxQWsrCsZ0zCA9DcoD8pQ28FO7iQeLJ6cPQXt+AiWzl+ZoTOk4YJ6wZAyOME7YnQ==",
+      "path": "tiktoken.encodings.abstractions/2.2.0",
+      "hashPath": "tiktoken.encodings.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Tiktoken.Encodings.cl100k/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-poFklFoMZQ6BKTbYos2OV0UAafuWJVOxuXShrFSRFhaZNzxdU7Q63KaAmSRXXXhryVfc+gguQIA/LrbgWJl63w==",
+      "path": "tiktoken.encodings.cl100k/2.2.0",
+      "hashPath": "tiktoken.encodings.cl100k.2.2.0.nupkg.sha512"
+    },
+    "Tiktoken.Encodings.o200k/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zcCxX5KIyCEGYOkoEr3hGpBaNQ5BxZdERCDVa2Pl21jJPaiaKAfopK1b11DZoLY4hWUt9v0hUKJ7An5LYU5t9Q==",
+      "path": "tiktoken.encodings.o200k/2.2.0",
+      "hashPath": "tiktoken.encodings.o200k.2.2.0.nupkg.sha512"
+    },
     "TorchSharp/0.102.7": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-P4bl1QcZxD+ZLrPjblUSv6MjRLlDWKa6loPZMMfekIubiandR2gdloL4cQZmfblxf5JzaUWwsbcoBqMu1uHZCw==",
       "path": "torchsharp/0.102.7",
       "hashPath": "torchsharp.0.102.7.nupkg.sha512"
+    },
+    "tryAGI.OpenAI/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JM0kTroMT5g+F3g/Uj4ECktM/vWg8cP6o5Q7Y4oDlpMffckXnQ1QtQBDG752x0KvET0O+xwAFiszDdogasWykQ==",
+      "path": "tryagi.openai/4.0.0",
+      "hashPath": "tryagi.openai.4.0.0.nupkg.sha512"
     }
   }
 }
