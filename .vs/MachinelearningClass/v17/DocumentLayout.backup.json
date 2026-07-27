@@ -1,0 +1,198 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\alllabs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\alllabs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\otherlabs(agenticonnx).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\otherlabs(agenticonnx).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\sqlscripts\\qdrantinterviewstructure.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\sqlscripts\\qdrantinterviewstructure.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4CF3025A-B841-4041-B8CC-D373D4B8C49C}|GenericEmbeddingClient\\GenericEmbeddingAndChatClient.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\genericembeddingclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4CF3025A-B841-4041-B8CC-D373D4B8C49C}|GenericEmbeddingClient\\GenericEmbeddingAndChatClient.csproj|solutionrelative:genericembeddingclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\chunkinglessons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\chunkinglessons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\data\\dataregression.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\data\\dataregression.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\data\\datanlp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\data\\datanlp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\modelinterviewquestions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\modelinterviewquestions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|c:\\users\\shivb\\source\\repos\\machinelearningclass\\machinelearningclass\\sqlscripts\\sqlscriptforlab.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{FC348251-9BE5-4BA9-831D-7750ECD90EC3}|MachinelearningClass\\MachinelearningClass.csproj|solutionrelative:machinelearningclass\\sqlscripts\\sqlscriptforlab.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OtherLabs(AgenticONNX).cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\OtherLabs(AgenticONNX).cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\OtherLabs(AgenticONNX).cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\OtherLabs(AgenticONNX).cs",
+              "RelativeToolTip": "MachinelearningClass\\OtherLabs(AgenticONNX).cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T06:56:04.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Common.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Common.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\Common.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Common.cs",
+              "RelativeToolTip": "MachinelearningClass\\Common.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T09:31:57.103Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\GenericEmbeddingClient\\Program.cs",
+              "RelativeDocumentMoniker": "GenericEmbeddingClient\\Program.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\GenericEmbeddingClient\\Program.cs",
+              "RelativeToolTip": "GenericEmbeddingClient\\Program.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAASwCcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T06:56:04.832Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChunkingLessons.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\ChunkingLessons.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\ChunkingLessons.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\ChunkingLessons.cs",
+              "RelativeToolTip": "MachinelearningClass\\ChunkingLessons.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAASwLgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T06:56:04.899Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DataRegression.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\DataRegression.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\Data\\DataRegression.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\DataRegression.cs",
+              "RelativeToolTip": "MachinelearningClass\\Data\\DataRegression.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-24T16:45:56.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ModelInterviewQuestions.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\ModelInterviewQuestions.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\ModelInterviewQuestions.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\ModelInterviewQuestions.cs",
+              "RelativeToolTip": "MachinelearningClass\\ModelInterviewQuestions.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAswDgAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T07:15:40.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "QdrantInterviewStructure.txt",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\SQLScripts\\QdrantInterviewStructure.txt",
+              "RelativeDocumentMoniker": "MachinelearningClass\\SQLScripts\\QdrantInterviewStructure.txt",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\SQLScripts\\QdrantInterviewStructure.txt",
+              "RelativeToolTip": "MachinelearningClass\\SQLScripts\\QdrantInterviewStructure.txt",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAmwBQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-07-16T07:07:36.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DataNLP.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\DataNLP.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\Data\\DataNLP.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\DataNLP.cs",
+              "RelativeToolTip": "MachinelearningClass\\Data\\DataNLP.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAABBwAsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-11T13:09:03.071Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Program.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\Program.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Program.cs",
+              "RelativeToolTip": "MachinelearningClass\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-11T12:05:02.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AllLabs.cs",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\AllLabs.cs",
+              "RelativeDocumentMoniker": "MachinelearningClass\\AllLabs.cs",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\AllLabs.cs",
+              "RelativeToolTip": "MachinelearningClass\\AllLabs.cs",
+              "ViewState": "AgIAAI4CAAAAAAAAAAAAAGsEAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-11T12:01:55.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SQlScriptForLab.txt",
+              "DocumentMoniker": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\SQLScripts\\SQlScriptForLab.txt",
+              "RelativeDocumentMoniker": "MachinelearningClass\\SQLScripts\\SQlScriptForLab.txt",
+              "ToolTip": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\SQLScripts\\SQlScriptForLab.txt",
+              "RelativeToolTip": "MachinelearningClass\\SQLScripts\\SQlScriptForLab.txt",
+              "ViewState": "AgIAADoAAAAAAAAAAAAkwFQAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-07-11T11:59:22.205Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

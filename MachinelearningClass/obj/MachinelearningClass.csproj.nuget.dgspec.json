@@ -78,6 +78,10 @@
               "target": "Package",
               "version": "[10.7.0, )"
             },
+            "Microsoft.Extensions.AI.OpenAI": {
+              "target": "Package",
+              "version": "[10.8.1, )"
+            },
             "Microsoft.ML": {
               "target": "Package",
               "version": "[4.0.3, )"
@@ -109,6 +113,10 @@
             "OllamaSharp": {
               "target": "Package",
               "version": "[5.4.25, )"
+            },
+            "Qdrant.Client": {
+              "target": "Package",
+              "version": "[1.18.1, )"
             },
             "System.Diagnostics.EventLog": {
               "target": "Package",

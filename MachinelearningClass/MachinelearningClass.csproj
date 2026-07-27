@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.Data.Analysis" Version="0.23.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
     <PackageReference Include="Microsoft.Extensions.AI" Version="10.7.0" />
+    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.8.1" />
     <PackageReference Include="Microsoft.ML" Version="4.0.3" />
     <PackageReference Include="Microsoft.ML.AutoML" Version="0.22.3" />
     <PackageReference Include="Microsoft.ML.Mkl.Components" Version="4.0.3" />
@@ -23,6 +24,7 @@
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.70.0" />
     <PackageReference Include="Neo4j.Driver" Version="6.1.2" />
     <PackageReference Include="OllamaSharp" Version="5.4.25" />
+    <PackageReference Include="Qdrant.Client" Version="1.18.1" />
     <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.2" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.2" />
   </ItemGroup>

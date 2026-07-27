@@ -1,0 +1,32 @@
+﻿PUT collections/InterviewQuestions/points?wait=true
+{
+  "points": [
+    {
+      "id": 1,
+      "vector": {},
+      "payload": {
+        "Experience": "0-3 yrs year experience .NET developer",
+        "QuestionsSummary": "Basics of C#, OOP, ASP.NET Core fundamentals.",
+        "Questions": []
+      }
+    },
+    {
+      "id": 2,
+      "vector": {},
+      "payload": {
+        "Experience": "Senior .NET developer with 5+ years",
+        "QuestionsSummary": "Advanced ASP.NET Core, microservices, cloud, design patterns.",
+        "Questions": []
+      }
+    },
+    {
+      "id": 3,
+      "vector": {},
+      "payload": {
+        "Experience": "Architect 10+ years",
+        "QuestionsSummary": "Distributed systems, DDD, Azure architecture, performance tuning.",
+        "Questions": []
+      }
+    }
+  ]
+}

@@ -12,9 +12,9 @@ namespace MachinelearningClass
         public static string datapath = "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\";
          static  void Main(string[] args)
         {
-
-            //AllLabs.BuildSQLServerRAG();
-            AllLabs.Lab20_RagWithSQLServer().Wait();
+            AllLabs.Lab24SemanticKernel().Wait();
+            //AllLabs.BuildQdrantRAG().Wait();
+            //AllLabs.Lab21_QdrantRag().Wait();
             //ChunkingLessons.FixedAndRecursiveChunking();
             Console.Read();
         }

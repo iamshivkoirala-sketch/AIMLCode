@@ -5,6 +5,7 @@ using MachinelearningClass.DataNLP;
 using MachinelearningClass.InterviewQuestions;
 using MachinelearningClass.ModelNLP;
 using MachinelearningClass.Regression;
+using MathNet.Numerics;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.SqlTypes;
@@ -16,40 +17,47 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using Microsoft.ML.Transforms;
 using Microsoft.ML.Transforms.Text;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Embeddings;
 using OllamaSharp;
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Embeddings;
+using Qdrant.Client;
+using Qdrant.Client.Grpc;
 using System;
 using System.ClientModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static TorchSharp.torch.nn;
 using ChatMessage = OpenAI.Chat.ChatMessage;
+
 namespace MachinelearningClass
 {
-    public static class  AllLabs
+    public static class AllLabs
     {
         // Lab 1 :- Demo using Excel.
         public static void Lab2_SimplestMLCode()
         {
             var mlcontext = new MLContext();
-            
+
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceData()); // Data
             var pipeline = mlcontext.Transforms
-                                    
+
                                     // 1. Transformation
-                                    .ReplaceMissingValues("Age", replacementMode: 
+                                    .ReplaceMissingValues("Age", replacementMode:
                                     MissingValueReplacingEstimator.ReplacementMode.Mean)
                                     .Append(mlcontext.Transforms.Concatenate("Features", "Age"))
                                     // 2. Train: Use Age (Features) to predict the Premium (Label)
                                     .Append(
                                         mlcontext.Regression.Trainers
-                                        .Sdca(labelColumnName: "Premium",
+                                        .Ols(labelColumnName: "Premium",
                                         featureColumnName: "Features")
                                     );
 
@@ -58,7 +66,7 @@ namespace MachinelearningClass
 
             var pe = mlcontext.Model.
                         CreatePredictionEngine<InsuranceData, InsurancePrediction>(model);
-            
+
             var prediction = pe.Predict(new InsuranceData { Age = 82 }); // Inference
 
             Console.WriteLine(prediction.PredictedPremium);
@@ -68,14 +76,14 @@ namespace MachinelearningClass
         {
             var mlcontext = new MLContext();
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceData()); // Data
-            var pipeline = mlcontext.Transforms 
+            var pipeline = mlcontext.Transforms
                                     .Concatenate("Features", "Age")
                                     .Append(
                                      mlcontext.Regression.Trainers
                                      .Ols(labelColumnName: "Premium",
                                             featureColumnName: "Features"
                                       ));
-            var model = pipeline.Fit(data); 
+            var model = pipeline.Fit(data);
             var pipelinesteps = model as IEnumerable<ITransformer>;
 
             var modelLastStep = pipelinesteps.Last() as RegressionPredictionTransformer<OlsModelParameters>;
@@ -94,9 +102,9 @@ namespace MachinelearningClass
             var mlcontext = new MLContext();
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceDataMultiFeature()); // Data
             var pipeline = mlcontext.Transforms // f1 = Age + Salary
-                                    .Concatenate("Features", "Age","HighBp","LowBp")
+                                    .Concatenate("Features", "Age", "HighBp", "LowBp")
                                     .Append(
-                                     mlcontext.Regression.Trainers.FastTree
+                                     mlcontext.Regression.Trainers.Sdca
                                      (labelColumnName: "Premium",
                                             featureColumnName: "Features"
                                       ));
@@ -106,8 +114,8 @@ namespace MachinelearningClass
             // training
             var pe = mlcontext.Model.
                         CreatePredictionEngine<InsuranceData, InsurancePrediction>(model);
-           // inference
-            var prediction = pe.Predict(new InsuranceData { Age = 82 , HighBp=145 , LowBp=92 });
+            // inference
+            var prediction = pe.Predict(new InsuranceData { Age = 82, HighBp = 145, LowBp = 92 });
 
             Console.WriteLine(prediction.PredictedPremium);
             Console.Read();
@@ -118,28 +126,28 @@ namespace MachinelearningClass
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceData()); // Data
             var testdata = mlcontext.Data.LoadFromEnumerable(DataRegression.GetTestData()); // Data
 
-            var pipeline = mlcontext.Transforms 
+            var pipeline = mlcontext.Transforms
                                     .Concatenate("Features", "Age")
                                     .Append(
                                      mlcontext.Regression.Trainers
                                      .Ols(labelColumnName: "Premium",
                                             featureColumnName: "Features"
                                       ));
-            var model = pipeline.Fit(data); 
-            var predictions = model.Transform(testdata); 
+            var model = pipeline.Fit(data);
+            var predictions = model.Transform(testdata);
 
             var predictionEnumerable = mlcontext.Data.
-                                            CreateEnumerable<InsurancePrediction>(predictions, 
+                                            CreateEnumerable<InsurancePrediction>(predictions,
                                             reuseRowObject: false).ToList();
             var metrics = mlcontext.Regression.Evaluate(predictions, labelColumnName: "Premium", scoreColumnName: "Score");
 
             Console.WriteLine($"R-Squared: {metrics.RSquared}");
             Console.WriteLine($"RMSE: {metrics.RootMeanSquaredError}");
-            foreach ( var prediction in predictionEnumerable)
+            foreach (var prediction in predictionEnumerable)
             {
-                Console.WriteLine(prediction.PredictedPremium- metrics.RootMeanSquaredError);
+                Console.WriteLine(prediction.PredictedPremium - metrics.RootMeanSquaredError);
             }
-            
+
             Console.Read();
         }
         public static void Lab6_CheckingRSandRMSE()
@@ -380,7 +388,7 @@ namespace MachinelearningClass
 
             var engine = ml.Model.CreatePredictionEngine<CustomerData, CustomerCluster>(model);
 
-            var test = new CustomerData { Age = 70, Spending = 20000 };
+            var test = new CustomerData { Age = 33, Spending = 50000 };
 
             var result = engine.Predict(test);
 
@@ -416,7 +424,7 @@ namespace MachinelearningClass
             Console.WriteLine("One-Hot Encoded Vectors:");
             foreach (var row in encoded)
             {
-               
+
                 Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
             }
             string input = "Mango";
@@ -453,14 +461,19 @@ namespace MachinelearningClass
             var engine = mlContext.Model.CreatePredictionEngine<InputText, Output>(model);
 
             // 3. Compare for the first sentence
-            var result1 = engine.Predict(new InputText() { Text = "This camera camera is good" });
+            var result1 = engine.Predict(new InputText() { Text = "camera is good" });
             Console.WriteLine($"1st: [{string.Join(", ", result1.BagOfWords)}]");
 
             // 4. Compare for the second sentence
-            var result2 = engine.Predict(new InputText() { Text = "This camera is bad" });
+            var result2 = engine.Predict(new InputText() { Text = "camera is bad" });
             Console.WriteLine($"2nd: [{string.Join(", ", result2.BagOfWords)}]");
+
+            var result3 = engine.Predict(new InputText() { Text = "camera is too good" });
+            Console.WriteLine($"2nd: [{string.Join(", ", result3.BagOfWords)}]");
             // comparison vector
-            //Common.CalculateEuclideanDistance()
+            Console.WriteLine(Common.CalculateCosineSimilarity(result1.BagOfWords, result2.BagOfWords));
+            Console.WriteLine(Common.CalculateCosineSimilarity(result1.BagOfWords, result3.BagOfWords));
+
         }
         public static void Lab12_TfIdf()
         {
@@ -543,7 +556,7 @@ namespace MachinelearningClass
             Console.WriteLine($"Distance (King vs. Camera): {similiarityCamera:F4}");
         }
 
-      
+
         //The vocab.txt is used by the tokenizer to convert text into tokens (numbers),
         //and the ONNX model all-MiniLM-L6-v2.onnx is used by the embedder to
         //convert those tokens into vector embeddings that capture meaning.
@@ -570,7 +583,7 @@ namespace MachinelearningClass
 
         }
 
-        public static async Task Lab17_OpenAILLMEmbeddings()
+        public static async Task Lab15_OpenAILLMEmbeddings()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
             var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
@@ -601,7 +614,7 @@ namespace MachinelearningClass
 
 
         }
-        public static async Task Lab18_OpenAIExamplewithPromptBasics()
+        public static async Task Lab16_OpenAIExamplewithPromptBasics()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
             var chat = new ChatClient(model: "gpt-4o-mini", key);
@@ -639,7 +652,7 @@ namespace MachinelearningClass
                 Console.WriteLine($"Total Tokens Consumed: {usage.TotalTokenCount}");
             }
         }
-        public static async Task Lab18_OpenAIExamplewithPromptBasics2Improved()
+        public static async Task Lab16_OpenAIExamplewithPromptBasics2Improved()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
             var chat = new ChatClient(model: "gpt-4o-mini", key);
@@ -668,7 +681,7 @@ namespace MachinelearningClass
 
             string[] interviewQuestions = fullResponse.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            
+
 
             string[] candidateAnswers = new string[interviewQuestions.Length];
 
@@ -683,7 +696,7 @@ namespace MachinelearningClass
             Console.WriteLine("Interview Complete!");
             Console.WriteLine($"Successfully recorded responses for all {interviewQuestions.Length} questions locally.");
         }
-        public static async Task Lab19_RagInMemory()
+        public static async Task Lab17_RagInMemory()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
             var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
@@ -708,7 +721,7 @@ namespace MachinelearningClass
                 }
             }
         }
-        public static async Task Lab20_RagWithSQLServer()
+        public static async Task Lab17_RagWithSQLServer()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
             var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
@@ -730,77 +743,164 @@ namespace MachinelearningClass
                 }
             }
         }
-
-
-        public class BertInput
+        public static async Task Lab17_QdrantRag()
         {
-            [VectorType]
-            public long[] input_ids { get; set; }
-            [VectorType]
-            public long[] attention_mask { get; set; }
-        }
-
-        public class BertOutput
-        {
-            [VectorType]
-            public float[] sentence_embedding { get; set; }
-        }
-
-        public class QAItem
-        {
-            public string Question { get; set; }
-            public string Answer { get; set; }
-            public float[] Embedding { get; set; }
-        }
-        public class InputText { public string Text { get; set; } }
-        public class Output {
-            public string Text { get; set; }
-            public float[] BagOfWords { get; set; } 
-        }
-        public static void BuildSQLServerRAG()
-        {
+            var client = new QdrantClient("localhost", 6334);
             var key = Environment.GetEnvironmentVariable("aikey");
             var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
             var chat = new ChatClient(model: "gpt-4o-mini", key);
-            List<RAGLookup> lookupStore = GetCurrentExperience(); // GetCurrentExperience()
-
-            foreach (var item in lookupStore)
+            while (1 == 1)
             {
-                var embed = embeddingClient.GenerateEmbeddingAsync(item.Description).Result;
+                Console.WriteLine("Enter who you are ?");
 
-                item.DescriptionEmbedding = embed.Value.ToFloats().ToArray();
-                UpdateEmbeddingFortheExperience(item);
-                // take all question and store in DB for now DB is inmemory
-                var messages = new List<ChatMessage>
-                {
-                new SystemChatMessage(
-                $"You are a technical interviewer. Based on this experience: '{item.Description} ' , " +
-                "generate exactly 10 distinct, non-overlapping interview questions covering + " + item.QuestionstobeAsked  +
-                ".Return ONLY the questions, each on a fresh new line starting with its number (e.g., '1. ', '2. '). " +
-                "Do NOT include introductory remarks, markdown formatting, greetings, or conversational filler text.")
-                };
+                string candidateExp = Console.ReadLine();
+                var candidateEmbedding = await embeddingClient.GenerateEmbeddingAsync(candidateExp);
+                float[] candidateVector = candidateEmbedding.Value.ToFloats().ToArray();
 
-                Console.WriteLine("Open AI Calling and loading questions for " + item.Description);
+                var result = await client.SearchAsync(
+                    collectionName: "InterviewQuestions",
+                    vector: candidateVector,
+                    limit: 1);
 
-                var completion = chat.CompleteChatAsync(messages).Result;
-                string fullResponse = completion.Value.Content.Last().Text;
+                var bestMatch = result.First();
 
-                ChatTokenUsage usage = completion.Value.Usage;
-                Console.WriteLine($"Input (Prompt) Tokens: {usage.InputTokenCount}");
-                Console.WriteLine($"Output (Completion) Tokens: {usage.OutputTokenCount}");
-                Console.WriteLine($"Total Tokens Consumed: {usage.TotalTokenCount}");
+                // Console.WriteLine(bestMatch.Score);
+                Console.WriteLine(bestMatch.Payload["Experience"].StringValue);
 
-                string[] interviewQuestions = fullResponse.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                Console.WriteLine(bestMatch.Payload["Questions"].StringValue);
+                Console.WriteLine("----------------------------------------------------------");
+            }
+        }
+        public static void Lab18_LLMDecoupling(string llm)
+        {
 
-                foreach (var question in interviewQuestions)
-                {
-                    InsertQuestionForThatExperience(item.Id,question);
-                   
-                }
+            IChatClient client = null;
+
+            // 1. Conditionally assign the back-end implementation
+            if (llm.Equals("Ollama"))
+            {
+                client = new OllamaApiClient(new Uri("http://localhost:11434"), "llama3.2");
+            }
+            else if (llm.Equals("OpenAI"))
+            {
+                var key = Environment.GetEnvironmentVariable("aikey");
+
+                ChatClient openAIChatClient = new ChatClient(
+                                                    model: "gpt-4o-mini",
+                                                    apiKey: key
+                );
+                client = openAIChatClient.AsIChatClient();
+            }
+            var chatResponse = client.GetResponseAsync("whats the capital of india ?").Result;
 
 
+
+
+        }
+        public static void Lab18_EmbeddingDecouple(string embedName)
+        {
+
+            IEmbeddingGenerator<string, Embedding<float>> generator;
+
+            if (embedName == "text-embedding-3-small")
+            {
+                var key = Environment.GetEnvironmentVariable("aikey");
+                var openAIClient = new EmbeddingClient(
+                    model: "text-embedding-3-small",
+                    apiKey: key
+                );
+                generator = openAIClient.AsIEmbeddingGenerator();
+            }
+            else if (embedName == "nomic-embed-text")
+            {
+                generator = new OllamaApiClient(
+                    new Uri("http://localhost:11434/"),
+                    "nomic-embed-text"
+                );
+            }
+            else
+            {
+                throw new ArgumentException($"Unsupported provider: {embedName}");
             }
 
+            // 2. Generate the embedding vector inside the function
+            var vec = generator.GenerateAsync("learn AI").Result.Vector;
+
+            // 3. Return the first vector's floating-point coordinates
+            Console.WriteLine(vec);
+        }
+        public static async Task Lab19ToolingusingSemanticKernel()
+        {
+            var apiKey = Environment.GetEnvironmentVariable("aikey");
+
+            var kernel = Kernel.CreateBuilder()
+                .AddOpenAIChatCompletion("gpt-4o-mini", apiKey)
+                .Build();
+
+            kernel.Plugins.AddFromType<GreetingPlugin>("greetingtools");
+
+            var chat = kernel.GetRequiredService<IChatCompletionService>();
+
+            
+
+            Console.Write("Enter your message: ");
+            string userInput = Console.ReadLine() ?? "";
+
+            var history = new ChatHistory();
+
+            history.AddSystemMessage("""
+            You are a greeting assistant.
+
+            Available tools:
+            - good_morning
+            - good_evening
+            - good_night
+
+            Whenever appropriate, ALWAYS call one of the greeting tools.
+            Pass the user's name as the username parameter.
+            Do not generate the greeting yourself if a tool exists.
+            """);
+
+            history.AddUserMessage($"""
+          
+            Message: {userInput}
+            """);
+
+            var settings = new OpenAIPromptExecutionSettings
+            {
+                // FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+                FunctionChoiceBehavior =
+            FunctionChoiceBehavior.Auto(autoInvoke: false)
+            };
+
+            var response = await chat.GetChatMessageContentAsync(
+                history,
+                settings,
+                kernel);
+
+            Console.WriteLine();
+            Console.ReadLine();
+        }
+        public static async Task<List<RAGLookup>> GetCurrentExperienceFromQdrant()
+        {
+            var client = new QdrantClient("localhost", 6334);
+            var list = new List<RAGLookup>();
+
+            var result = await client.ScrollAsync(
+                collectionName: "InterviewQuestions"
+            );
+
+            foreach (var point in result.Result)
+            {
+                list.Add(new RAGLookup
+                {
+                    Id = (int)point.Id.Num,
+                    Description = point.Payload["Experience"].StringValue,
+                    QuestionstobeAsked = point.Payload["QuestionsSummary"].StringValue
+                });
+            }
+
+            return list;
         }
         public static List<RAGLookup> GetCurrentExperience()
         {
@@ -809,8 +909,8 @@ namespace MachinelearningClass
             using (SqlConnection con = new SqlConnection(Program.sqlConnectionString))
             {
                 string query = @"
-            SELECT Id, Expierience, Questions
-            FROM dbo.tblExp1";
+        SELECT Id, Expierience, Questions
+        FROM dbo.tblExp1";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -840,9 +940,9 @@ namespace MachinelearningClass
             using (SqlConnection con = new SqlConnection(Program.sqlConnectionString))
             {
                 string query = @"
-            UPDATE dbo.tblExp1
-            SET ExpVector = CAST(@ExpVector AS vector(1536))
-            WHERE Id = @Id";
+        UPDATE dbo.tblExp1
+        SET ExpVector = CAST(@ExpVector AS vector(1536))
+        WHERE Id = @Id";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -859,8 +959,8 @@ namespace MachinelearningClass
             using (SqlConnection con = new SqlConnection(Program.sqlConnectionString))
             {
                 string query = @"
-            INSERT INTO dbo.tblQuestions (ExpId, Question)
-            VALUES (@ExpId, @Question)";
+        INSERT INTO dbo.tblQuestions (ExpId, Question)
+        VALUES (@ExpId, @Question)";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -884,20 +984,20 @@ namespace MachinelearningClass
 
                 string sql = @"
 SELECT TOP (1)
-    Id,
-    Expierience,
-    Questions,
-    VECTOR_DISTANCE(
-        'cosine',
-        ExpVector,
-        CAST(@QueryVector AS vector(1536))
-    ) AS Score
+Id,
+Expierience,
+Questions,
+VECTOR_DISTANCE(
+    'cosine',
+    ExpVector,
+    CAST(@QueryVector AS vector(1536))
+) AS Score
 FROM dbo.tblExp1
 WHERE ExpVector IS NOT NULL
 ORDER BY VECTOR_DISTANCE(
-        'cosine',
-        ExpVector,
-        CAST(@QueryVector AS vector(1536)));";
+    'cosine',
+    ExpVector,
+    CAST(@QueryVector AS vector(1536)));";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
@@ -1043,13 +1143,13 @@ ORDER BY Id;";
                 item.DescriptionEmbedding = embed.Value.ToFloats().ToArray();
                 // take all question and store in DB for now DB is inmemory
                 var messages = new List<ChatMessage>
-                {
-                new SystemChatMessage(
-                $"You are a technical interviewer. Based on this experience: '{item.Description} ' , " +
-                "generate exactly 10 distinct, non-overlapping interview questions covering + " + item.QuestionstobeAsked  +
-                ".Return ONLY the questions, each on a fresh new line starting with its number (e.g., '1. ', '2. '). " +
-                "Do NOT include introductory remarks, markdown formatting, greetings, or conversational filler text.")
-                };
+            {
+            new SystemChatMessage(
+            $"You are a technical interviewer. Based on this experience: '{item.Description} ' , " +
+            "generate exactly 10 distinct, non-overlapping interview questions covering + " + item.QuestionstobeAsked  +
+            ".Return ONLY the questions, each on a fresh new line starting with its number (e.g., '1. ', '2. '). " +
+            "Do NOT include introductory remarks, markdown formatting, greetings, or conversational filler text.")
+            };
 
                 Console.WriteLine("Open AI Calling and loading questions for " + item.Description);
 
@@ -1071,6 +1171,188 @@ ORDER BY Id;";
 
             }
             return lookupStore;
+        }
+        public static void BuildSQLServerRAG()
+        {
+            var key = Environment.GetEnvironmentVariable("aikey");
+            var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
+            var chat = new ChatClient(model: "gpt-4o-mini", key);
+            List<RAGLookup> lookupStore = GetCurrentExperience(); // GetCurrentExperience()
+
+            foreach (var item in lookupStore)
+            {
+                var embed = embeddingClient.GenerateEmbeddingAsync(item.Description).Result;
+
+                item.DescriptionEmbedding = embed.Value.ToFloats().ToArray();
+                UpdateEmbeddingFortheExperience(item);
+                // take all question and store in DB for now DB is inmemory
+                var messages = new List<ChatMessage>
+            {
+            new SystemChatMessage(
+            $"You are a technical interviewer. Based on this experience: '{item.Description} ' , " +
+            "generate exactly 10 distinct, non-overlapping interview questions covering + " + item.QuestionstobeAsked  +
+            ".Return ONLY the questions, each on a fresh new line starting with its number (e.g., '1. ', '2. '). " +
+            "Do NOT include introductory remarks, markdown formatting, greetings, or conversational filler text.")
+            };
+
+                Console.WriteLine("Open AI Calling and loading questions for " + item.Description);
+
+                var completion = chat.CompleteChatAsync(messages).Result;
+                string fullResponse = completion.Value.Content.Last().Text;
+
+                ChatTokenUsage usage = completion.Value.Usage;
+                Console.WriteLine($"Input (Prompt) Tokens: {usage.InputTokenCount}");
+                Console.WriteLine($"Output (Completion) Tokens: {usage.OutputTokenCount}");
+                Console.WriteLine($"Total Tokens Consumed: {usage.TotalTokenCount}");
+
+                string[] interviewQuestions = fullResponse.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var question in interviewQuestions)
+                {
+                    InsertQuestionForThatExperience(item.Id, question);
+
+                }
+
+
+            }
+
+        }
+        public static async Task BuildQdrantRAG()
+        {
+            var client = new QdrantClient("localhost", 6334);
+
+
+            var key = Environment.GetEnvironmentVariable("aikey");
+            var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
+            var chat = new ChatClient("gpt-4o-mini", key);
+
+            List<RAGLookup> lookupStore = GetCurrentExperienceFromQdrant().Result;
+
+            foreach (var item in lookupStore)
+            {
+                // Generate embedding
+                var embedding = await embeddingClient.GenerateEmbeddingAsync(item.Description);
+                float[] vector = embedding.Value.ToFloats().ToArray();
+
+                // Generate interview questions
+                var messages = new List<ChatMessage>
+    {
+            new SystemChatMessage(
+            $"You are a technical interviewer. Based on this experience: '{item.Description}', " +
+            $"generate exactly 10 distinct interview questions covering {item.QuestionstobeAsked}. " +
+            $"Return only the questions, each on a new line.")
+        };
+
+                Console.WriteLine($"Generating questions for {item.Description}");
+
+                var completion = await chat.CompleteChatAsync(messages);
+
+                string response = completion.Value.Content.Last().Text;
+
+                List<string> questions =
+                    response.Split(
+                        new[] { "\r\n", "\n" },
+                        StringSplitOptions.RemoveEmptyEntries)
+                        .ToList();
+
+                await InsertToQdrant(client, vector, item.Id, item.Description, item.QuestionstobeAsked, questions);
+            }
+        }
+
+        public static async Task InsertToQdrant(QdrantClient client, float[] vector, int id, string experience, string topic, List<string> questions)
+        {
+            //insert data into qdrant
+            await client.UpsertAsync(
+                "InterviewQuestions",
+                new List<PointStruct>
+                {
+        new PointStruct
+        {
+            Id =(ulong) id ,
+
+            Vectors = vector,
+
+            Payload =
+            {
+                ["Experience"] = experience,
+                ["Topic"] = topic,
+                ["Questions"] = string.Join("\n", questions)
+            }
+        }
+                });
+
+            Console.WriteLine($"{experience} inserted.");
+        }
+    }
+    public class BertInput
+    {
+        [VectorType]
+        public long[] input_ids { get; set; }
+        [VectorType]
+        public long[] attention_mask { get; set; }
+    }
+
+    public class BertOutput
+    {
+        [VectorType]
+        public float[] sentence_embedding { get; set; }
+    }
+
+    public class QAItem
+    {
+        public string Question { get; set; }
+        public string Answer { get; set; }
+        public float[] Embedding { get; set; }
+    }
+    public class InputText { 
+        public string Text { get; set; } 
+    }
+    public class Output {
+        public string Text { get; set; }
+        public float[] BagOfWords { get; set; } 
+    }
+    
+
+
+    
+   
+
+    public sealed class GreetingPlugin
+    {
+        [KernelFunction("good_morning")]
+        [Description(
+            "Greets the user in the morning. " +
+            "Call this when the user says good morning or mentions morning or suprabhat .")]
+        public string GoodMorning(
+            [Description("The name of the user")] string username)
+        {
+            Console.WriteLine("GoodMorning tool was called.");
+
+            return $"Good morning, {username}! Have a wonderful day.";
+        }
+
+        [KernelFunction("good_evening")]
+        [Description(
+            "Greets the user in the evening. " +
+            "Call this when the user says good evening or mentions evening.")]
+        public string GoodEvening(
+            [Description("The name of the user")] string username)
+        {
+            Console.WriteLine("GoodEvening tool was called.");
+
+            return $"A very good evening, {username}!";
+        }
+
+        [KernelFunction("good_night")]
+        [Description(
+            "Says good night to the user. " +
+            "Call this when the user says good night, bye, goodbye, or bye-bye.")]
+        public string GoodNight(
+            [Description("The name of the user")] string username)
+        {
+            Console.WriteLine("GoodNight tool was called.");
+
+            return $"Good night, {username}! Sleep well.";
         }
     }
 }
