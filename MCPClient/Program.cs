@@ -29,26 +29,13 @@ namespace MCPClient
             {
                 Console.WriteLine($"- {tool.Name}");
             }
-            // here we are talking with the MCP server and knowing the tools.
-            //IChatClient chatClient = new OllamaApiClient(
-            //    new Uri("http://localhost:11434"),
-            //    "llama3.2"    
-            //);
-
-            //IChatClient client = new OllamaChatClient(new Uri("http://localhost:11434"), "llama3.2")
-            //                 .AsBuilder()
-            //                 .UseFunctionInvocation()
-            //                 //.UseFunctionInvocation(configure:options => {
-
-            //                 //    options.MaximumIterationsPerRequest = 1;
-            //                 //})
-            //                 .Build();
+            
             var key = Environment.GetEnvironmentVariable("aikey");
 
             IChatClient client = new ChatClient("gpt-4o-mini", key)
             .AsIChatClient() // Bridges OpenAI.Chat to IChatClient
             .AsBuilder()
-            //.UseFunctionInvocation()
+            .UseFunctionInvocation()
             //.UseFunctionInvocation(configure: options =>
             //{
 

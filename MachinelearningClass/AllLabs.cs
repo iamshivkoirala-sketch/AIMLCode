@@ -408,7 +408,7 @@ namespace MachinelearningClass
         };
 
             var dataView = ml.Data.LoadFromEnumerable(data);
-
+            // name.IsMr.isMale()
             var pipeline = ml.Transforms.Categorical.OneHotEncoding(
                 outputColumnName: "FruitEncoded",
                 inputColumnName: "Fruit");
@@ -418,29 +418,91 @@ namespace MachinelearningClass
             // take a tex input 
             // Mango - [1,0,0]
             // [1,0,0] - Mango
-            var encoded = ml.Data.CreateEnumerable<FruitFeatures>(
-                transformedData, reuseRowObject: true);
+            //var encoded = ml.Data.CreateEnumerable<FruitFeatures>(
+            //    transformedData, reuseRowObject: true);
 
-            Console.WriteLine("One-Hot Encoded Vectors:");
-            foreach (var row in encoded)
-            {
+            //Console.WriteLine("One-Hot Encoded Vectors:");
+            //foreach (var row in encoded)
+            //{
 
-                Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
-            }
-            string input = "Mango";
-
+            //    Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
+            //}
             var predictionEngine =
             ml.Model.CreatePredictionEngine<ModelNLP.FruitData, FruitFeatures>(
             model);
-
-            var inputResult = predictionEngine.Predict(
-            new ModelNLP.FruitData
+            while (true)
             {
-                Fruit = input
-            });
+                Console.WriteLine("Ener fruit name");
+                string input = Console.ReadLine(); ;
 
-            Console.WriteLine(
-            $"Input vector: [{string.Join(",", inputResult.FruitEncoded)}]");
+
+
+                var inputResult = predictionEngine.Predict(
+                new ModelNLP.FruitData
+                {
+                    Fruit = input
+                });
+
+                Console.WriteLine(
+                $"Input vector: [{string.Join(",", inputResult.FruitEncoded)}]");
+            }
+        }
+        public static void Lab12_1_OneHotEncoding()
+        {
+            var ml = new MLContext();
+
+            var data = new[]
+            {
+            new ModelNLP.FruitData { Fruit = "Mango" },
+            new ModelNLP.FruitData { Fruit = "Apple" },
+            new ModelNLP.FruitData { Fruit = "Berry" }
+        };
+
+            var dataView = ml.Data.LoadFromEnumerable(data);
+            // name.IsMr.isMale()
+            var pipeline = ml.Transforms.Categorical.OneHotEncoding(
+                outputColumnName: "FruitEncoded",
+                inputColumnName: "Fruit");
+
+            var model = pipeline.Fit(dataView);
+            var transformedData = model.Transform(dataView);
+            // take a tex input 
+            // Mango - [1,0,0]
+            // [1,0,0] - Mango
+            //var encoded = ml.Data.CreateEnumerable<FruitFeatures>(
+            //    transformedData, reuseRowObject: true);
+
+            //Console.WriteLine("One-Hot Encoded Vectors:");
+            //foreach (var row in encoded)
+            //{
+
+            //    Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
+            //}
+            var predictionEngine =
+            ml.Model.CreatePredictionEngine<ModelNLP.FruitData, FruitFeatures>(
+            model);
+            while (true)
+            {
+                Console.WriteLine("Ener fruit name1");
+                string input1 = Console.ReadLine(); ;
+
+
+                Console.WriteLine("Ener fruit name2");
+                string input2 = Console.ReadLine(); 
+
+                var inputResult1 = predictionEngine.Predict(
+                new ModelNLP.FruitData
+                {
+                    Fruit = input1
+                });
+                var inputResult2 = predictionEngine.Predict(
+               new ModelNLP.FruitData
+               {
+                   Fruit = input2
+               });
+                Console.WriteLine(Common.CalculateEuclideanDistance(inputResult1.FruitEncoded,
+                    inputResult2.FruitEncoded));
+            }
         }
         public static void Lab12_Bow()
         {
@@ -515,8 +577,10 @@ namespace MachinelearningClass
             var samples = new[]
             {
             new InputText { Text = "king" },
+            new InputText { Text = "emperor" },
             new InputText { Text = "queen" },
-            new InputText { Text = "camera" }
+            new InputText { Text = "horse" }
+
         };
 
             var data = ml.Data.LoadFromEnumerable(samples);
@@ -547,15 +611,19 @@ namespace MachinelearningClass
             var resultsList = results.ToList();
 
             var kingVector = resultsList[0].Features;
-            var queenVector = resultsList[1].Features;
-            var cameraVector = resultsList[2].Features;
+            var empVector = resultsList[1].Features;
+            var queenVector = resultsList[2].Features;
+            var horseVector = resultsList[3].Features;
+
             double similiarityKingQueen = Common.CalculateCosineSimilarity(kingVector, queenVector);
-            double similiarityCamera = Common.CalculateCosineSimilarity(kingVector, cameraVector);
+            double similiarityKingemp = Common.CalculateCosineSimilarity(kingVector, empVector);
+            double similiarityKingHorse = Common.CalculateCosineSimilarity(kingVector, horseVector);
+
 
             Console.WriteLine($"\nDistance (King vs. Queen): {similiarityKingQueen:F4}");
-            Console.WriteLine($"Distance (King vs. Camera): {similiarityCamera:F4}");
+            Console.WriteLine($"Distance (King vs. Camera): {similiarityKingemp:F4}");
+            Console.WriteLine($"Distance (King vs. Horse): {similiarityKingHorse:F4}");
         }
-
 
         //The vocab.txt is used by the tokenizer to convert text into tokens (numbers),
         //and the ONNX model all-MiniLM-L6-v2.onnx is used by the embedder to
@@ -574,15 +642,52 @@ namespace MachinelearningClass
             );
             string texttobeMatched = "I love cricket and especially batting.";
             var texttobeMatchedV = embedder.GenerateEmbedding(texttobeMatched).ToArray();
+            while (1 == 1)
+            {
+                Console.WriteLine("Enter text be matched");
+                string inputText = Console.ReadLine();
+                var inputTextV = embedder.GenerateEmbedding(inputText).ToArray();
+                Console.WriteLine(Common.CalculateCosineSimilarity(texttobeMatchedV, inputTextV));
 
-            Console.WriteLine("Enter text be matched");
-            string inputText = Console.ReadLine();
-            var inputTextV = embedder.GenerateEmbedding(inputText).ToArray();
-            Console.WriteLine(Common.CalculateCosineSimilarity(texttobeMatchedV, inputTextV));
-
-
+            }
         }
 
+        public static async Task Lab14_1_Using3Small()
+        {
+            var key = Environment.GetEnvironmentVariable("aikey");
+
+          
+
+            var embeddingClient = new EmbeddingClient(
+                model: "text-embedding-3-small",
+                apiKey: key
+            );
+
+            string textToBeMatched = "I love cricket and especially batting.";
+            var embed = await embeddingClient.GenerateEmbeddingAsync(textToBeMatched);
+            var textToBeMatchedVector = embed.Value.ToFloats().ToArray();
+           
+
+            while (true)
+            {
+                Console.WriteLine();
+                Console.Write("Enter text to be matched (type 'exit' to quit): ");
+
+                string? inputText = Console.ReadLine();
+
+                
+
+                var embedinput = await embeddingClient.GenerateEmbeddingAsync(inputText);
+                var inputTextVector = embedinput.Value.ToFloats().ToArray();
+
+
+                double similarity = Common.CalculateCosineSimilarity(
+                    textToBeMatchedVector,
+                    inputTextVector);
+
+                Console.WriteLine($"Cosine Similarity : {similarity:F4}");
+            }
+        }
         public static async Task Lab15_OpenAILLMEmbeddings()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
@@ -868,9 +973,9 @@ namespace MachinelearningClass
 
             var settings = new OpenAIPromptExecutionSettings
             {
-                // FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
-                FunctionChoiceBehavior =
-            FunctionChoiceBehavior.Auto(autoInvoke: false)
+               // FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+               FunctionChoiceBehavior =
+                FunctionChoiceBehavior.Auto(autoInvoke: false)
             };
 
             var response = await chat.GetChatMessageContentAsync(
@@ -881,6 +986,19 @@ namespace MachinelearningClass
             Console.WriteLine();
             Console.ReadLine();
         }
+        public static void  Lab20_1ModelContextProject_Stdio()
+        {
+            // check MCPServerSTDIO and MCPClient
+            // its a different C# project
+
+        }
+        public static void Lab20_2ModelContextProject_MCP()
+        {
+            // check MCPServrHTTP calling inside github copilot
+            // its a different C# project
+
+        }
+        #region methods for the above labs.
         public static async Task<List<RAGLookup>> GetCurrentExperienceFromQdrant()
         {
             var client = new QdrantClient("localhost", 6334);
@@ -1283,7 +1401,11 @@ ORDER BY Id;";
 
             Console.WriteLine($"{experience} inserted.");
         }
+        #endregion methods for the above labs.
+
     }
+    #region classes for the above labs.
+
     public class BertInput
     {
         [VectorType]
@@ -1311,18 +1433,13 @@ ORDER BY Id;";
         public string Text { get; set; }
         public float[] BagOfWords { get; set; } 
     }
-    
-
-
-    
-   
-
+  
     public sealed class GreetingPlugin
     {
         [KernelFunction("good_morning")]
         [Description(
             "Greets the user in the morning. " +
-            "Call this when the user says good morning or mentions morning or suprabhat .")]
+            "Call this when the user says GM, good morning or mentions morning or suprabhat or kalimera .")]
         public string GoodMorning(
             [Description("The name of the user")] string username)
         {
@@ -1334,7 +1451,7 @@ ORDER BY Id;";
         [KernelFunction("good_evening")]
         [Description(
             "Greets the user in the evening. " +
-            "Call this when the user says good evening or mentions evening.")]
+            "Call this when the user says GE,good evening or mentions evening.")]
         public string GoodEvening(
             [Description("The name of the user")] string username)
         {
@@ -1346,7 +1463,7 @@ ORDER BY Id;";
         [KernelFunction("good_night")]
         [Description(
             "Says good night to the user. " +
-            "Call this when the user says good night, bye, goodbye, or bye-bye.")]
+            "Call this when the user says GN, good night, bye, goodbye, or bye-bye.")]
         public string GoodNight(
             [Description("The name of the user")] string username)
         {
@@ -1355,4 +1472,6 @@ ORDER BY Id;";
             return $"Good night, {username}! Sleep well.";
         }
     }
+    #endregion classes for the above labs.
+
 }

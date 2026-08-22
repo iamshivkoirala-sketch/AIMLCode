@@ -1,0 +1,18 @@
+{
+  "inputs": [],
+  "servers": {
+    "greetingt": {
+      "type": "sse",
+      "url": "https://localhost:7111/mcp",
+      "headers": {}
+    },
+    "mcptool": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": [
+        "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MCPServerDotNet\\bin\\Debug\\net8.0\\MCPServerDotNet.dll"
+      ],
+      "env": {}
+    }
+  }
+}

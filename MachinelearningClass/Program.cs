@@ -7,13 +7,13 @@ namespace MachinelearningClass
 {
     internal class Program
     {
-        public static string sqlConnectionString = "Data Source=DESKTOP-ILFSBH1\\SQLEXPRESS01;Initial Catalog=Test;Integrated Security=True;Trust Server Certificate=True";
+        public static string sqlConnectionString = "Data Source=DESKTOP-ILFSBH1\\SQLEXPRESS01;Initial Catalog=InterviewQuestions;Integrated Security=True;Trust Server Certificate=True";
 
         public static string datapath = "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\Data\\";
          static  void Main(string[] args)
         {
-            AllLabs.Lab24SemanticKernel().Wait();
-            //AllLabs.BuildQdrantRAG().Wait();
+            //OtherLabs.Lab29SemanticKernel().Wait();
+            AllLabs.Lab19ToolingusingSemanticKernel().Wait();
             //AllLabs.Lab21_QdrantRag().Wait();
             //ChunkingLessons.FixedAndRecursiveChunking();
             Console.Read();

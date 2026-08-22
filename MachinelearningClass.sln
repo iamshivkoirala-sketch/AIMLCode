@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachinelearningClass", "Mac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericEmbeddingAndChatClient", "GenericEmbeddingClient\GenericEmbeddingAndChatClient.csproj", "{4CF3025A-B841-4041-B8CC-D373D4B8C49C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCPServerDotNet", "MCPServerDotNet\MCPServerDotNet.csproj", "{91E377CA-062D-49DA-879C-5E670700CB90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCPServerStdIO", "MCPServerDotNet\MCPServerStdIO.csproj", "{91E377CA-062D-49DA-879C-5E670700CB90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAIGuardRail", "AzureAIGuardRail\AzureAIGuardRail.csproj", "{C26BF5A3-3811-44CD-9F5D-05846BB1BC92}"
 EndProject
@@ -18,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PythonAzureFiles", "PythonA
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterviewAssistant", "InterviewAssistant\InterviewAssistant.csproj", "{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPClient", "MCPClient\MCPClient.csproj", "{185A4F00-F574-5F80-CD98-7F3478D756BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPServerHttp", "MCPServerHttp\MCPServerHttp.csproj", "{1A381FF6-D977-42CD-985A-A51D66F7B711}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB7F3039-25FA-45C3-8A0A-BD9089792E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{185A4F00-F574-5F80-CD98-7F3478D756BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{185A4F00-F574-5F80-CD98-7F3478D756BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{185A4F00-F574-5F80-CD98-7F3478D756BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{185A4F00-F574-5F80-CD98-7F3478D756BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A381FF6-D977-42CD-985A-A51D66F7B711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A381FF6-D977-42CD-985A-A51D66F7B711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A381FF6-D977-42CD-985A-A51D66F7B711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A381FF6-D977-42CD-985A-A51D66F7B711}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -48,7 +48,8 @@ namespace MachinelearningClass
         }
         public static async Task Lab29SemanticKernel()
         {
-
+           
+            //EXEC xp_logevent 50001,'TEST: SQL Server stopped - Agentic AI Demo','ERROR';
             var apiKey = Environment.GetEnvironmentVariable("aikey");
 
             var kernel = Kernel.CreateBuilder()
