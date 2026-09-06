@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net8.0": {
       "AllMiniLmL6V2Sharp/0.0.3": {
@@ -11365,35 +11365,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\shivB\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\abhij\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.1.33\\ToolboxNuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj",
+      "projectUniqueName": "D:\\Pract\\External\\Shivkumar\\AIMLCode\\MachinelearningClass\\MachinelearningClass.csproj",
       "projectName": "MachinelearningClass",
-      "projectPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj",
-      "packagesPath": "C:\\Users\\shivB\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\obj\\",
+      "projectPath": "D:\\Pract\\External\\Shivkumar\\AIMLCode\\MachinelearningClass\\MachinelearningClass.csproj",
+      "packagesPath": "C:\\Users\\abhij\\.nuget\\packages\\",
+      "outputPath": "D:\\Pract\\External\\Shivkumar\\AIMLCode\\MachinelearningClass\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.1.33\\ToolboxNuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\shivB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abhij\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "projectReferences": {}
         }
@@ -11408,10 +11413,11 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.400"
     },
     "frameworks": {
       "net8.0": {
+        "framework": "net8.0",
         "targetAlias": "net8.0",
         "dependencies": {
           "AllMiniLmL6V2Sharp": {
@@ -11507,7 +11513,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
