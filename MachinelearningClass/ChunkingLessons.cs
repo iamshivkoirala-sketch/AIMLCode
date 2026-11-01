@@ -26,18 +26,12 @@ namespace MachinelearningClass
                  "What is WCF ?" +
                  "Azure Service Bus is a messaging service." +
                  "It is used for asynchronous communication.";
-            //string data = "Q: What is Azure?\n" +
-            //                        "A: Azure is a cloud platform.\n\n" +
-            //                        "Q: What is .NET?\n" +
-            //                        "A: .NET is a development platform.";
-            //var splitter = new CharacterTextSplitter(
-            //                separator: " ",
-            //                chunkSize: 70,
-            //                chunkOverlap: 20);
+           
 
             var splitter = new RecursiveCharacterTextSplitter(
-                    chunkSize: 70,
-                    chunkOverlap: 20);
+                    chunkSize: 200,
+                    chunkOverlap: 50,
+                    separators: [" "]);
             var chunks = splitter.SplitText(data);
 
             foreach (var chunk in chunks)
@@ -234,9 +228,9 @@ namespace MachinelearningClass
             await session.ExecuteWriteAsync(async tx =>
             {
                 await tx.RunAsync(@"
-            CREATE (p:Person {name:'Shiv'})
-            CREATE (s:City {name:'Mumbai'})
-            CREATE (p)-[:Stays]->(s)
+            CREATE (p:Person {name:'Raja'})
+            CREATE (s:Skill {name:'SQL'})
+            CREATE (p)-[:KNOWS]->(s)
             ");
             });
 
@@ -246,7 +240,7 @@ namespace MachinelearningClass
         {
             await using var driver = GraphDatabase.Driver(
                 "bolt://localhost:7687",
-                AuthTokens.Basic("neo4j", "password@123"));
+                AuthTokens.Basic("neo4j", "pass@123"));
 
             await driver.VerifyConnectivityAsync();
 

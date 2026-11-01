@@ -13,8 +13,9 @@ namespace MachinelearningClass
          static  void Main(string[] args)
         {
             //OtherLabs.Lab29SemanticKernel().Wait();
-            AllLabs.Lab19ToolingusingSemanticKernel().Wait();
-            //AllLabs.Lab21_QdrantRag().Wait();
+            //ChunkingLessons.FixedAndRecursiveChunking();
+            AllLabs.Lab21_MicrosoftAgent();   
+            //AllLabs.Lab14_1_Using3Small().Wait();
             //ChunkingLessons.FixedAndRecursiveChunking();
             Console.Read();
         }

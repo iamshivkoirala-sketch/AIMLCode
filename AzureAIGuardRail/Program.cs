@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 class Program
 {
-    private static readonly string endpoint = "";
-    private static readonly string apiKey = "";
+    private static readonly string endpoint = "https://questpond-cs.cognitiveservices.azure.com/";
+    private static readonly string apiKey = "ssss";
 
 
     static async Task Main(string[] args)
@@ -51,7 +51,7 @@ class Program
         string url = $"{endpoint}contentsafety/text:analyze?api-version=2024-09-01";
         var payload = new
         {
-            text = "i saw blood everywhere",
+            text = "i saw blood everywhere , people attacked with knife",
             categories = new[] { "Hate", "Sexual", "SelfHarm", "Violence" },
             outputType = "FourSeverityLevels"
         };

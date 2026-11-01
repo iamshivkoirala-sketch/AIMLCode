@@ -1,15 +1,17 @@
 ﻿using AllMiniLmL6V2Sharp;
 using AllMiniLmL6V2Sharp.Tokenizer;
+using InterviewTools;
 using MachinelearningClass.Cohort;
 using MachinelearningClass.DataNLP;
 using MachinelearningClass.InterviewQuestions;
 using MachinelearningClass.ModelNLP;
 using MachinelearningClass.Regression;
 using MathNet.Numerics;
+using Microsoft.Agents.AI;
+using Microsoft.Agents.AI.Workflows;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.SqlTypes;
-using Microsoft.Extensions.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.ML;
 using Microsoft.ML.AutoML;
@@ -21,6 +23,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Embeddings;
+using ModelContextProtocol.Server;
 using OllamaSharp;
 using OpenAI;
 using OpenAI.Chat;
@@ -35,7 +38,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tensorflow;
+using TorchSharp.Modules;
+using static Microsoft.Agents.AI.AIContextProvider;
 using static TorchSharp.torch.nn;
+using AIContextProvider = Microsoft.Agents.AI.AIContextProvider;
 using ChatMessage = OpenAI.Chat.ChatMessage;
 
 namespace MachinelearningClass
@@ -49,7 +56,6 @@ namespace MachinelearningClass
 
             var data = mlcontext.Data.LoadFromEnumerable(DataRegression.GetLinearInsuranceData()); // Data
             var pipeline = mlcontext.Transforms
-
                                     // 1. Transformation
                                     .ReplaceMissingValues("Age", replacementMode:
                                     MissingValueReplacingEstimator.ReplacementMode.Mean)
@@ -66,6 +72,7 @@ namespace MachinelearningClass
 
             var pe = mlcontext.Model.
                         CreatePredictionEngine<InsuranceData, InsurancePrediction>(model);
+
 
             var prediction = pe.Predict(new InsuranceData { Age = 82 }); // Inference
 
@@ -86,7 +93,8 @@ namespace MachinelearningClass
             var model = pipeline.Fit(data);
             var pipelinesteps = model as IEnumerable<ITransformer>;
 
-            var modelLastStep = pipelinesteps.Last() as RegressionPredictionTransformer<OlsModelParameters>;
+            var modelLastStep = pipelinesteps.Last() as 
+                RegressionPredictionTransformer<OlsModelParameters>;
             var modelParams = modelLastStep.Model;
             float intercept = modelParams.Bias; // intercept
             var slope = modelParams.Weights[0]; // slope
@@ -104,13 +112,13 @@ namespace MachinelearningClass
             var pipeline = mlcontext.Transforms // f1 = Age + Salary
                                     .Concatenate("Features", "Age", "HighBp", "LowBp")
                                     .Append(
-                                     mlcontext.Regression.Trainers.Sdca
+                                     mlcontext.Regression.Trainers.Ols
                                      (labelColumnName: "Premium",
                                             featureColumnName: "Features"
                                       ));
             var model = pipeline.Fit(data); // execution = data + Ols ==> Model
-            var preview = pipeline.Fit(data).Transform(data).Preview(); // see vectors
-
+            var preview = model.Transform(data).Preview(); // see vectors
+            Console.WriteLine(preview);
             // training
             var pe = mlcontext.Model.
                         CreatePredictionEngine<InsuranceData, InsurancePrediction>(model);
@@ -243,7 +251,7 @@ namespace MachinelearningClass
             var model = pipeline.Fit(data); // execution = data + Ols ==> Model
             var pe = mlContext.Model.
                         CreatePredictionEngine<InsuranceData, InsurancePrediction>(model);
-            var prediction = pe.Predict(new InsuranceData { Age = 45 });
+            var prediction = pe.Predict(new InsuranceData { Age = 53 });
 
             Console.WriteLine(prediction.PredictedPremium);
             Console.Read();
@@ -332,18 +340,18 @@ namespace MachinelearningClass
             var data = ml.Data.LoadFromEnumerable(DataRegression.GetFruitData());
 
             var pipeline =
-                        ml.Transforms.Concatenate("Features", "Weight")
+                        ml.Transforms.Concatenate("f1", "Weight")
                         .Append(ml.BinaryClassification.Trainers.FastTree(
                         labelColumnName: "IsApple",
-                        featureColumnName: "Features"));
+                        featureColumnName: "f1"));
             var model = pipeline.Fit(data);
             var pre = pipeline.Fit(data).Preview(data);
-            var engine = ml.Model.CreatePredictionEngine<Cohort.FruitData, FruitPrediction>(model);
+            var engine = ml.Model.CreatePredictionEngine<Cohort.FruitData, FruitPredictionIsApple>(model);
 
-            var test = new Cohort.FruitData { Weight = 20 };
+            var test = new Cohort.FruitData { Weight = 150 };
             var result = engine.Predict(test);
 
-            Console.WriteLine(result.PredictedLabel);
+            Console.WriteLine(result.IsApple);
         }
         public static void Lab10_MulticlassCalssification()
         {
@@ -355,18 +363,18 @@ namespace MachinelearningClass
                 ml.Transforms.Conversion.MapValueToKey("Label", nameof(Cohort.FruitData.FruitType))
                 .Append(ml.Transforms.Categorical.OneHotEncoding("ColorEncoded", nameof(Cohort.FruitData.Color)))
                 .Append(ml.Transforms.Concatenate("Features", "Weight", "ColorEncoded"))
-                .Append(ml.MulticlassClassification.Trainers.SdcaMaximumEntropy())
+                .Append(ml.MulticlassClassification.Trainers.LbfgsMaximumEntropy())
                 .Append(ml.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
             var model = pipeline.Fit(data);
             var preview = pipeline.Fit(data).Preview(data);
-
+            
             var engine = ml.Model.CreatePredictionEngine<Cohort.FruitData, FruitPrediction>(model);
 
             var test = new Cohort.FruitData
             {
-                Weight = 110,
-                Color = "Yellow",
+                Weight = 155,
+                Color = "Red",
 
             };
 
@@ -418,15 +426,15 @@ namespace MachinelearningClass
             // take a tex input 
             // Mango - [1,0,0]
             // [1,0,0] - Mango
-            //var encoded = ml.Data.CreateEnumerable<FruitFeatures>(
-            //    transformedData, reuseRowObject: true);
+            var encoded = ml.Data.CreateEnumerable<FruitFeatures>(
+                transformedData, reuseRowObject: true);
 
-            //Console.WriteLine("One-Hot Encoded Vectors:");
-            //foreach (var row in encoded)
-            //{
+            Console.WriteLine("One-Hot Encoded Vectors:");
+            foreach (var row in encoded)
+            {
 
-            //    Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
-            //}
+                Console.WriteLine($"[{string.Join(",", row.FruitEncoded)}]");
+            }
             var predictionEngine =
             ml.Model.CreatePredictionEngine<ModelNLP.FruitData, FruitFeatures>(
             model);
@@ -579,7 +587,7 @@ namespace MachinelearningClass
             new InputText { Text = "king" },
             new InputText { Text = "emperor" },
             new InputText { Text = "queen" },
-            new InputText { Text = "horse" }
+            new InputText { Text = "camera" }
 
         };
 
@@ -613,16 +621,16 @@ namespace MachinelearningClass
             var kingVector = resultsList[0].Features;
             var empVector = resultsList[1].Features;
             var queenVector = resultsList[2].Features;
-            var horseVector = resultsList[3].Features;
+            var camera = resultsList[3].Features;
 
             double similiarityKingQueen = Common.CalculateCosineSimilarity(kingVector, queenVector);
             double similiarityKingemp = Common.CalculateCosineSimilarity(kingVector, empVector);
-            double similiarityKingHorse = Common.CalculateCosineSimilarity(kingVector, horseVector);
+            double similiarityKingCamera = Common.CalculateCosineSimilarity(kingVector, camera);
 
 
             Console.WriteLine($"\nDistance (King vs. Queen): {similiarityKingQueen:F4}");
-            Console.WriteLine($"Distance (King vs. Camera): {similiarityKingemp:F4}");
-            Console.WriteLine($"Distance (King vs. Horse): {similiarityKingHorse:F4}");
+            Console.WriteLine($"Distance (King vs. emperor): {similiarityKingemp:F4}");
+            Console.WriteLine($"Distance (King vs. camera): {similiarityKingCamera:F4}");
         }
 
         //The vocab.txt is used by the tokenizer to convert text into tokens (numbers),
@@ -655,18 +663,14 @@ namespace MachinelearningClass
         public static async Task Lab14_1_Using3Small()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
-
-          
-
             var embeddingClient = new EmbeddingClient(
                 model: "text-embedding-3-small",
                 apiKey: key
             );
 
-            string textToBeMatched = "I love cricket and especially batting.";
+            string textToBeMatched = "junior developer 0 to 2 years";
             var embed = await embeddingClient.GenerateEmbeddingAsync(textToBeMatched);
             var textToBeMatchedVector = embed.Value.ToFloats().ToArray();
-           
 
             while (true)
             {
@@ -714,6 +718,8 @@ namespace MachinelearningClass
                     .First();
 
                 Console.WriteLine(bestMatch.Description);
+                Console.WriteLine(bestMatch.QuestionstobeAsked);
+
             }
 
 
@@ -863,7 +869,7 @@ namespace MachinelearningClass
                 float[] candidateVector = candidateEmbedding.Value.ToFloats().ToArray();
 
                 var result = await client.SearchAsync(
-                    collectionName: "InterviewQuestions",
+                    collectionName: "InterviewCollections",
                     vector: candidateVector,
                     limit: 1);
 
@@ -998,6 +1004,786 @@ namespace MachinelearningClass
             // its a different C# project
 
         }
+        public static void Lab21_MicrosoftAgent()
+        {
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            string modelId = "gpt-4o";
+
+            IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
+            // AddScoped<IchatClient,ChatClient>
+            AIAgent agent = chatClient.AsAIAgent(
+              
+                name: "MockInterviewAgent",
+                instructions: "Send only 3 interview questions as per the " +
+                             " as per the skill put by the developer "
+                            // + " but ask questions only on OOP and SQL basic"
+            //tools : [AIFunctionFactory.Create(StartTimer)]
+
+            );
+            Console.Write("Enter who you are ?");
+            string userPrompt = Console.ReadLine();
+            Console.WriteLine($"User: {userPrompt}\n");
+
+            var response = agent.RunAsync(userPrompt).Result;
+            Console.WriteLine($"Agent: {response.Text}");
+
+            Console.ReadLine();
+        }
+        public static async Task Lab22_MicrosoftAgentWithRag()
+        {
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            string modelId = "gpt-4o";
+            var embeddingClient = new EmbeddingClient("text-embedding-3-small", apiKey);
+
+            Console.Write("Enter who you are ?");
+            string userPrompt = Console.ReadLine();
+            Console.WriteLine($"User: {userPrompt}\n");
+            IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
+            var candidateEmbed = await embeddingClient.GenerateEmbeddingAsync(userPrompt);
+            var candidateVector = candidateEmbed.Value.ToFloats().ToArray();
+
+            var bestMatchContext = GetBestTopMatch(candidateVector);
+
+            Console.WriteLine(bestMatchContext.Description);
+            AIAgent agent = chatClient.AsAIAgent(
+                name: "MockInterviewAgent",
+                instructions: "Send only 3 interview questions as per the " +
+                             " as per the skill put by the developer " 
+                //tools : [AIFunctionFactory.Create(StartTimer)]
+
+            );
+          
+
+           var response = agent.RunAsync(userPrompt + " ask questions around " + bestMatchContext.QuestionstobeAsked).Result;
+            Console.WriteLine($"Agent: {response.Text}");
+
+            Console.ReadLine();
+        }
+        public static async Task Lab23_MicrosoftAgentWithSessions()
+        {
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            string modelId = "gpt-4o";
+            var embeddingClient = new EmbeddingClient("text-embedding-3-small", apiKey);
+
+            Console.Write("Enter who you are ?");
+            string userPrompt = Console.ReadLine();
+            Console.WriteLine($"User: {userPrompt}\n");
+            IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
+            var candidateEmbed = await embeddingClient.GenerateEmbeddingAsync(userPrompt);
+            var candidateVector = candidateEmbed.Value.ToFloats().ToArray();
+
+            var bestMatchContext = GetBestTopMatch(candidateVector);
+
+            Console.WriteLine(bestMatchContext.Description);
+            AIAgent agent = chatClient.AsAIAgent(
+                name: "MockInterviewAgent",
+                instructions: "Send only 3 interview questions as per the " +
+                             " as per the skill put by the developer " 
+            );
+
+             AgentSession session = agent.CreateSessionAsync().Result;
+            var response = agent.RunAsync(userPrompt + " ask questions around "
+                                          + bestMatchContext.QuestionstobeAsked,
+                                         session);
+            Console.WriteLine($"Agent: {response.Result.Text}");
+            response = agent.RunAsync("Show me last questions asked", session);
+            Console.WriteLine($"Agent: {response.Result.Text}");
+            Console.ReadLine();
+        }
+        public static async Task Lab23_1_MicrosoftAgentWithSessionsHarness()
+        {
+            #pragma warning disable OPENAI001
+
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            //string modelId = "gpt-4o";
+            string modelId = "gpt-4.1-mini";
+            //IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
+            IChatClient chatClient = new OpenAIClient(apiKey).GetResponsesClient().AsIChatClient(modelId);
+
+            #pragma warning restore OPENAI001
+
+            var vectorProvider = new VectorMatchContextProvider(apiKey);
+            await vectorProvider.LoadKnowledgeAsync();
+            // Configure the harness infrastructure with its component dependencies
+            AIAgent agent = chatClient.AsHarnessAgent(new HarnessAgentOptions
+            { 
+                ChatOptions = new ChatOptions
+                {
+                        Instructions = """
+                        You are a C# interviewer.
+                        Ask the question from the retrieved reference knowledge.
+                        Do not reveal its expected answer before the candidate responds.
+                        If you get questions maching for knowledge , send it exactly as it is
+                        After the candidate answers, evaluate it using the expected answer.
+                        """
+                },
+                DisableAgentSkillsProvider = true,
+                DisableWebSearch = false,
+                AIContextProviders = [vectorProvider]
+
+                // (Optional) Pulling your Session state persistence engine inside
+                // StateStore = new CosmosDbAgentStateStore("connectionString") 
+            });
+            Console.WriteLine("Enter your interview options");
+            var userprompt = Console.ReadLine();
+            var response = await agent.RunAsync(
+                        userprompt);
+
+            Console.WriteLine(response.Text);
+
+            Console.ReadLine();
+        }
+
+        public static void Lab24_MicrosoftAgentWithToolCalling()
+        {
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            string modelId = "gpt-4o";
+
+            IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
+            // AddScoped<IchatClient,ChatClient>
+            // Context Safety...
+            // If the context safe...
+            AIAgent agent = chatClient.AsAIAgent(
+                name: "MockInterviewAgent",
+                instructions: "Send only 3 interview questions as per the " +
+                             " as per the skill put by the developer " +
+                             " if he enter email call the sendemail tool ",
+            // + " but ask questions only on OOP and SQL basic"
+            tools : [AIFunctionFactory.Create(EmailTool.SendEmail)]
+
+            );
+            Console.Write("Enter who you are  and enter your email?");
+            string userPrompt = Console.ReadLine();
+           
+            Console.WriteLine($"User: {userPrompt}\n");
+
+            var response = agent.RunAsync(userPrompt).Result;
+            Console.WriteLine($"Agent: {response.Text}");
+
+            Console.ReadLine();
+        }
+
+        public static async Task Lab24_WfSequentialAgent()
+        {
+            string apiKey =
+                Environment.GetEnvironmentVariable("aikey")
+                ?? "your-key-here";
+            string modelId = "gpt-4o";
+
+            IChatClient chatClient =
+            new ChatClient(modelId, apiKey)
+            .AsIChatClient();
+
+            AIAgent codingAgent = chatClient.AsAIAgent(
+            name: "CodingAgent",
+            instructions:
+            """
+        You are a C# coding agent.
+        Based on the user's requirement,
+        generate simple and correct C# code.
+        """
+            );
+
+            AIAgent reviewAgent = chatClient.AsAIAgent(
+                name: "ReviewAgent",
+                instructions: "check the code and give hints where to improve performance and also show the code"
+                );
+
+            Workflow workflow =
+                AgentWorkflowBuilder.BuildSequential(
+                    [codingAgent, reviewAgent]
+                    );
+
+            Console.Write("Requirement: ");
+            string userPrompt = Console.ReadLine()!;
+
+            Microsoft.Extensions.AI.ChatMessage input =
+                new Microsoft.Extensions.AI.ChatMessage(
+                ChatRole.User,
+                userPrompt
+                );
+
+            await using StreamingRun run =
+                await InProcessExecution.RunStreamingAsync(
+                workflow,
+                input
+                );
+
+            await run.TrySendMessageAsync(
+                new TurnToken(emitEvents: true)
+                );
+
+            await foreach (WorkflowEvent evt
+            in run.WatchStreamAsync())
+            {
+                
+                if (evt is AgentResponseUpdateEvent update)
+                {
+                    //Console.WriteLine(update.ExecutorId);
+                    Console.Write(update.Update.Text);
+                }
+                else if (evt is WorkflowErrorEvent error)
+                {
+                    Console.WriteLine("WORKFLOW ERROR:");
+                    Console.WriteLine(error.Exception);
+                }
+            }
+            Console.ReadLine();
+        }
+        public static async Task Lab24_WfConcurrentAgent()
+        {
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            string modelId = "gpt-4o";
+            IChatClient chatClient =
+                new ChatClient(
+                    modelId, apiKey
+                    )
+                .AsIChatClient();
+            AIAgent evenAgent = chatClient.AsAIAgent(
+                name: "EvenAgent",
+                instructions:
+                    """
+            You are an Even Number Agent.
+            Find all even numbers from the given numbers.
+            Your response MUST start with:
+            Even Numbers:
+            """
+            );
+            AIAgent oddAgent = chatClient.AsAIAgent(
+                name: "OddAgent",
+                instructions:
+                    """
+            You are an Odd Number Agent.
+            Find all odd numbers from the given numbers.
+            Your response MUST start with:
+            Odd Numbers:
+            """
+            );
+            AIAgent sumAgent = chatClient.AsAIAgent(
+                name: "SumAgent",
+                instructions:
+                    """
+            You are a Sum Agent.
+            Calculate the sum of all the given numbers.
+            Your response MUST start with:
+            Sum:
+            """
+            );
+            Workflow workflow = AgentWorkflowBuilder.
+                                    BuildConcurrent([evenAgent, oddAgent, sumAgent]);
+            var inputRequest = "Analyze these numbers: 10, 15, 20, 25, 30";
+            Microsoft.Extensions.AI.ChatMessage input =
+                new Microsoft.Extensions.AI.ChatMessage(ChatRole.User,inputRequest);
+            await using StreamingRun run =
+                await InProcessExecution.RunStreamingAsync(
+                    workflow,
+                    input
+                );
+            await run.TrySendMessageAsync(
+                new TurnToken(emitEvents: true)
+            );
+            var responses = new Dictionary<string, StringBuilder>();
+            await foreach (WorkflowEvent evt in run.WatchStreamAsync())
+            {
+                if (evt is WorkflowStartedEvent)
+                {
+                    Console.WriteLine(
+                        "--------- MAIN WORKFLOW STARTED ---------\n");
+                }
+                else if (evt is AgentResponseUpdateEvent update)
+                {
+                    string executorId = update.ExecutorId ?? "Unknown";
+                    if (!responses.ContainsKey(executorId))
+                    {
+                        responses[executorId] = new StringBuilder();
+                    }
+                    responses[executorId].Append(update.Update.Text);
+                }
+                else if (evt is WorkflowErrorEvent error)
+                {
+                    Console.WriteLine("\nWORKFLOW ERROR:");
+                    Console.WriteLine(error.Exception);
+                }
+            }
+            Console.WriteLine("\n--------- AGENT RESULTS ---------");
+            foreach (var item in responses)
+            {
+                Console.WriteLine($"\n[{item.Key}]");
+                Console.WriteLine(item.Value.ToString());
+            }
+            Console.WriteLine("\n--------- MAIN WORKFLOW ENDED---------");
+            Console.ReadLine();
+        }
+        public static async Task Lab24_WfGroupChatAgent()
+        {
+            string apiKey =
+                Environment.GetEnvironmentVariable("aikey")
+                ?? "your-key-here";
+            string modelId = "gpt-4o";
+            IChatClient chatClient =
+                new ChatClient(modelId, apiKey)
+                .AsIChatClient();
+            AIAgent developerAgent = chatClient.AsAIAgent(
+            name: "DeveloperAgent",
+            instructions:
+                  """
+             You are a experienced C# developer.
+             Provide a simple C# solution.
+             Do not repeat previous responses.
+           """
+            );
+            AIAgent testerAgent = chatClient.AsAIAgent(
+                name: "TesterAgent",
+                instructions: """
+             You are an expert Senior Tester. 
+             Your task is to review the Developer's solution for correctness, efficiency and code health.
+             Identify missing validation or guard clauses that can cause runtime crashes.
+             Identify time or space inefficiencies
+             Mention only problems found.Do (http://found.Do/) not provide code fixes.
+         """
+            );
+            AIAgent reviewerAgent = chatClient.AsAIAgent(
+                name: "ReviewerAgent",
+                instructions: """
+             You are a experienced senior reviewer. 
+             Review the Developer and Tester responses.
+             Give only the final decision.
+             Mention only critical issues if any.
+             """
+            );
+            Workflow workflow =
+                AgentWorkflowBuilder
+                    .CreateGroupChatBuilderWith(
+                        agents =>
+                        {
+                            var manager = new RoundRobinGroupChatManager(agents);
+                            manager.MaximumIterationCount = 6;
+                            return manager;
+                        }
+                    )
+            .AddParticipants(
+                new[]
+                {
+             developerAgent,
+             testerAgent,
+             reviewerAgent
+                }
+            )
+            .Build();
+            Console.WriteLine("Enter  Requirement:");
+            var inputRequest = Console.ReadLine();
+            Microsoft.Extensions.AI.ChatMessage input =
+                new Microsoft.Extensions.AI.ChatMessage(
+                    ChatRole.User,
+                    inputRequest
+                );
+            await using StreamingRun run =
+                await InProcessExecution.RunStreamingAsync(
+                    workflow,
+                    input
+                );
+            await run.TrySendMessageAsync(
+                new TurnToken(emitEvents: true)
+            );
+
+            string? previousExecutorId = null;
+            await foreach (WorkflowEvent evt in run.WatchStreamAsync())
+            {
+                if (evt is AgentResponseUpdateEvent update)
+                {
+                    string executorId = update.ExecutorId ?? "Unknown";
+                    if (executorId != previousExecutorId)
+                    {
+                        Console.WriteLine(
+                            $"\n\n---------------- {executorId} ----------------\n"
+                        );
+                        previousExecutorId = executorId;
+                    }
+                    Console.Write(update.Update.Text);
+                }
+                else if (evt is WorkflowErrorEvent error)
+                {
+                    Console.WriteLine("\nWORKFLOW ERROR:");
+                    Console.WriteLine(error.Exception);
+                }
+            }
+        }
+        public static async Task Lab24_WfHandoffAgent()
+        {
+            string apiKey =
+                Environment.GetEnvironmentVariable("aikey")
+                ?? "your-key-here";
+            string modelId = "gpt-4o";
+            IChatClient chatClient =
+                new ChatClient(modelId, apiKey)
+                .AsIChatClient();
+            AIAgent supportAgent = chatClient.AsAIAgent(
+                name: "SupportAgent",
+                instructions:
+                    """
+        You are a customer support agent.
+        Handle general customer questions.
+        If the question is about billing, hand off to BillingAgent.
+        If the question is technical, hand off to TechnicalAgent.
+        """
+            );
+            AIAgent billingAgent = chatClient.AsAIAgent(
+                name: "BillingAgent",
+                instructions:
+                    """
+        You are a billing support agent.
+        Handle questions about invoices,
+        payments, refunds and billing issues.
+        suggest some solutions.
+        """
+            );
+            AIAgent technicalAgent = chatClient.AsAIAgent(
+                name: "TechnicalAgent",
+                instructions:
+                    """
+        You are a technical support agent.
+        Handle application errors,
+        database problems and technical issues.
+        suggest some solutions.
+        """
+            );
+            Workflow workflow =
+                AgentWorkflowBuilder
+                    .CreateHandoffBuilderWith(supportAgent)
+                    .WithHandoff(supportAgent, billingAgent)
+                    .WithHandoff(supportAgent, technicalAgent)
+                    .Build();
+            var inputRequest = "My application is showing a database error.";
+            Microsoft.Extensions.AI.ChatMessage input =
+                new Microsoft.Extensions.AI.ChatMessage(
+                    ChatRole.User,
+                    inputRequest
+                );
+            await using StreamingRun run =
+                await InProcessExecution.RunStreamingAsync(
+                    workflow,
+                    input
+                );
+            await run.TrySendMessageAsync(
+                new TurnToken(emitEvents: true)
+            );
+            await foreach (WorkflowEvent evt in run.WatchStreamAsync())
+            {
+                if (evt is WorkflowStartedEvent)
+                {
+                    Console.WriteLine(
+                        "--------- MAIN WORKFLOW STARTED ---------\n");
+                }
+                else if (evt is ExecutorInvokedEvent invoke)
+                {
+                    string executorId = invoke.ExecutorId ?? "";
+                    if (executorId.StartsWith("SupportAgent",
+                        StringComparison.OrdinalIgnoreCase) ||
+                        executorId.StartsWith("BillingAgent",
+                        StringComparison.OrdinalIgnoreCase) ||
+                        executorId.StartsWith("TechnicalAgent",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine(
+                            $"--------- {executorId} WORKFLOW STARTED ---------\n");
+                    }
+                }
+                else if (evt is AgentResponseUpdateEvent update)
+                {
+                    Console.Write(update.Update.Text);
+                }
+                else if (evt is WorkflowErrorEvent error)
+                {
+                    Console.WriteLine("\nWORKFLOW ERROR:");
+                    Console.WriteLine(error.Exception);
+                }
+            }
+            Console.WriteLine("\n--------- MAIN WORKFLOW ENDED---------");
+            Console.ReadLine();
+        }
+        public static async Task Lab24_WfMagneticAgent()
+        {
+            string apiKey =
+                Environment.GetEnvironmentVariable("aikey")
+                ?? "your-key-here";
+            string modelId = "gpt-4o-mini";
+            IChatClient chatClient =
+                new ChatClient(modelId, apiKey)
+                .AsIChatClient();
+
+            AIAgent managerAgent = chatClient.AsAIAgent(
+                 name: "ManagerAgent",
+                 instructions: """
+        You are the manager of a simple two-agent workflow.
+
+        Available agents:
+        - GreetingAgent: handles greetings and casual conversation.
+        - MathAgent: handles mathematical questions and calculations.
+
+        Rules:
+        1. For greetings such as "hello", "hi" or "hey", immediately assign to GreetingAgent.
+        2. For mathematical questions, immediately assign to MathAgent.
+        3. Do not ask the user for additional information when the request can already be handled.
+        4. After the selected specialist provides a successful answer, finish the task.
+        5. Do not repeatedly invoke the same agent.
+        """
+             );
+
+            AIAgent greetingAgent = chatClient.AsAIAgent(
+                name: "GreetingAgent",
+                instructions: """
+        Handle greetings and casual conversation.
+        Keep the response short.
+        """
+            );
+
+            AIAgent mathAgent = chatClient.AsAIAgent(
+                name: "MathAgent",
+                instructions: """
+        Solve mathematical questions.
+        Keep the answer concise.
+        """
+            );
+
+            Workflow workflow = AgentWorkflowBuilder
+                .CreateMagenticBuilderWith(managerAgent)
+                .AddParticipants(new[] { greetingAgent, mathAgent })
+                .Build();
+
+            Console.Write("Ask Something: ");
+            string inputRequest = Console.ReadLine() ?? "";
+
+            Microsoft.Extensions.AI.ChatMessage input =
+                new Microsoft.Extensions.AI.ChatMessage(
+                    ChatRole.User,
+                    inputRequest
+                );
+
+            await using StreamingRun run =
+                await InProcessExecution.RunStreamingAsync(workflow, input);
+
+            await run.TrySendMessageAsync(new TurnToken(emitEvents: true));
+
+            await foreach (WorkflowEvent evt in run.WatchStreamAsync())
+            {
+                if (evt is AgentResponseUpdateEvent update)
+                {
+                    Console.Write(update.Update.Text);
+                }
+                else if (evt is RequestInfoEvent r && r.Request.TryGetDataAs<MagenticPlanReviewRequest>(out var plan))
+    {
+                    Console.WriteLine($"\n--- PLAN ---\n{plan.Plan.Text}");
+                    Console.Write("Approve? (y/n): ");
+
+                    var answer = Console.ReadLine();
+
+                    MagenticPlanReviewResponse response;
+
+                    if (answer?.Equals("y", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        response = plan.Approve();
+                    }
+                    else
+                    {
+                        Console.Write("Revision: ");
+                        response = plan.Revise(Console.ReadLine() ?? "");
+                    }
+
+                    await run.SendResponseAsync(r.Request.CreateResponse(response));
+                }
+    else if (evt is WorkflowErrorEvent error)
+                {
+                    Console.WriteLine("\nWORKFLOW ERROR:");
+                    Console.WriteLine(error.Exception);
+                }
+            }
+        }
+
+        public static async Task TaskInterviewAgent()
+        {
+            string apiKey = Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+            string modelId = "gpt-4o";
+
+            IChatClient chatClient = new ChatClient(modelId, apiKey).AsIChatClient();
+
+            AIAgent interviewagent = chatClient.AsAIAgent(
+                name: "MockInterviewAgent",
+                instructions: """
+            Send only 3 interview questions based on the developer's experience. 
+            Only ask questions on OOP and basic SQL.
+        """
+            );
+
+            AIAgent reviewAgent = chatClient.AsAIAgent(
+                    name: "ReviewAgent",
+                    instructions: """
+               You are a senior reviewer.
+               Review all the answers of the candidate and rate each answer separately between 0 to 5 .
+               Provide a total score at the end.
+             """
+            );
+
+            Console.Write("who you are: ");
+            string userPrompt = Console.ReadLine();
+
+            var questions = interviewagent.RunAsync(userPrompt).Result;
+            Console.WriteLine(questions.Text);
+
+            Console.WriteLine("\n\nPlease answer the questions one by one.Press (http://one.Press/) Enter after each answer.");
+            Console.WriteLine("Answer 1:");
+            string answer1 = Console.ReadLine();
+
+            Console.WriteLine("Answer 2:");
+            string answer2 = Console.ReadLine();
+
+            Console.WriteLine("Answer 3:");
+            string answer3 = Console.ReadLine();
+
+            string reviewPrompt = $"""
+        Interview Questions:
+        {questions.Text}
+
+        Candidate Answers:
+        1. {answer1}
+        2. {answer2}
+        3. {answer3}
+        """;
+
+            var response = reviewAgent.RunAsync(reviewPrompt).Result;
+            Console.WriteLine($"\nReview: {response.Text}");
+        }
+        public static async Task HRInterviewHandoff()
+        {
+            string apiKey =
+                Environment.GetEnvironmentVariable("aikey") ?? "your-key-here";
+
+            string modelId = "gpt-4o";
+
+            IChatClient chatClient =
+                new ChatClient(modelId, apiKey).AsIChatClient();
+
+
+
+            AIAgent hrAgent = chatClient.AsAIAgent(
+     name: "HRAgent",
+     instructions: """
+           You are an HR recruiter managing the initial screening.
+
+           CRITICAL SCREENING RULE:
+           - Ask the candidate about their years of experience in C# ASP.NET if not provided.
+           - If the candidate has LESS than 2 years of experience: Reject them immediately. Do NOT handoff.
+           - If the candidate has 2 or MORE years of experience: Use your handoff tool to transfer control to InterviewAgent immediately.
+
+           POST-INTERVIEW RULES (When InterviewAgent explicitly passes control back):
+           - If InterviewAgent explicitly states "Candidate PASSED": Congratulate the candidate and inform them an appointment letter will be issued.
+           - If InterviewAgent explicitly states "Candidate FAILED": Politely inform the candidate that they did not pass the technical round.
+           """
+ );
+            var interviewTools = new InterviewTools();
+
+            AIAgent interviewAgent = chatClient.AsAIAgent(
+                name: "InterviewAgent",
+                instructions: """
+           You are a strict C# technical interviewer. You must ask exactly 3 questions.
+
+           CRITICAL STATE TRACKING FORMAT:
+           Before outputting anything to the user, you MUST look back at the conversation history and write down your current state in this exact hidden layout format:
+           [STATE]
+           Questions asked so far: X
+           Correct answers: Y
+           Wrong answers: Z
+           Next action: [Ask Question / Call Handoff]
+           [/STATE]
+
+           RULES:
+           1. Ask exactly ONE question at a time.
+           2. Evaluate the candidate's latest response. "do not know" or "I don't know" is ALWAYS WRONG.
+           3. If "Questions asked so far" is less than 3, you MUST ask the next technical question. DO NOT call the handoff tool under any circumstance.
+           4. ONLY when "Questions asked so far" reaches exactly 3, evaluate the final score.
+              - If Correct answers >= 2: Call the handoff tool to HRAgent and state: "Candidate PASSED. Score: Y/3."
+              - If Correct answers < 2: Call the handoff tool to HRAgent and state: "Candidate FAILED. Score: Y/3."
+           """
+            , tools: [AIFunctionFactory.Create(interviewTools.CompleteInterview)]);
+
+            var workflow = AgentWorkflowBuilder
+                .CreateHandoffBuilderWith(hrAgent) //
+                                                   // HR → Interviewer
+                .WithHandoff(
+                    hrAgent,
+                    interviewAgent,
+                    "Transfer to technical interviewer because candidate met experience threshold.")
+                // Interviewer → HR
+                .WithHandoff(
+                    interviewAgent,
+                    hrAgent,
+                    "Return to HR. Only available when 3 technical questions are fully finalized.") // Simplified description
+                .Build();
+
+
+
+
+
+            List<Microsoft.Extensions.AI.ChatMessage> messages = new();
+
+            while (true)
+            {
+                Console.Write("\nCandidate: ");
+
+                string? input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                    break;
+
+                messages.Add(
+                    new Microsoft.Extensions.AI.ChatMessage(
+                        ChatRole.User,
+                        input
+                    )
+                );
+
+                await using StreamingRun run =
+                    await InProcessExecution.RunStreamingAsync(
+                        workflow,
+                        messages);
+
+                await run.TrySendMessageAsync(
+                    new TurnToken(emitEvents: true));
+
+                List<Microsoft.Extensions.AI.ChatMessage> newMessages = new();
+
+                string? lastAgent = null;
+
+                await foreach (WorkflowEvent evt in run.WatchStreamAsync())
+                {
+                    if (evt is AgentResponseUpdateEvent agentUpdate)
+                    {
+                        if (lastAgent != agentUpdate.ExecutorId)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(agentUpdate.ExecutorId);
+
+                            lastAgent = agentUpdate.ExecutorId;
+                        }
+
+                        Console.Write(agentUpdate.Update.Text);
+                    }
+
+                    else if (evt is WorkflowOutputEvent outputEvt)
+                    {
+                        newMessages =
+                            outputEvt.As<List<Microsoft.Extensions.AI.ChatMessage>>()!;
+
+                        break;
+                    }
+                }
+
+                messages.AddRange(
+                    newMessages.Skip(messages.Count)
+                );
+
+                Console.WriteLine();
+            }
+        }
         #region methods for the above labs.
         public static async Task<List<RAGLookup>> GetCurrentExperienceFromQdrant()
         {
@@ -1005,7 +1791,7 @@ namespace MachinelearningClass
             var list = new List<RAGLookup>();
 
             var result = await client.ScrollAsync(
-                collectionName: "InterviewQuestions"
+                collectionName: "InterviewCollections"
             );
 
             foreach (var point in result.Result)
@@ -1290,6 +2076,24 @@ ORDER BY Id;";
             }
             return lookupStore;
         }
+        public static void BuildSQLServerRAGOnlyQuestions()
+        {
+            var key = Environment.GetEnvironmentVariable("aikey");
+            var embeddingClient = new EmbeddingClient("text-embedding-3-small", key);
+          
+            List<RAGLookup> lookupStore = GetCurrentExperience(); // GetCurrentExperience()
+
+            foreach (var item in lookupStore)
+            {
+                var embed = embeddingClient.GenerateEmbeddingAsync(item.Description).Result;
+
+                item.DescriptionEmbedding = embed.Value.ToFloats().ToArray();
+                UpdateEmbeddingFortheExperience(item);
+               
+
+            }
+
+        }
         public static void BuildSQLServerRAG()
         {
             var key = Environment.GetEnvironmentVariable("aikey");
@@ -1381,7 +2185,7 @@ ORDER BY Id;";
         {
             //insert data into qdrant
             await client.UpsertAsync(
-                "InterviewQuestions",
+                "InterviewCollections",
                 new List<PointStruct>
                 {
         new PointStruct
@@ -1401,11 +2205,125 @@ ORDER BY Id;";
 
             Console.WriteLine($"{experience} inserted.");
         }
+        
+      
         #endregion methods for the above labs.
 
     }
     #region classes for the above labs.
 
+
+
+    public sealed class VectorMatchContextProvider : AIContextProvider
+    {
+        private readonly EmbeddingClient _embeddingClient;
+
+        private readonly List<(string Text, float[] Vector)> _knowledge = [];
+
+        public VectorMatchContextProvider(string apiKey)
+        {
+            _embeddingClient =
+                new EmbeddingClient("text-embedding-3-small", apiKey);
+        }
+
+        // Call once before using the agent.
+        public async Task LoadKnowledgeAsync()
+        {
+             string[] chunks =
+            [
+            """
+            Topic: Dependency Injection
+            Question: What is dependency injection ( Questions from inside) , and what are the
+            three service lifetimes in ASP.NET Core?
+            Expected answer: Dependencies are supplied from outside the class.
+            Transient creates an instance per resolution.
+            Scoped creates an instance per scope, typically an HTTP request.
+            Singleton uses one instance for the application's lifetime.
+            """,
+
+            """
+            Topic: Middleware
+            Question: What is middleware in ASP.NET Core?
+            Expected answer: Middleware is a component in the HTTP request
+            pipeline. It can call the next component or short-circuit the pipeline.
+            """,
+
+            """
+            Topic: Interfaces
+            Question: What is an interface in C#?
+            Expected answer: An interface defines a contract that implementing
+            types must satisfy. A class can implement multiple interfaces.
+            """
+            ];
+
+            _knowledge.Clear();
+
+            foreach (string text in chunks)
+            {
+                var result = await _embeddingClient.GenerateEmbeddingAsync(text);
+
+                _knowledge.Add(
+                    (text, result.Value.ToFloats().ToArray()));
+            }
+        }
+
+        protected override async ValueTask<Microsoft.Agents.AI.AIContext> ProvideAIContextAsync(
+            InvokingContext context,
+            CancellationToken cancellationToken = default)
+        {
+            // 1. Read the latest user message.
+            string? query = context.AIContext.Messages?
+                .LastOrDefault(m => m.Role == ChatRole.User)?.Text;
+
+            if (string.IsNullOrWhiteSpace(query) || _knowledge.Count == 0)
+                return new Microsoft.Agents.AI.AIContext();
+
+            // 2. Convert the query into a vector.
+            var result = await _embeddingClient.GenerateEmbeddingAsync(
+                query, cancellationToken: cancellationToken);
+
+            float[] queryVector = result.Value.ToFloats().ToArray();
+
+            // 3. Retrieve the closest knowledge chunk.
+            var best = _knowledge
+                        .Select(k => new
+                        {
+                        k.Text,
+                        Score = Common.CalculateCosineSimilarity(queryVector, k.Vector)
+                        })
+                        .OrderByDescending(k => k.Score)
+                        .FirstOrDefault();
+
+            const double minimumScore = 0.30;
+
+            if (best == null || best.Score < minimumScore)
+            {
+                return new Microsoft.Agents.AI.AIContext
+                {
+                    Messages =
+                    [
+                        new Microsoft.Extensions.AI.ChatMessage(
+                ChatRole.User,
+                """
+                Knowledge-base search found no relevant interview questions.
+                Use the web-search tool to find questions for the requested topic.
+                """)
+                    ]
+                };
+            }
+            return new Microsoft.Agents.AI.AIContext
+                    {
+                            Messages =
+                                [
+                                new Microsoft.Extensions.AI.ChatMessage(
+                                ChatRole.User,
+                                $"Retrieved interview question:\n{best.Text}")
+                                ]
+                    };
+        }
+
+      
+    }
     public class BertInput
     {
         [VectorType]
@@ -1433,7 +2351,21 @@ ORDER BY Id;";
         public string Text { get; set; }
         public float[] BagOfWords { get; set; } 
     }
-  
+   
+
+    public class InterviewTools
+    {
+        public bool IsInterviewFinished { get; private set; } = false;
+
+        [Description("Call this tool ONLY after the candidate has answered all 3 technical questions to finalize the interview process.")]
+        public string CompleteInterview(
+            [Description("The final status: either 'PASSED' or 'FAILED'")] string verdict,
+            [Description("The final score achieved (e.g., '1/3' or '3/3')")] string score)
+        {
+            IsInterviewFinished = true;
+            return $"[SYSTEM] Technical round completed. Verdict: {verdict}. Score: {score}. Control is returning to HR.";
+        }
+    }
     public sealed class GreetingPlugin
     {
         [KernelFunction("good_morning")]
@@ -1471,6 +2403,10 @@ ORDER BY Id;";
 
             return $"Good night, {username}! Sleep well.";
         }
+    }
+    public class TransformedFruit
+    {
+        public VBuffer<float> ColorEncoded { get; set; }
     }
     #endregion classes for the above labs.
 

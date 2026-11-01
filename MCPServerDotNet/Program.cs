@@ -16,7 +16,7 @@ namespace MCPServerDotNet
             builder.Services
                 .AddMcpServer() // Adds MCPServer services
                 .WithStdioServerTransport() // Uses standard input/output for communication
-                .WithToolsFromAssembly(); // Finds and registers all tool classes in the assembly
+               .WithToolsFromAssembly(); // Finds and registers all tool classes in the assembly
 
             var app = builder.Build(); // Builds the application
             Console.WriteLine("MCP server running");

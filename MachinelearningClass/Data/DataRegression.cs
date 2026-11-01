@@ -49,7 +49,7 @@ namespace MachinelearningClass.Regression
                 new InsuranceData { Age = 10, Premium = 2000 },
                 new InsuranceData { Age = 20, Premium = 2500 },
                 new InsuranceData { Age = 30, Premium = 6000 },
-                new InsuranceData { Age = 40, Premium = 9000 },
+                new InsuranceData { Age = float.NaN, Premium = 9000 },
                 new InsuranceData { Age = 50, Premium = 11000 },
                 new InsuranceData { Age = 60, Premium = 12000 },
                 new InsuranceData { Age = 70, Premium = 14000 },

@@ -4,14 +4,14 @@
     "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj": {
+    "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\InterviewTools\\InterviewTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj",
-        "projectName": "MachinelearningClass",
-        "projectPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj",
+        "projectUniqueName": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\InterviewTools\\InterviewTools.csproj",
+        "projectName": "InterviewTools",
+        "projectPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\InterviewTools\\InterviewTools.csproj",
         "packagesPath": "C:\\Users\\shivB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\obj\\",
+        "outputPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\InterviewTools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,81 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "ModelContextProtocol.AspNetCore": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj",
+        "projectName": "MachinelearningClass",
+        "projectPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\MachinelearningClass.csproj",
+        "packagesPath": "C:\\Users\\shivB\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\MachinelearningClass\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\shivB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\InterviewTools\\InterviewTools.csproj": {
+                "projectPath": "C:\\Users\\shivB\\source\\repos\\MachinelearningClass\\InterviewTools\\InterviewTools.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
             "AllMiniLmL6V2Sharp": {
               "target": "Package",
               "version": "[0.0.3, )"
@@ -66,6 +141,18 @@
               "target": "Package",
               "version": "[5.0.0, )"
             },
+            "Microsoft.Agents.AI.Harness": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
+            "Microsoft.Agents.AI.OpenAI": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
+            "Microsoft.Agents.AI.Workflows": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
             "Microsoft.Data.Analysis": {
               "target": "Package",
               "version": "[0.23.0, )"
@@ -76,7 +163,7 @@
             },
             "Microsoft.Extensions.AI": {
               "target": "Package",
-              "version": "[10.7.0, )"
+              "version": "[10.9.0, )"
             },
             "Microsoft.Extensions.AI.OpenAI": {
               "target": "Package",
@@ -125,6 +212,10 @@
             "System.ServiceProcess.ServiceController": {
               "target": "Package",
               "version": "[10.0.2, )"
+            },
+            "dotnetmcp": {
+              "target": "Package",
+              "version": "[1.0.0.5, )"
             }
           },
           "imports": [

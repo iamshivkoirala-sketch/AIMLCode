@@ -52,11 +52,13 @@ namespace MachinelearningClass.Cohort
         public string FruitType { get; set; }   
 
     }
-
+    public class FruitPredictionIsApple
+    {
+        public bool IsApple { get; set; }
+    }
     public class FruitPrediction
     {
         public string PredictedLabel { get; set; }
-        //public bool IsApple { get; set; }
     }
 
     public class CustomerData
